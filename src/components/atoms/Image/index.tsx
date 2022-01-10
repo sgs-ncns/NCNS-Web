@@ -19,7 +19,7 @@ interface LogoType {
 }
 
 const Img: FunctionComponent<LogoType> = ({ src, width, height }) => {
-	return <StyledImg />;
+	return <StyledImg src={src} width={width} height={height} />;
 };
 
 export default Img;
