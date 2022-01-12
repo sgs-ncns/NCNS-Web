@@ -8,26 +8,82 @@ type HomeProps = {
 const Home: FunctionComponent<HomeProps> = (props) => {
 	const { navbar } = props;
 	return (
-		<>
-			{navbar && <>{navbar}</>}
-			<StyledWrapper>
-				<Grid>
-					<FirstItem>
-						<div>story</div>
-					</FirstItem>
-					<SecondItem>
-						<>sdfdddddddddddddddddddddddddd</>
-					</SecondItem>
-					<ThirdItem>
-						<>sdjfhsdjkhfsdjkfsdlkf</>
-					</ThirdItem>
-				</Grid>
-			</StyledWrapper>
-		</>
+		<Grid>
+			<Header>{navbar && <>{navbar}</>}</Header>
+			<Body>
+				<StyledSection>
+					<FeedLayout>
+						<Story>story</Story>
+						<Article>hee</Article>
+					</FeedLayout>
+					<SideBar>hee</SideBar>
+				</StyledSection>
+			</Body>
+		</Grid>
 	);
 };
 
 export default Home;
+
+const Grid = styled.section`
+	display: flex;
+	flex-direction: column;
+	flex-grow: 1;
+`;
+
+const Header = styled.div`
+	position: sticky;
+	top: 0px;
+	z-index: 10;
+`;
+
+const Body = styled.main`
+	background: #fafafa;
+	display: flex;
+	align-items: stretch;
+	position: relative;
+	justify-content: center;
+`;
+
+const StyledSection = styled.section`
+	align-items: stretch;
+	padding: 30px 0px 0px;
+	width: 935px;
+	display: flex;
+`;
+
+const FeedLayout = styled.div`
+	margin: 0px 28px 0px 0px;
+	display: flex;
+	vertical-align: baseline;
+	width: 614px;
+	flex-direction: column;
+`;
+
+const Story = styled.div`
+	display: block;
+	overflow-y: hidden;
+	border-radius: 3px;
+	height: 84px;
+	margin: 0 0 24px;
+	padding: 16px 0;
+	background: #ffffff;
+	border: 1px solid #dbdbdb;
+`;
+
+const Article = styled.article`
+	height: 1000px;
+	border: 1px solid green;
+	width: 614px;
+`;
+
+const SideBar = styled.div`
+	margin: 0px 0px 30px;
+	width: 293px;
+	border: 1px solid black;
+	position: sticky;
+	top: 0px;
+`;
 
 const StyledWrapper = styled.div`
 	display: flex;
@@ -35,7 +91,7 @@ const StyledWrapper = styled.div`
 	justify-content: center;
 `;
 
-const Grid = styled.div`
+const Grid1 = styled.div`
 	max-width: 935px;
 	display: grid;
 	grid-template-areas:

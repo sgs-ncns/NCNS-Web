@@ -11,6 +11,7 @@ const StyledWrapper = styled.div`
 	width: 100%;
 	position: sticky;
 	border: 1px solid #dbdbdb;
+	background: #ffffff;
 `;
 
 const Grid = styled.div`
