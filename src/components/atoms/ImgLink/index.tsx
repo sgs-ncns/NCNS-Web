@@ -2,13 +2,32 @@
 import React, { FunctionComponent } from "react";
 import { Link } from "react-router-dom";
 import styled, { css } from "styled-components";
-import Home from "static/imgs/Home@2x.png";
+import Logo from "static/imgs/logo.png";
+import Home from "static/imgs/icons/Home@2x.png";
+import Add from "static/imgs/icons/add@2x.png";
+import Like from "static/imgs/icons/like@2x.png";
+import Message from "static/imgs/icons/message@2x.png";
+
+const handleImgType = (category: string) => {
+	switch (category) {
+		case CATEGORY.Like:
+			return Like;
+		case CATEGORY.Logo:
+			return Logo;
+		case CATEGORY.Add:
+			return Add;
+		case CATEGORY.Home:
+			return Home;
+		case CATEGORY.Message:
+			return Message;
+	}
+};
 
 const StyledDiv = styled.div<divType>`
 	background-size: cover;
 	background-position: center;
 	background-repeat: no-repeat;
-	background-image: url(${Home});
+	background-image: url(${(props) => handleImgType(props.category)});
 	${(props) =>
 		props.primary
 			? css`
@@ -16,9 +35,13 @@ const StyledDiv = styled.div<divType>`
 					height: 24px;
 			  `
 			: css`
-					width: 1000px;
-					height: 1000px;
+					width: 103px;
+					height: 29px;
 			  `}
+`;
+
+const StyledLink = styled(Link)`
+	display: inline-block;
 `;
 
 // width: ${(props) => (props.primary ? "24px" : props.width)};
@@ -35,22 +58,15 @@ type CATEGORY = typeof CATEGORY[keyof typeof CATEGORY];
 
 interface divType {
 	category: string;
-	primary: boolean;
+	primary?: boolean;
 	link?: string;
-	// width?: string;
-	// height?: string;
 }
 
 const ImgLink: FunctionComponent<divType> = ({ ...props }) => {
 	return (
-		<Link to={`${props.link}`}>
-			<StyledDiv
-				category={props.category}
-				primary={props.primary}
-				// width={props.width}
-				// height={props.height}
-			/>
-		</Link>
+		<StyledLink to={`${props.link}`}>
+			<StyledDiv category={props.category} primary={props.primary} />
+		</StyledLink>
 	);
 };
 

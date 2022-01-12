@@ -1,13 +1,9 @@
-import ImgLink from "components/atoms/ImgLink";
+import NavBar from "components/organisms/NavBar";
 import React, { FC } from "react";
+import HomeTemplate from "components/templates/Home";
 
 const HomePage: FC = () => {
-	return (
-		<div>
-			헬로
-			<ImgLink category={"home"} primary={true} />
-		</div>
-	);
+	return <HomeTemplate navbar={<NavBar />}></HomeTemplate>;
 };
 
 export default HomePage;
