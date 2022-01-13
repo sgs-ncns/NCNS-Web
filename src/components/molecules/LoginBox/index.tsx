@@ -23,7 +23,7 @@ const StyledImage = styled(Image)`
 const LoginBox: FunctionComponent = () => {
 	return (
 		<StyledForm>
-			<StyledImage />
+			<StyledImage option="logo" />
 			<StyledInput
 				option="text"
 				placeHolder="전화번호, 사용자 이름 또는 이메일"

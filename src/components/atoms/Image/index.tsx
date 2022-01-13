@@ -1,25 +1,38 @@
 import React, { FunctionComponent } from "react";
 import logo from "static/imgs/logo.png";
+import mok from "static/imgs/mok1.jpg";
 import styled from "styled-components";
 
-const StyledImg = styled.img`
-	src: ${(props) => props.src};
-	width: ${(props) => props.width};
-	height: ${(props) => props.height};
-`;
-
-StyledImg.defaultProps = {
-	src: logo,
-};
-
-interface LogoType {
+interface ImageType {
+	option: "logo" | "feed";
 	src?: string;
-	width?: string;
-	height?: string;
+	size?: "small" | "middle" | "big";
 }
 
-const Img: FunctionComponent<LogoType> = ({ src, width, height }) => {
-	return <StyledImg src={src} width={width} height={height} />;
+const Image: FunctionComponent<ImageType> = (props) => {
+	const { option, src, size } = props;
+	return <StyledImg option={option} src={src} size={size} />;
 };
 
-export default Img;
+Image.defaultProps = {
+	size: "big",
+	src: mok,
+	// src: mok,
+};
+
+export default Image;
+
+const imageSize = (size: string) => {
+	switch (size) {
+		case "small":
+			return;
+		case "middle":
+			return "293px";
+		case "big":
+			return "614px";
+	}
+};
+
+const StyledImg = styled.img<ImageType>`
+	width: ${(props) => (props.size ? imageSize(props.size) : props.width)};
+`;

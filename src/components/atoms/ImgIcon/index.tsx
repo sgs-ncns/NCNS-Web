@@ -62,7 +62,7 @@ interface divType {
 	link?: string;
 }
 
-const ImgLink: FunctionComponent<divType> = ({ ...props }) => {
+const ImgIcon: FunctionComponent<divType> = ({ ...props }) => {
 	return (
 		<StyledLink to={`${props.link}`}>
 			<StyledDiv category={props.category} primary={props.primary} />
@@ -70,10 +70,10 @@ const ImgLink: FunctionComponent<divType> = ({ ...props }) => {
 	);
 };
 
-ImgLink.defaultProps = {
+ImgIcon.defaultProps = {
 	category: "Home",
 	primary: false,
 	link: "/",
 };
 
-export default ImgLink;
+export default ImgIcon;

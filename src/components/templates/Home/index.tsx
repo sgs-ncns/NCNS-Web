@@ -3,18 +3,18 @@ import styled from "styled-components";
 
 type HomeProps = {
 	navbar?: React.ReactNode;
+	feed: React.ReactNode;
 };
 
 const Home: FunctionComponent<HomeProps> = (props) => {
-	const { navbar } = props;
+	const { navbar, feed } = props;
 	return (
 		<Grid>
 			<Header>{navbar && <>{navbar}</>}</Header>
 			<Body>
 				<StyledSection>
 					<FeedLayout>
-						<Story>story</Story>
-						<Article>hee</Article>
+						<Article>{feed && <>{feed}</>}</Article>
 					</FeedLayout>
 					<SideBar>hee</SideBar>
 				</StyledSection>
@@ -60,17 +60,6 @@ const FeedLayout = styled.div`
 	flex-direction: column;
 `;
 
-const Story = styled.div`
-	display: block;
-	overflow-y: hidden;
-	border-radius: 3px;
-	height: 84px;
-	margin: 0 0 24px;
-	padding: 16px 0;
-	background: #ffffff;
-	border: 1px solid #dbdbdb;
-`;
-
 const Article = styled.article`
 	height: 1000px;
 	border: 1px solid green;
@@ -83,43 +72,6 @@ const SideBar = styled.div`
 	border: 1px solid black;
 	position: sticky;
 	top: 0px;
-`;
-
-const StyledWrapper = styled.div`
-	display: flex;
-	background: #fafafa;
-	justify-content: center;
-`;
-
-const Grid1 = styled.div`
-	max-width: 935px;
-	display: grid;
-	grid-template-areas:
-		"story sidebar"
-		"feed sidebar";
-	border: 1px solid black;
-	padding: 30px 0px 0px;
-`;
-
-const FirstItem = styled.div`
-	grid-area: story;
-	width: 614px;
-	height: 84px;
-	margin: 0px 0px 24px;
-	padding: 16px 0px;
-	border: 1px solid blue;
-`;
-const SecondItem = styled.div`
-	grid-area: feed;
-	width: 614px;
-	height: 1000px;
-	margin: 0px 28px 0px 0px;
-	border: 1px solid black;
-`;
-const ThirdItem = styled.div`
-	grid-area: sidebar;
-	width: 293px;
-	border: 1px solid green;
 `;
 
 //max-width로 바꾸기

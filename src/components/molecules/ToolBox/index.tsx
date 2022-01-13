@@ -1,4 +1,4 @@
-import ImgLink from "components/atoms/ImgLink";
+import ImgIcon from "components/atoms/ImgIcon";
 import React, { FunctionComponent } from "react";
 import styled from "styled-components";
 
@@ -18,16 +18,16 @@ const ToolBox: FunctionComponent = () => {
 	return (
 		<Grid>
 			<Item>
-				<ImgLink category={"home"} primary />
+				<ImgIcon category={"home"} primary />
 			</Item>
 			<Item>
-				<ImgLink category={"message"} primary />
+				<ImgIcon category={"message"} primary />
 			</Item>
 			<Item>
-				<ImgLink category={"like"} primary />
+				<ImgIcon category={"like"} primary />
 			</Item>
 			<Item>
-				<ImgLink category={"add"} primary />
+				<ImgIcon category={"add"} primary />
 			</Item>
 			<Item>profile</Item>
 		</Grid>
