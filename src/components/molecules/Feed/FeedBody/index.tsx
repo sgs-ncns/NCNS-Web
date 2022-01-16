@@ -13,6 +13,5 @@ const FeedBody: FunctionComponent = () => {
 export default FeedBody;
 
 const StyledDiv = styled.div`
-	border: 1px solid black;
-	height: 100px;
+	padding: 0px 0px;
 `;

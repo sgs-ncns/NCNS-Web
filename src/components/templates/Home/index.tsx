@@ -62,7 +62,6 @@ const FeedLayout = styled.div`
 
 const Article = styled.article`
 	height: 1000px;
-	border: 1px solid green;
 	width: 614px;
 `;
 

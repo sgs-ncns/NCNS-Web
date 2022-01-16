@@ -9,7 +9,7 @@ const FeedHeader: FunctionComponent = () => {
 			<Header>
 				<ProfileImg size="middle" />
 				<StyledDiv>
-					<LinkedId>Seong</LinkedId>
+					<LinkedId underline={true}>MyId</LinkedId>
 				</StyledDiv>
 			</Header>
 		</Grid>
@@ -23,6 +23,7 @@ const Grid = styled.div`
 	justify-content: space-between;
 	flex-direction: row;
 	flex: 0 0 auto;
+	background: #ffffff;
 `;
 
 const Header = styled.header`

@@ -17,7 +17,6 @@ const Image: FunctionComponent<ImageType> = (props) => {
 Image.defaultProps = {
 	size: "big",
 	src: mok,
-	// src: mok,
 };
 
 export default Image;
@@ -29,7 +28,7 @@ const imageSize = (size: string) => {
 		case "middle":
 			return "293px";
 		case "big":
-			return "614px";
+			return "612px";
 	}
 };
 

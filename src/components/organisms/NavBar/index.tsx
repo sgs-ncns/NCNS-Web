@@ -1,4 +1,4 @@
-import ImgIcon from "components/atoms/ImgIcon";
+import LinkIcon from "components/atoms/LinkIcon";
 import SearchBox from "components/molecules/SearchBox";
 import ToolBox from "components/molecules/ToolBox";
 import React, { FunctionComponent, useEffect, useRef, useState } from "react";
@@ -68,7 +68,7 @@ const NavBar: FunctionComponent = () => {
 		<StyledWrapper>
 			<Grid>
 				<FirstItem>
-					<ImgIcon category={"logo"} />
+					<LinkIcon category={"logo"} />
 				</FirstItem>
 				<SecondItem>
 					<SearchBox />

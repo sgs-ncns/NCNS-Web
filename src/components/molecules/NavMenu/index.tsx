@@ -1,10 +1,10 @@
-import ImgIcon from "components/atoms/ImgIcon";
+import LinkIcon from "components/atoms/LinkIcon";
 import React, { FunctionComponent } from "react";
 
 const NavMenu: FunctionComponent = () => {
 	return (
 		<div>
-			<ImgIcon category="home" primary link="/" />
+			<LinkIcon category="home" primary link="/" />
 		</div>
 	);
 };

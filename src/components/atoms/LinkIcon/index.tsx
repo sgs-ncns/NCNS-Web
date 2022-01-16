@@ -7,21 +7,7 @@ import Home from "static/imgs/icons/Home@2x.png";
 import Add from "static/imgs/icons/add@2x.png";
 import Like from "static/imgs/icons/like@2x.png";
 import Message from "static/imgs/icons/message@2x.png";
-
-const handleImgType = (category: string) => {
-	switch (category) {
-		case CATEGORY.Like:
-			return Like;
-		case CATEGORY.Logo:
-			return Logo;
-		case CATEGORY.Add:
-			return Add;
-		case CATEGORY.Home:
-			return Home;
-		case CATEGORY.Message:
-			return Message;
-	}
-};
+import { handleImgType } from "lib/utils";
 
 const StyledDiv = styled.div<divType>`
 	background-size: cover;
@@ -46,15 +32,6 @@ const StyledLink = styled(Link)`
 
 // width: ${(props) => (props.primary ? "24px" : props.width)};
 // height: ${(props) => (props.primary ? "24px" : props.height)};
-
-const CATEGORY = {
-	Logo: "logo",
-	Home: "home",
-	Message: "message",
-	Add: "add",
-	Like: "like",
-} as const;
-type CATEGORY = typeof CATEGORY[keyof typeof CATEGORY];
 
 interface divType {
 	category: string;
