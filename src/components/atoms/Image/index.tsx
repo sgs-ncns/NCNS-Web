@@ -1,21 +1,24 @@
 import React, { FunctionComponent } from "react";
-import logo from "static/imgs/logo.png";
 import mok from "static/imgs/mok1.jpg";
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 
 interface ImageType {
-	option: "logo" | "feed";
+	category: "circle" | "square" | "rectangle";
 	src?: string;
-	size?: "small" | "middle" | "big";
+	width?: string;
+	height?: string;
 }
 
 const Image: FunctionComponent<ImageType> = (props) => {
-	const { option, src, size } = props;
-	return <StyledImg option={option} src={src} size={size} />;
+	const { category, src, width, height } = props;
+	return (
+		<StyledCanvas category={category} width={width} height={height}>
+			<StyledImg category={category} src={src} width={width} height={height} />
+		</StyledCanvas>
+	);
 };
 
 Image.defaultProps = {
-	size: "big",
 	src: mok,
 };
 
@@ -28,10 +31,36 @@ const imageSize = (size: string) => {
 		case "middle":
 			return "293px";
 		case "big":
-			return "612px";
+			return "614px";
 	}
 };
 
+const StyledCanvas = styled.div<ImageType>`
+	${(props) =>
+		props.category === "rectangle"
+			? css`
+					width: ${props.width};
+			  `
+			: css`
+					width: ${props.width};
+					height: ${props.width};
+			  `};
+`;
+
 const StyledImg = styled.img<ImageType>`
-	width: ${(props) => (props.size ? imageSize(props.size) : props.width)};
+	${(props) =>
+		props.category === "rectangle"
+			? css`
+					width: ${props.width};
+			  `
+			: props.category === "square"
+			? css`
+					width: ${props.width};
+					height: ${props.width};
+			  `
+			: css`
+					width: ${props.width};
+					height: ${props.width};
+					border-radius: 50%;
+			  `};
 `;

@@ -5,7 +5,7 @@ import styled from "styled-components";
 const FeedBody: FunctionComponent = () => {
 	return (
 		<StyledDiv>
-			<Image option="feed" />
+			<Image category={"rectangle"} width="614px" />
 		</StyledDiv>
 	);
 };

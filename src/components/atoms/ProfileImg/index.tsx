@@ -4,7 +4,7 @@ import profile from "static/imgs/default_profile.jpg";
 
 type profileType = {
 	src?: string;
-	size: "small" | "middle" | "big";
+	size: "small" | "middle" | "big" | "search";
 };
 
 const ProfileImg: FunctionComponent<profileType> = (props) => {
@@ -26,6 +26,8 @@ const profileImgSize = (size: string) => {
 			return "32px";
 		case "big":
 			return "56px";
+		case "search":
+			return "152px";
 	}
 	console.log(size);
 };

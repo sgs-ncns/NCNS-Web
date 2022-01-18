@@ -1,6 +1,6 @@
 import React, { FunctionComponent, useState } from "react";
 import styled from "styled-components";
-import StyledInput from "components/atoms/Input";
+import StyledInput from "components/atoms/Search";
 
 const StyledDiv = styled.div`
 	height: 36px;
@@ -43,7 +43,7 @@ const SearchBox: FunctionComponent<propsType> = (props) => {
 					<SecondItem>검색</SecondItem>
 				</Grid>
 			) : (
-				<StyledInput option="text" placeHolder="검색" />
+				<StyledInput type="text" placeholder="검색" />
 			)}
 		</StyledDiv>
 	);

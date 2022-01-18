@@ -1,5 +1,5 @@
 import LinkIcon from "components/atoms/LinkIcon";
-import SearchBox from "components/molecules/SearchBox";
+import Search from "components/atoms/Search";
 import ToolBox from "components/molecules/ToolBox";
 import React, { FunctionComponent, useEffect, useRef, useState } from "react";
 import styled from "styled-components";
@@ -46,22 +46,6 @@ const ThirdItem = styled.div`
 	justify-content: right;
 `;
 
-// const useOutsideClick = (ref: any) => {
-// 	useEffect(() => {
-// 		function handleClickOutside(event: any) {
-// 			if (ref.current && !ref.current.contains(event.target)) {
-// 				setClicked(false);
-// 				console.log("clicked out", clicked);
-// 			}
-// 		}
-// 		document.addEventListener("mousedown", handleClickOutside);
-
-// 		return () => {
-// 			document.removeEventListener("mousedown", handleClickOutside);
-// 		};
-// 	}, [ref]);
-// };
-
 const NavBar: FunctionComponent = () => {
 	const [clicked, setClicked] = useState(false);
 	return (
@@ -71,7 +55,7 @@ const NavBar: FunctionComponent = () => {
 					<LinkIcon category={"logo"} />
 				</FirstItem>
 				<SecondItem>
-					<SearchBox />
+					<Search category={"search"} placeholder={"검색"} />
 				</SecondItem>
 				<ThirdItem>
 					<ToolBox />

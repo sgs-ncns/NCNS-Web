@@ -1,6 +1,6 @@
 import { CATEGORY, REQUEST_BUTTON_TYPE } from "./types";
 import Logo from "static/imgs/logo.png";
-import Home from "static/imgs/icons/home@2x.png";
+import Home from "static/imgs/icons/Home@2x.png";
 import Add from "static/imgs/icons/add@2x.png";
 import Like from "static/imgs/icons/like@2x.png";
 import Message from "static/imgs/icons/message@2x.png";

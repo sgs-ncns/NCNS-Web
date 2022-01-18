@@ -1,8 +1,9 @@
 import React, { FC } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import HomePage from "pages/index";
-import LoginPage from "pages/Login/index";
-import SignUpPage from "pages/SignUp/index";
+import HomePage from "pages";
+import LoginPage from "pages/Login";
+import SignUpPage from "pages/SignUp";
+import SearchPage from "pages/Search";
 
 const index: FC = () => {
 	return (
@@ -11,6 +12,7 @@ const index: FC = () => {
 				<Route path="/" element={<HomePage />} />
 				<Route path="login" element={<LoginPage />} />
 				<Route path="/account/emailSignUp" element={<SignUpPage />} />
+				<Route path="/explore/tags/:tagName" element={<SearchPage />} />
 			</Routes>
 		</BrowserRouter>
 	);
