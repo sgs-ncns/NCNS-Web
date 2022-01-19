@@ -8,6 +8,10 @@ const FeedFooter: FunctionComponent = () => {
 		username: "95.Seong",
 		content: "#협찬 #소통 NCNS 화이팅^^",
 	};
+
+	const string =
+		"Following a request from Arsenal FC, the Premier League Board met today and regrettably agreed to postpone the North";
+	console.log(string.length);
 	const 압축 = mokData.content.split(" ")[0];
 
 	const [more, setMore] = useState(false);
