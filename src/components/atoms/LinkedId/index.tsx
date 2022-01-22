@@ -4,21 +4,20 @@ import styled from "styled-components";
 
 type LinkProps = {
 	children?: string;
-	link?: string;
 	underline: boolean;
 };
 
 const LinkedId: FunctionComponent<LinkProps> = (props) => {
-	const { children, link, underline } = props;
+	const { children, underline } = props;
 	return (
-		<StyledLink to={`${link}`} underline={underline}>
+		<StyledLink to={`${children}`} underline={underline}>
 			{children}
 		</StyledLink>
 	);
 };
 
 LinkedId.defaultProps = {
-	link: "/",
+	children: "/",
 };
 
 export default LinkedId;

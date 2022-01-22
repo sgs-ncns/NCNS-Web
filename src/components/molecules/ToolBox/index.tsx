@@ -1,5 +1,5 @@
 import LinkIcon from "components/atoms/LinkIcon";
-import React, { FunctionComponent } from "react";
+import React, { FunctionComponent, useState } from "react";
 import styled from "styled-components";
 
 const Grid = styled.div`
@@ -15,6 +15,7 @@ const Item = styled.div`
 `;
 
 const ToolBox: FunctionComponent = () => {
+	const [showModal, setShowModal] = useState(false);
 	return (
 		<Grid>
 			<Item>

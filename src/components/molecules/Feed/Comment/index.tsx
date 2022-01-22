@@ -1,10 +1,11 @@
 import RequestButton from "components/atoms/RequestButton";
 import { REQUEST_BUTTON_TYPE } from "lib/types";
 import { handleButtonType } from "lib/utils";
-import React, { FunctionComponent, useState } from "react";
+import React, { FunctionComponent, useEffect, useState } from "react";
 import styled from "styled-components";
 
 const CommentTab: FunctionComponent = () => {
+	const [active, setActive] = useState(false);
 	const [comment, setComment] = useState("");
 	const onChange = (event: {
 		target: { value: React.SetStateAction<string> };
@@ -13,13 +14,18 @@ const CommentTab: FunctionComponent = () => {
 		console.log(comment);
 	};
 
+	useEffect(() => {
+		console.log(comment.length);
+		comment.length != 0 ? setActive(true) : setActive(false);
+	}, [comment]);
+
 	return (
 		<StyledSection>
 			<StyledForm
 				onSubmit={() => handleButtonType(REQUEST_BUTTON_TYPE.Comment, comment)}
 			>
 				<StyledArea placeholder="댓글 달기..." onChange={onChange} />
-				<RequestButton type="submit" primary={true}>
+				<RequestButton type="submit" primary={true} active={active}>
 					게시
 				</RequestButton>
 			</StyledForm>

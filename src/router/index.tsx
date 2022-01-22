@@ -4,6 +4,7 @@ import HomePage from "pages";
 import LoginPage from "pages/Login";
 import SignUpPage from "pages/SignUp";
 import SearchPage from "pages/Search";
+import ProfilePage from "pages/Profile";
 
 const index: FC = () => {
 	return (
@@ -13,6 +14,7 @@ const index: FC = () => {
 				<Route path="login" element={<LoginPage />} />
 				<Route path="/account/emailSignUp" element={<SignUpPage />} />
 				<Route path="/explore/tags/:tagName" element={<SearchPage />} />
+				<Route path="/:id" element={<ProfilePage />} />
 			</Routes>
 		</BrowserRouter>
 	);

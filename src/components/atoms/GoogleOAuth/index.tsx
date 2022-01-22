@@ -31,9 +31,6 @@ const GoogleOAuth: FunctionComponent = () => {
 				onFailure={onLoginFail}
 			/>
 			<br />
-			<button type="button" onClick={() => console.log(userObj)}>
-				확인하기
-			</button>
 		</div>
 	);
 };

@@ -1,8 +1,56 @@
 import LinkIcon from "components/atoms/LinkIcon";
-import Search from "components/atoms/Search";
 import ToolBox from "components/molecules/ToolBox";
 import React, { FunctionComponent, useEffect, useRef, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
+
+const NavBar: FunctionComponent = () => {
+	const [clicked, setClicked] = useState(false);
+	const [value, setValue] = useState("");
+	const navigate = useNavigate();
+
+	const textHandler = (e: {
+		target: { value: React.SetStateAction<string> };
+	}) => {
+		setValue(e.target.value);
+	};
+
+	const onKeyPress = (e: { key: string }) => {
+		if (e.key === "Enter") {
+			navigate(`/explore/tags/${value}`);
+			// requestSearchData(value);
+		}
+	};
+
+	const requestSearchData = (value: string) => {
+		//라우팅 걸기
+		alert(`value ${value}`);
+	};
+
+	return (
+		<StyledWrapper>
+			<Grid>
+				<FirstItem>
+					<LinkIcon category={"logo"} />
+				</FirstItem>
+				<SecondItem>
+					<StyledInput
+						type="text"
+						onChange={textHandler}
+						placeholder="검색"
+						value={value}
+						onKeyPress={onKeyPress}
+					/>
+				</SecondItem>
+				<ThirdItem>
+					<ToolBox />
+				</ThirdItem>
+			</Grid>
+		</StyledWrapper>
+	);
+};
+
+export default NavBar;
 
 // import useOutsideClick from "components/hooks";
 const StyledWrapper = styled.div`
@@ -31,38 +79,20 @@ const FirstItem = styled.div`
 const SecondItem = styled.div`
 	display: flex;
 	justify-content: center;
-	border: 1px solid blue;
 	background: #efefef;
 	height: 36px;
-	padding: 0px 16px;
+`;
 
-	&:hover {
-		cursor: text;
-	}
+const StyledInput = styled.input`
+	width: 100%;
+	height: 100%;
+	border: 1px solid #ced4da;
+	border-radius: 2px;
+	font-size: 16px;
+	background-color: #f8f9fa;
 `;
 
 const ThirdItem = styled.div`
 	display: flex;
 	justify-content: right;
 `;
-
-const NavBar: FunctionComponent = () => {
-	const [clicked, setClicked] = useState(false);
-	return (
-		<StyledWrapper>
-			<Grid>
-				<FirstItem>
-					<LinkIcon category={"logo"} />
-				</FirstItem>
-				<SecondItem>
-					<Search category={"search"} placeholder={"검색"} />
-				</SecondItem>
-				<ThirdItem>
-					<ToolBox />
-				</ThirdItem>
-			</Grid>
-		</StyledWrapper>
-	);
-};
-
-export default NavBar;

@@ -40,7 +40,8 @@ const Main = styled.main`
 `;
 
 const Header = styled.div`
-	display: block;
+	display: flex;
+	justify-content: center;
 `;
 
 const Article = styled.article`

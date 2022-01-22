@@ -24,17 +24,6 @@ Image.defaultProps = {
 
 export default Image;
 
-const imageSize = (size: string) => {
-	switch (size) {
-		case "small":
-			return;
-		case "middle":
-			return "293px";
-		case "big":
-			return "614px";
-	}
-};
-
 const StyledCanvas = styled.div<ImageType>`
 	${(props) =>
 		props.category === "rectangle"
@@ -48,19 +37,7 @@ const StyledCanvas = styled.div<ImageType>`
 `;
 
 const StyledImg = styled.img<ImageType>`
-	${(props) =>
-		props.category === "rectangle"
-			? css`
-					width: ${props.width};
-			  `
-			: props.category === "square"
-			? css`
-					width: ${props.width};
-					height: ${props.width};
-			  `
-			: css`
-					width: ${props.width};
-					height: ${props.width};
-					border-radius: 50%;
-			  `};
+	width: 100%;
+	height: 100%;
+	border-radius: ${(props) => props.category === "circle" && "50%"};
 `;

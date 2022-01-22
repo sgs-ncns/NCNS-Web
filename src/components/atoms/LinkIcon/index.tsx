@@ -2,11 +2,6 @@
 import React, { FunctionComponent } from "react";
 import { Link } from "react-router-dom";
 import styled, { css } from "styled-components";
-import Logo from "static/imgs/logo.png";
-import Home from "static/imgs/icons/Home@2x.png";
-import Add from "static/imgs/icons/add@2x.png";
-import Like from "static/imgs/icons/like@2x.png";
-import Message from "static/imgs/icons/message@2x.png";
 import { handleImgType } from "lib/utils";
 
 const StyledDiv = styled.div<divType>`

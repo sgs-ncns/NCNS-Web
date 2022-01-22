@@ -1,31 +1,50 @@
-import { handleButtonType } from "lib/utils";
 import React, { FunctionComponent } from "react";
 import styled, { css } from "styled-components";
 
 interface ButtonType {
 	type: "button" | "submit";
+	onClick?: React.MouseEventHandler<HTMLButtonElement>;
 	primary?: boolean;
+	width?: string;
+	height?: string;
+	valid?: boolean;
+	active?: boolean;
 }
 
 const RequestButton: FunctionComponent<ButtonType> = (props) => {
-	const { type, primary } = props;
+	const {
+		type,
+		onClick,
+		primary = true,
+		width,
+		height,
+		valid = true,
+		active = true,
+	} = props;
 	return (
-		<StyledButton type={type} primary={primary}>
+		<StyledButton
+			type={type}
+			primary={primary}
+			width={width}
+			height={height}
+			onClick={onClick}
+			valid={valid}
+			active={active}
+		>
 			{props.children}
 		</StyledButton>
 	);
 };
 
-RequestButton.defaultProps = {
-	primary: true,
-};
-
 export default RequestButton;
 
 const StyledButton = styled.button<ButtonType>`
+	width: ${(props) => props.width};
+	height: ${(props) => props.height};
 	font-size: 14px;
 	font-weight: 600;
 	cursor: pointer;
+	border-radius: 3px;
 
 	${(props) =>
 		props.primary
@@ -38,6 +57,19 @@ const StyledButton = styled.button<ButtonType>`
 					color: #ffffff;
 					background: #3598f0;
 					border: none;
-					border-radius: 3px;
-			  `}
+			  `};
+
+	${(props) =>
+		!props.valid &&
+		css`
+			background: #fafafa;
+			border: 1px solid #dbdbdb;
+			color: black;
+		`}
+
+	${(props) =>
+		!props.active &&
+		css`
+			opacity: 0.5;
+		`}
 `;

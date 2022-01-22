@@ -1,11 +1,16 @@
 import Image from "components/atoms/Image";
 import RequestButton from "components/atoms/RequestButton";
-import React from "react";
+import React, { useState } from "react";
 import { useParams } from "react-router-dom";
 import styled from "styled-components";
 
 const SearchHeader = () => {
 	const { tagName } = useParams();
+	const [valid, setValid] = useState(true);
+	const follow = (): void => {
+		console.log("send follow info to server");
+		setValid(!valid);
+	};
 	return (
 		<StyledHeader>
 			<Image category={"circle"} width="152px" />
@@ -17,8 +22,14 @@ const SearchHeader = () => {
 						<StyledNumber>43,701</StyledNumber>
 						{/* 개수 받아와서 수정하기 */}
 					</StyledSpan>
-					<RequestButton type={"button"} primary={false}>
-						팔로우
+					<RequestButton
+						type={"button"}
+						primary={false}
+						height="30px"
+						onClick={follow}
+						valid={valid}
+					>
+						{valid ? "팔로우" : "팔로우 취소"}
 					</RequestButton>
 				</StyledContent>
 			</StyledDiv>
@@ -36,7 +47,6 @@ const StyledHeader = styled.header`
 	line-height: 24px;
 	max-width: 935px;
 	width: calc(100% - 40px);
-	margin-left: 20%;
 	margin-top: 30px;
 	margin-bottom: 44px;
 `;
@@ -55,7 +65,7 @@ const StyledContent = styled.div`
 	text-align: left;
 `;
 
-const StyledTitle = styled.h1`
+export const StyledTitle = styled.h1`
 	font-size: 28px;
 	line-height: 32px;
 	margin: -5px 0 -6px;
@@ -64,12 +74,12 @@ const StyledTitle = styled.h1`
 	display: block;
 `;
 
-const StyledSpan = styled.span`
+export const StyledSpan = styled.span`
 	margin-top: 10px;
 	margin-bottom: 20px;
 `;
 
-const StyledNumber = styled.span`
+export const StyledNumber = styled.span`
 	margin-left: 10px;
 	color: rgba(var(--i1d, 38, 38, 38), 1);
 	font-weight: 600;
