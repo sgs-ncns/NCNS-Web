@@ -29,7 +29,9 @@ const GoogleOAuth: FunctionComponent = () => {
 				cookiePolicy="single_host_origin"
 				onSuccess={onLoginSuccess}
 				onFailure={onLoginFail}
-			/>
+			>
+				Google ID로 로그인
+			</GoogleLogin>
 			<br />
 		</div>
 	);

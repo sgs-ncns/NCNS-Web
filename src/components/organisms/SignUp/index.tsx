@@ -1,16 +1,32 @@
-import React, { FunctionComponent, useState } from "react";
+import React, { FunctionComponent, useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 import GoogleOAuth from "components/atoms/GoogleOAuth";
 import Image from "components/atoms/Image/index";
 import Logo from "static/imgs/logo.png";
-import LoginInput from "components/atoms/LoginInput";
+import SignUpInput from "components/atoms/LoginInput";
 import LoginBox from "components/atoms/LoginBox";
 import RequestButton from "components/atoms/RequestButton";
 
 const SignUp: FunctionComponent = () => {
 	const [active, setActive] = useState<boolean>(false);
 	const [id, setId] = useState<string>("");
+	const [name, setName] = useState<string>("");
+	const [username, setUsername] = useState<string>("");
 	const [password, setPassword] = useState<string>("");
+
+	const requestDuplicate = (): void => {
+		console.log(`서버로 ${id}값으로 요청 보내고 중복 체크한 값 돌려받기`);
+		//checked 값 가지고 있어야하는가? 각각의 useState마다??
+	};
+
+	useEffect(() => {
+		if (id && name && username && password) setActive(true);
+		else setActive(false);
+	}, [id, name, username, password]);
+
+	const submitHandler = () => {
+		alert(`${id}, ${name}, ${username}, ${password}값 서버로 보냄`);
+	};
 
 	return (
 		<LoginBox>
@@ -21,13 +37,30 @@ const SignUp: FunctionComponent = () => {
 					가입하세요.
 				</StyledMent>
 			</Header>
-			<StyledForm>
-				<LoginInput
+			<StyledForm onSubmit={submitHandler}>
+				<div style={{ display: "flex", justifyContent: "center" }}>
+					<GoogleOAuth />
+				</div>
+				<SignUpInput
 					type="text"
-					placeholder="전화번호, 사용자 이름 또는 이메일"
-					onChange={(e) => setId(e.target.value)}
+					placeholder="휴대폰 번호 또는 이메일 주소"
+					onChange={(e) => {
+						setId(e.target.value);
+						console.log(id);
+					}}
+					onBlur={requestDuplicate}
 				/>
-				<LoginInput
+				<SignUpInput
+					type="text"
+					placeholder="성명"
+					onChange={(e) => setName(e.target.value)}
+				/>
+				<SignUpInput
+					type="text"
+					placeholder="사용자 이름"
+					onChange={(e) => setUsername(e.target.value)}
+				/>
+				<SignUpInput
 					type="password"
 					placeholder="비밀번호"
 					onChange={(e) => setPassword(e.target.value)}
@@ -36,7 +69,7 @@ const SignUp: FunctionComponent = () => {
 					style={{
 						display: "flex",
 						justifyContent: "center",
-						marginTop: "20px",
+						marginTop: "10px",
 					}}
 				>
 					<RequestButton
@@ -46,11 +79,8 @@ const SignUp: FunctionComponent = () => {
 						height="30px"
 						active={active}
 					>
-						로그인
+						가입
 					</RequestButton>
-				</div>
-				<div style={{ display: "flex", justifyContent: "center" }}>
-					<GoogleOAuth />
 				</div>
 			</StyledForm>
 		</LoginBox>
@@ -76,11 +106,11 @@ const StyledMent = styled.h2`
 `;
 
 const StyledForm = styled.form`
-	margin-top: 20px;
 	display: grid;
 	grid-template-rows: repeat(4, 0.6fr);
 	grid-gap: 8px;
 	justify-content: center;
 	align-items: center;
 	width: 100%;
+	margin-bottom: 20px;
 `;

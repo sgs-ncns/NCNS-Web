@@ -1,4 +1,4 @@
-import React, { FunctionComponent, useState } from "react";
+import React, { FunctionComponent, useEffect, useState } from "react";
 import styled from "styled-components";
 import Button from "components/atoms/Button";
 import GoogleOAuth from "components/atoms/GoogleOAuth";
@@ -13,12 +13,21 @@ const Login: FunctionComponent = () => {
 	const [id, setId] = useState<string>("");
 	const [password, setPassword] = useState<string>("");
 
+	useEffect(() => {
+		if (id && password) setActive(true);
+		else setActive(false);
+	}, [id, password]);
+
+	const submitHandler = () => {
+		alert(`${id}, ${password}값 서버로 보냄`);
+	};
+
 	return (
 		<LoginBox>
 			<Header>
 				<Image category={"rectangle"} src={Logo} width="175px" />
 			</Header>
-			<StyledForm>
+			<StyledForm onSubmit={submitHandler}>
 				<LoginInput
 					type="text"
 					placeholder="전화번호, 사용자 이름 또는 이메일"

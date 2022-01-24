@@ -8,7 +8,7 @@ const ProfileHeader = () => {
 	return (
 		<StyledHeader>
 			<ImageGrid>
-				<Image category={"circle"} width="150px"></Image>
+				<Image category={"circle"} width="150px" />
 			</ImageGrid>
 			<ProfileInfo />
 		</StyledHeader>

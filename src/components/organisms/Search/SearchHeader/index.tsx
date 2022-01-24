@@ -13,7 +13,7 @@ const SearchHeader = () => {
 	};
 	return (
 		<StyledHeader>
-			<Image category={"circle"} width="152px" />
+			<Image category="circle" width="150px" />
 			<StyledDiv>
 				<StyledContent>
 					<StyledTitle>#{tagName}</StyledTitle>

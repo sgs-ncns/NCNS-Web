@@ -5,15 +5,17 @@ interface InputType {
 	type: string;
 	placeholder?: string;
 	onChange: React.ChangeEventHandler<HTMLInputElement>;
+	onBlur?: React.ChangeEventHandler<HTMLInputElement>;
 }
 
 const LoginInput: FunctionComponent<InputType> = (props) => {
-	const { type, placeholder, onChange } = props;
+	const { type, placeholder, onChange, onBlur } = props;
 	return (
 		<StyledInput
 			type={type}
 			placeholder={placeholder}
 			onChange={onChange}
+			onBlur={onBlur}
 		></StyledInput>
 	);
 };

@@ -28,7 +28,7 @@ const StyledCanvas = styled.div<ImageType>`
 	${(props) =>
 		props.category === "rectangle"
 			? css`
-					width: ${props.width};
+					width: 100%;
 			  `
 			: css`
 					width: ${props.width};
