@@ -48,7 +48,7 @@ const SignUp: FunctionComponent = () => {
 						setId(e.target.value);
 						console.log(id);
 					}}
-					onBlur={requestDuplicate}
+					onBlur={id && requestDuplicate}
 				/>
 				<SignUpInput
 					type="text"

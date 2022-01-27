@@ -5,6 +5,7 @@ import LoginPage from "pages/Login";
 import SignUpPage from "pages/SignUp";
 import SearchPage from "pages/Search";
 import ProfilePage from "pages/Profile";
+import PrivateRoute from "./PrivateRoute";
 
 const index: FC = () => {
 	return (
