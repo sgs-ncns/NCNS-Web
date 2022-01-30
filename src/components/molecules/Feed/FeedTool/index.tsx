@@ -1,4 +1,4 @@
-import ButtonIcon from "components/atoms/ButtonIcon";
+import ButtonIcon from "components/molecules/ButtonIcon";
 import Icon from "components/atoms/Icon";
 import React, { FunctionComponent } from "react";
 import styled from "styled-components";

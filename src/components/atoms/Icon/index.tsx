@@ -7,17 +7,22 @@ export type IconTypes = keyof typeof svg;
 
 interface IconProps {
 	name: IconTypes;
-	hover?: boolean;
-	fill?: boolean;
+	hover: boolean;
 }
 
 const Icon: FunctionComponent<IconProps> = (props) => {
-	const { name, hover = false, fill = false } = props;
+	const { name, hover } = props;
 	switch (name) {
 		case "Like":
 			return <StyledLike hover={hover} />;
 		case "Comment":
 			return <StyledComment hover={hover} />;
+		case "Add":
+			return <svg.Add />;
+		case "Home":
+			return <svg.Home />;
+		case "Messanger":
+			return <svg.Messanger />;
 		default:
 			return null;
 	}

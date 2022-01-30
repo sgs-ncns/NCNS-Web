@@ -1,25 +1,6 @@
 import React, { FunctionComponent } from "react";
 import styled, { css } from "styled-components";
 
-const StyledButton = styled.button<ButtonType>`
-	border: none;
-	border-radius: 4px;
-	${(props) =>
-		props.primary
-			? css`
-					background-color: skyblue;
-					color: white;
-					width: ${props.width};
-					height: 30px;
-			  `
-			: css`
-					background-color: ${props.background};
-					color: ${props.color};
-					width: ${props.width};
-					height: ${props.height};
-			  `}
-`;
-
 interface ButtonType {
 	type: "submit" | "reset" | "button";
 	children: string;
@@ -51,3 +32,22 @@ Button.defaultProps = {
 };
 
 export default Button;
+
+const StyledButton = styled.button<ButtonType>`
+	border: none;
+	border-radius: 4px;
+	${(props) =>
+		props.primary
+			? css`
+					background-color: skyblue;
+					color: white;
+					width: ${props.width};
+					height: 30px;
+			  `
+			: css`
+					background-color: ${props.background};
+					color: ${props.color};
+					width: ${props.width};
+					height: ${props.height};
+			  `}
+`;
