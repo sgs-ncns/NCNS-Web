@@ -39,7 +39,6 @@ const Grid = styled.div`
 	display: flex;
 	align-content: stretch;
 	align-items: center;
-	justify-content: space-between;
 	flex-direction: row;
 	flex: 0 0 auto;
 	background: #ffffff;

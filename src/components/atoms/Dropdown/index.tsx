@@ -16,7 +16,7 @@ const Dropdown = (props: DropdownProps) => {
 	const ref = useRef(null);
 
 	useOutsideClick(ref, () => {
-		dispatch(closeMenu("all"));
+		dispatch(closeMenu());
 	});
 
 	return (
@@ -40,12 +40,6 @@ const Dropdown = (props: DropdownProps) => {
 
 export default Dropdown;
 
-const StyledButton = styled.button`
-	background: "#eee";
-	fontsize: "2rem";
-	width: 25px;
-`;
-
 // display: ${(props) => (props.show ? `block` : `none`)};
 const DropdownMenu = styled.div<{ category: string }>`
 	position: absolute;
@@ -54,14 +48,15 @@ const DropdownMenu = styled.div<{ category: string }>`
 	border: 2px solid #efefef;
 	border-radius: 8px;
 	margin-top: 30px;
-	margin-right: 200px;
+	margin-right: 20%;
 	font-size: 14px;
 
 	${(props) =>
 		props.category === "notify" &&
 		css`
-			width: 500px;
-			height: 500px;
+			width: 300px;
+			height: 300px;
+			margin-right: 20%;
 		`}
 
 	${(props) =>
@@ -69,6 +64,8 @@ const DropdownMenu = styled.div<{ category: string }>`
 		css`
 			width: 300px;
 			height: 300px;
+			margin-left: 45%;
+			z-index: 1;
 		`}
 `;
 

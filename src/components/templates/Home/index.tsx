@@ -1,4 +1,6 @@
-import React, { FunctionComponent } from "react";
+import React, { FunctionComponent, useEffect } from "react";
+import { useSelector } from "react-redux";
+import { RootState } from "reducers";
 import styled from "styled-components";
 
 type HomeProps = {
@@ -7,7 +9,15 @@ type HomeProps = {
 };
 
 const Home: FunctionComponent<HomeProps> = (props) => {
+	const pageWidth = useSelector(
+		(state: RootState) => state.pageWidthReducer.width,
+	);
 	const { navbar, feed } = props;
+
+	useEffect(() => {
+		console.log(pageWidth > 1000);
+	}, [pageWidth]);
+
 	return (
 		<Grid>
 			<Header>{navbar && <>{navbar}</>}</Header>
@@ -16,7 +26,7 @@ const Home: FunctionComponent<HomeProps> = (props) => {
 					<FeedLayout>
 						<Article>{feed && <>{feed}</>}</Article>
 					</FeedLayout>
-					<SideBar>hee</SideBar>
+					{pageWidth > 1000 && <SideBar>hee</SideBar>}
 				</StyledSection>
 			</Body>
 		</Grid>
@@ -43,12 +53,12 @@ const Body = styled.main`
 	align-items: stretch;
 	position: relative;
 	justify-content: center;
+	border: 1px solid green;
 `;
 
 const StyledSection = styled.section`
 	align-items: stretch;
 	padding: 30px 0px 0px;
-	width: 935px;
 	display: flex;
 `;
 

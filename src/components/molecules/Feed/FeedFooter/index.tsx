@@ -1,5 +1,6 @@
 import LinkedId from "components/atoms/LinkedId";
 import ProfileImg from "components/atoms/ProfileImg";
+import hashtagHandler from "lib/hashtagHandler";
 import React, { FunctionComponent, useState } from "react";
 import styled from "styled-components";
 
@@ -8,11 +9,9 @@ const FeedFooter: FunctionComponent = () => {
 		username: "95.Seong",
 		content: "#협찬 #소통 NCNS 화이팅^^",
 	};
-
-	const string =
-		"Following a request from Arsenal FC, the Premier League Board met today and regrettably agreed to postpone the North";
-	console.log(string.length);
-	const 압축 = mokData.content.split(" ")[0];
+	const splitText = mokData.content.split(" ");
+	const handledText = hashtagHandler(splitText);
+	const 압축 = hashtagHandler(splitText[0]);
 
 	const [more, setMore] = useState(false);
 	return (
@@ -26,7 +25,7 @@ const FeedFooter: FunctionComponent = () => {
 			</LikedInfo>
 			<Contents>
 				<LinkedId underline={true}>MyId</LinkedId>{" "}
-				<StyledSpan>{more ? mokData.content : 압축}</StyledSpan>
+				<StyledSpan>{more ? handledText : 압축}</StyledSpan>
 				<StyledSpan>{!more && "..."}</StyledSpan>
 				{!more && (
 					<MoreButton onClick={() => setMore(!more)}>더 보기</MoreButton>

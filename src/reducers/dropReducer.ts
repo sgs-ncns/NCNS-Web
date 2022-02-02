@@ -6,22 +6,22 @@ export const OPEN_FEED = "OPEN_FEED";
 export const CLOSE_FEED = "CLOSE_FEED";
 export const CLOSE_ALL = "CLOSE_ALL";
 
-type dropState = {
+type DropState = {
 	showNotify: boolean;
 	showProfile: boolean;
 	showFeed: boolean;
 };
 
-type dropAction = ReturnType<typeof openMenu> | ReturnType<typeof closeMenu>;
+type DropAction = ReturnType<typeof openMenu> | ReturnType<typeof closeMenu>;
 
-const initialState: dropState = {
+const initialState: DropState = {
 	showNotify: false,
 	showProfile: false,
 	showFeed: false,
 };
 
 export const openMenu = (category: string) => {
-	console.log(`open ${category}`);
+	// console.log(`open ${category}`);
 	switch (category) {
 		case "notify":
 			return { type: OPEN_NOTIFY_MENU };
@@ -32,8 +32,8 @@ export const openMenu = (category: string) => {
 	}
 };
 
-export const closeMenu = (category: string) => {
-	console.log(`close ${category}`);
+export const closeMenu = (category?: string) => {
+	// console.log(`close ${category}`);
 	switch (category) {
 		case "notify":
 			return { type: CLOSE_NOTIFY_MENU };
@@ -41,10 +41,13 @@ export const closeMenu = (category: string) => {
 			return { type: CLOSE_PROFILE_MENU };
 		case "feed":
 			return { type: CLOSE_FEED };
+		default:
+			return { type: CLOSE_ALL };
 	}
 };
 
-const dropReducer = (state: dropState = initialState, action: dropAction) => {
+const dropReducer = (state: DropState = initialState, action: DropAction) => {
+	console.log(action.type);
 	switch (action.type) {
 		case OPEN_NOTIFY_MENU:
 			return {
