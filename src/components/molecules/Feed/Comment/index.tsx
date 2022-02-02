@@ -20,7 +20,7 @@ const CommentTab: FunctionComponent = () => {
 	}, [comment]);
 
 	return (
-		<StyledSection>
+		<StyledCommentTab>
 			<StyledForm
 				onSubmit={() => handleButtonType(REQUEST_BUTTON_TYPE.Comment, comment)}
 			>
@@ -29,13 +29,13 @@ const CommentTab: FunctionComponent = () => {
 					게시
 				</RequestButton>
 			</StyledForm>
-		</StyledSection>
+		</StyledCommentTab>
 	);
 };
 
 export default CommentTab;
 
-const StyledSection = styled.section`
+const StyledCommentTab = styled.section`
 	display: flex;
 	align-items: center;
 	border-top: 1px solid rgba(var(--ce3, 239, 239, 239), 1);

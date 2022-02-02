@@ -53,7 +53,6 @@ const Body = styled.main`
 	align-items: stretch;
 	position: relative;
 	justify-content: center;
-	border: 1px solid green;
 `;
 
 const StyledSection = styled.section`

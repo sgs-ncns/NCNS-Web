@@ -8,7 +8,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "reducers";
 import { closeMenu, openMenu } from "reducers/dropReducer";
 import { DropdownContainer } from "common/styles";
-import { dropdownHandler } from "common/Handler";
+import { dropdownHandler } from "lib/Handler";
 
 const ToolBox: FunctionComponent = () => {
 	const showNotify = useSelector(

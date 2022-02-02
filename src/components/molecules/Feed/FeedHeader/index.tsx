@@ -1,4 +1,4 @@
-import { dropdownHandler } from "common/Handler";
+import { dropdownHandler } from "lib/Handler";
 import { DropdownContainer } from "common/styles";
 import Dropdown from "components/atoms/Dropdown";
 import LinkedId from "components/atoms/LinkedId";

@@ -48,7 +48,7 @@ const DropdownMenu = styled.div<{ category: string }>`
 	border: 2px solid #efefef;
 	border-radius: 8px;
 	margin-top: 30px;
-	margin-right: 20%;
+	margin-right: 15rem;
 	font-size: 14px;
 
 	${(props) =>
@@ -56,7 +56,6 @@ const DropdownMenu = styled.div<{ category: string }>`
 		css`
 			width: 300px;
 			height: 300px;
-			margin-right: 20%;
 		`}
 
 	${(props) =>
@@ -64,7 +63,7 @@ const DropdownMenu = styled.div<{ category: string }>`
 		css`
 			width: 300px;
 			height: 300px;
-			margin-left: 45%;
+			margin-left: 20rem;
 			z-index: 1;
 		`}
 `;
