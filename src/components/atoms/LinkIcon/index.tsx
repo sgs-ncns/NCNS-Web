@@ -32,12 +32,17 @@ interface divType {
 	category: string;
 	primary?: boolean;
 	link?: string;
+	onClick?: () => void;
 }
 
 const ImgIcon: FunctionComponent<divType> = ({ ...props }) => {
 	return (
 		<StyledLink to={`${props.link}`}>
-			<StyledDiv category={props.category} primary={props.primary} />
+			<StyledDiv
+				category={props.category}
+				onClick={props.onClick}
+				primary={props.primary}
+			/>
 		</StyledLink>
 	);
 };

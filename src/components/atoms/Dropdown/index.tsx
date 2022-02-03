@@ -21,11 +21,9 @@ const Dropdown = (props: DropdownProps) => {
 
 	return (
 		<DropdownMenu ref={ref} category={category}>
-			{category === "feed" ? (
-				<div>hello</div>
-			) : category === "notify" ? (
-				<div>"contea95님이 좋아요를 눌렀습니다."</div>
-			) : (
+			{category === "feed" && <div>hello</div>}
+			{category === "notify" && <div>"contea95님이 좋아요를 눌렀습니다."</div>}
+			{category === "profile" && (
 				<>
 					{menu.map((item, index) => (
 						<DropdownItem key={index}>{item}</DropdownItem>

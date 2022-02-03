@@ -7,19 +7,29 @@ import Logo from "static/imgs/logo.png";
 import LoginInput from "components/atoms/LoginInput";
 import LoginBox from "components/atoms/LoginBox";
 import RequestButton from "components/atoms/RequestButton";
+import { useNavigate } from "react-router-dom";
+import { useAuth } from "router/auth";
 
 const Login: FunctionComponent = () => {
 	const [active, setActive] = useState<boolean>(false);
 	const [id, setId] = useState<string>("");
 	const [password, setPassword] = useState<string>("");
+	const auth = useAuth();
+	const navigate = useNavigate();
 
 	useEffect(() => {
 		if (id && password) setActive(true);
 		else setActive(false);
 	}, [id, password]);
 
-	const submitHandler = () => {
+	const submitHandler = (event: React.FormEvent<HTMLFormElement>) => {
 		alert(`${id}, ${password}값 서버로 보냄`);
+		//여기서 redux 값 변경 되어야 할 듯 하다.
+		event.preventDefault();
+
+		auth.signin(id, () => {
+			navigate("/", { replace: true });
+		});
 	};
 
 	return (

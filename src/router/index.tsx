@@ -5,19 +5,24 @@ import LoginPage from "pages/Login";
 import SignUpPage from "pages/SignUp";
 import SearchPage from "pages/Search";
 import ProfilePage from "pages/Profile";
-import PrivateRoute from "./PrivateRoute";
+import RequireAuth from "./RequireAuth";
+import AuthProvider from "./AuthProvider";
 
 const index: FC = () => {
 	return (
-		<BrowserRouter>
-			<Routes>
-				<Route path="/" element={<HomePage />} />
-				<Route path="login" element={<LoginPage />} />
-				<Route path="/account/emailSignUp" element={<SignUpPage />} />
-				<Route path="/explore/tags/:tagName" element={<SearchPage />} />
-				<Route path="/:id" element={<ProfilePage />} />
-			</Routes>
-		</BrowserRouter>
+		<AuthProvider>
+			<BrowserRouter>
+				<Routes>
+					<Route path="login" element={<LoginPage />} />
+					<Route element={<RequireAuth />}>
+						<Route path="/" element={<HomePage />} />
+						<Route path="/account/emailSignUp" element={<SignUpPage />} />
+						<Route path="/explore/tags/:tagName" element={<SearchPage />} />
+						<Route path="/:id" element={<ProfilePage />} />
+					</Route>
+				</Routes>
+			</BrowserRouter>
+		</AuthProvider>
 	);
 };
 

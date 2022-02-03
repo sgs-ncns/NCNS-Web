@@ -90,7 +90,9 @@ const FeedFooter: FunctionComponent = () => {
 				)}
 			</Contents>
 			<Comments>
-				<MoreButton onClick={() => console.log(input)}>댓글 더 보기</MoreButton>
+				<MoreButton onClick={() => console.log(comment)}>
+					댓글 더 보기
+				</MoreButton>
 			</Comments>
 			<StyledCommentTab>
 				<StyledForm onSubmit={onSubmit}>
