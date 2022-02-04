@@ -5,6 +5,8 @@ import hashtagHandler from "lib/hashtagHandler";
 import { REQUEST_BUTTON_TYPE } from "lib/types";
 import { handleButtonType } from "lib/utils";
 import React, { FunctionComponent, useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
+import { openModal, OPEN_PROFILE_MODAL } from "reducers/modalReducer";
 import { modifyPageWidth } from "reducers/pageWidthReducer";
 import styled from "styled-components";
 import { setConstantValue } from "typescript";
@@ -70,6 +72,7 @@ const FeedFooter: FunctionComponent = () => {
 		setInput(""); //안먹음 이유 모르겠음...
 	};
 
+	const dispatch = useDispatch();
 	return (
 		<StyledDiv>
 			<LikedInfo>
@@ -90,7 +93,7 @@ const FeedFooter: FunctionComponent = () => {
 				)}
 			</Contents>
 			<Comments>
-				<MoreButton onClick={() => console.log(comment)}>
+				<MoreButton onClick={() => dispatch(openModal(OPEN_PROFILE_MODAL))}>
 					댓글 더 보기
 				</MoreButton>
 			</Comments>

@@ -10,7 +10,7 @@ import { closeMenu, openMenu } from "reducers/dropReducer";
 import { DropdownContainer } from "common/styles";
 import { dropdownHandler } from "lib/Handler";
 import { openModal, OPEN_UPLOAD_MODAL } from "reducers/modalReducer";
-import Modal from "components/organisms/Modal";
+import Modal from "../Modal";
 
 const ToolBox: FunctionComponent = () => {
 	const showNotify = useSelector(
@@ -40,10 +40,10 @@ const ToolBox: FunctionComponent = () => {
 				</DropdownContainer>
 			</Item>
 			<Item>
-				<LinkIcon
-					category={"add"}
+				<ButtonIcon
+					category={"icon"}
+					name={"Add"}
 					onClick={() => dispatch(openModal(OPEN_UPLOAD_MODAL))}
-					primary
 				/>
 			</Item>
 			<Item>

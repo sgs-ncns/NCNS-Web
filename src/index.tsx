@@ -6,10 +6,7 @@ import reportWebVitals from "./reportWebVitals";
 import { Provider } from "react-redux";
 import rootReducer from "reducers";
 import { createStore } from "redux";
-import ReactModal from "react-modal";
-import Modal from "components/organisms/Modal";
-
-ReactModal.setAppElement("#root");
+import Modal from "components/molecules/Modal";
 
 const store = createStore(
 	rootReducer,
