@@ -1,3 +1,4 @@
+import { Divider } from "common/styles";
 import useOutsideClick from "hooks/useOutsideClick";
 import React, { FunctionComponent, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -71,8 +72,4 @@ const DropdownItem = styled.div`
 	&:hover {
 		background-color: #fafafa;
 	}
-`;
-
-const Divider = styled.hr`
-	background-color: #dbdbdb;
 `;

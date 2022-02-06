@@ -6,14 +6,13 @@ interface ImageType {
 	category: "circle" | "square" | "rectangle";
 	src?: string;
 	width?: string;
-	height?: string;
 }
 
 const Image: FunctionComponent<ImageType> = (props) => {
-	const { category, src, width, height } = props;
+	const { category, src, width } = props;
 	return (
-		<StyledCanvas category={category} width={width} height={height}>
-			<StyledImg category={category} src={src} width={width} height={height} />
+		<StyledCanvas category={category} width={width}>
+			<StyledImg category={category} src={src} width={width} />
 		</StyledCanvas>
 	);
 };
@@ -28,7 +27,7 @@ const StyledCanvas = styled.div<ImageType>`
 	${(props) =>
 		props.category === "rectangle"
 			? css`
-					width: 100%;
+					height: 100%;
 			  `
 			: css`
 					width: ${props.width};

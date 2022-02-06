@@ -51,7 +51,6 @@ const StyledButton = styled.button`
 	background: 0 0;
 	border: none;
 	display: flex;
-	padding: 6px;
 	padding-left: 0px;
 	padding-right: 12px;
 

@@ -44,34 +44,6 @@ const FeedFooter: FunctionComponent = () => {
 	const handledText = hashtagHandler(splitText);
 	const 압축 = hashtagHandler(splitText[0]);
 
-	//댓글 달기 기능
-	const [active, setActive] = useState(false);
-	const myId = "myId";
-	const [input, setInput] = useState<string>("");
-
-	const onChange = (event: any) => {
-		setInput(event.target.value);
-	};
-
-	useEffect(() => {
-		// input값 들어오면 버튼 활성화
-		input.length != 0 ? setActive(true) : setActive(false);
-	}, [input]);
-
-	const onSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-		event.preventDefault();
-		handleButtonType(REQUEST_BUTTON_TYPE.Comment, input);
-		const diffContents = comment.contents;
-		diffContents.push({ username: myId, content: input });
-
-		setComment({
-			...comment,
-			count: comment.count + 1,
-			contents: diffContents,
-		});
-		setInput(""); //안먹음 이유 모르겠음...
-	};
-
 	const dispatch = useDispatch();
 	return (
 		<StyledDiv>
@@ -97,14 +69,6 @@ const FeedFooter: FunctionComponent = () => {
 					댓글 더 보기
 				</MoreButton>
 			</Comments>
-			<StyledCommentTab>
-				<StyledForm onSubmit={onSubmit}>
-					<StyledArea placeholder="댓글 달기..." onChange={onChange} />
-					<RequestButton type="submit" primary={true} active={active}>
-						게시
-					</RequestButton>
-				</StyledForm>
-			</StyledCommentTab>
 		</StyledDiv>
 	);
 };

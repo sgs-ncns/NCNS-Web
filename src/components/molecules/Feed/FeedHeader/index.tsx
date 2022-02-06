@@ -2,7 +2,6 @@ import { dropdownHandler } from "lib/Handler";
 import { DropdownContainer } from "common/styles";
 import Dropdown from "components/atoms/Dropdown";
 import LinkedId from "components/atoms/LinkedId";
-import ProfileImg from "components/atoms/ProfileImg";
 import ButtonIcon from "components/molecules/ButtonIcon";
 import React, { FunctionComponent } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -10,7 +9,12 @@ import { RootState } from "reducers";
 import { closeMenu, openMenu } from "reducers/dropReducer";
 import styled from "styled-components";
 
-const FeedHeader: FunctionComponent = () => {
+interface HeaderProps {
+	id?: string;
+}
+
+const FeedHeader: FunctionComponent<HeaderProps> = (props) => {
+	const { id = "MyId" } = props;
 	const showFeed = useSelector(
 		(state: RootState) => state.dropReducer.showFeed,
 	);
@@ -48,7 +52,6 @@ const Header = styled.header`
 	align-items: center;
 	flex-direction: row;
 	flex-grow: 1;
-	width: calc(100% - 48px);
 	padding: 14px 4px 14px 16px;
 	display: flex;
 `;

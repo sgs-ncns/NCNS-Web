@@ -6,7 +6,6 @@ import {
 	CLOSE_PROFILE_MODAL,
 	CLOSE_UPLOAD_MODAL,
 } from "reducers/modalReducer";
-import { RootState } from "reducers";
 
 const uploadStyle = {
 	overlay: {
@@ -18,6 +17,7 @@ const uploadStyle = {
 		width: "500px",
 		height: "500px",
 		opacity: "initial",
+		padding: "0 0",
 	},
 };
 
@@ -30,6 +30,7 @@ const profileStyle = {
 		margin: "auto auto",
 		width: "70%",
 		height: "80%",
+		padding: "0 0",
 	},
 };
 

@@ -9,3 +9,7 @@ export const DropdownContainer = styled.div`
 		cursor: pointer;
 	}
 `;
+
+export const Divider = styled.hr`
+	background-color: #dbdbdb;
+`;

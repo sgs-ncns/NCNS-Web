@@ -1,3 +1,4 @@
+import CommentTab from "components/molecules/Feed/CommentTab";
 import FeedBody from "components/molecules/Feed/FeedBody";
 import FeedFooter from "components/molecules/Feed/FeedFooter";
 import FeedHeader from "components/molecules/Feed/FeedHeader";
@@ -11,6 +12,7 @@ function Feed() {
 			<FeedBody />
 			<FeedTool />
 			<FeedFooter />
+			<CommentTab />
 		</Wrapper>
 	);
 }
