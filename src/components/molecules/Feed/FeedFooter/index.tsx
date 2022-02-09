@@ -2,7 +2,7 @@ import LinkedId from "components/atoms/LinkedId";
 import ProfileImg from "components/atoms/ProfileImg";
 import RequestButton from "components/atoms/RequestButton";
 import hashtagHandler from "lib/hashtagHandler";
-import { REQUEST_BUTTON_TYPE } from "lib/types";
+import { REQUEST_BUTTON_TYPE } from "common/types";
 import { handleButtonType } from "lib/utils";
 import React, { FunctionComponent, useEffect, useState } from "react";
 import { useDispatch } from "react-redux";

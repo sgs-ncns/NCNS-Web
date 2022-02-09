@@ -8,9 +8,14 @@ import CommentTab from "../Feed/CommentTab";
 import FeedTool from "../Feed/FeedTool";
 import FeedHeader from "../Feed/FeedHeader";
 import Comment from "../Comment";
-import { Divider } from "common/styles";
+import ImgUploadBox from "../ImgUploadBox";
 
-const Modal = () => {
+interface ProfileModalProps {
+	id?: string;
+}
+
+const Modal = (props: ProfileModalProps) => {
+	const { id = "95.seong" } = props;
 	const isUploadOpen = useSelector(
 		(state: RootState) => state.modalReducer.isUploadOpen,
 	);
@@ -21,7 +26,7 @@ const Modal = () => {
 	return isUploadOpen && !isProfileOpen ? (
 		<StyledModal category="upload" isOpen={isUploadOpen}>
 			<Grid>
-				<div>이미지 업로드 박스</div>
+				<ImgUploadBox />
 			</Grid>
 		</StyledModal>
 	) : (
@@ -41,7 +46,7 @@ const Modal = () => {
 						</StyledLi>
 					</StyledUl>
 					{/* <div style={{ border: "1px solid black" }}> 댓글 창 </div> */}
-					<FeedTool />
+					<FeedTool id={id} />
 					<CommentTab />
 				</ProfileContents>
 			</Grid>
@@ -52,22 +57,24 @@ const Modal = () => {
 export default Modal;
 
 const Grid = styled.div`
-	display: grid;
-	grid-template-columns: 6fr 4fr;
+	display: flex;
+	flex-direction: row;
 	height: 100%;
-`;
-
-const ProfileContents = styled.div`
-	display: grid;
-	width: 100%;
-	grid-template-rows: 0.5fr 5fr 0.5fr 0.5fr;
 `;
 
 const ImageBox = styled.div`
 	display: flex;
 	justify-content: center;
 	background: black;
-	height: 100%;
+	width: 60%;
+	height: auto;
+`;
+
+const ProfileContents = styled.div`
+	display: grid;
+	width: 40%;
+	grid-template-rows: 0.5fr 5fr 0.5fr 0.5fr;
+	height: auto;
 `;
 
 const StyledUl = styled.ul`

@@ -1,4 +1,7 @@
 import React from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "reducers";
+import { addUser, removeUser, UserState } from "reducers/userReducer";
 import { AuthContext } from "./auth";
 
 const fakeAuthProvider = {
@@ -14,19 +17,32 @@ const fakeAuthProvider = {
 };
 
 const AuthProvider = ({ children }: { children: React.ReactNode }) => {
-	const [user, setUser] = React.useState<any>(null);
+	const dispatch = useDispatch();
+	const user = useSelector((state: RootState) => state.userReducer.accountName);
+	// const [user, setUser] = React.useState<any>(null);
 
 	const signin = (newUser: string, callback: VoidFunction) => {
 		return fakeAuthProvider.signin(() => {
-			setUser(newUser);
-			callback();
+			try {
+				//await 걸어서 받아오기
+				dispatch(addUser(newUser));
+				callback();
+			} catch (err) {
+				console.log(err);
+				return;
+			}
 		});
 	};
 
 	const signout = (callback: VoidFunction) => {
 		return fakeAuthProvider.signout(() => {
-			setUser(null);
-			callback();
+			try {
+				dispatch(removeUser(user));
+				callback();
+			} catch (err) {
+				console.log(err);
+				return;
+			}
 		});
 	};
 

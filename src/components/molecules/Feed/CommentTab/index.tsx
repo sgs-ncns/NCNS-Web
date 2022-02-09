@@ -1,5 +1,5 @@
 import RequestButton from "components/atoms/RequestButton";
-import { REQUEST_BUTTON_TYPE } from "lib/types";
+import { REQUEST_BUTTON_TYPE } from "common/types";
 import { handleButtonType } from "lib/utils";
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";

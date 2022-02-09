@@ -1,8 +1,8 @@
-export const ADD = "ADD";
-export const EDIT = "EDIT";
-export const REMOVE = "REMOVE";
+export const ADD_USER_INFO = "ADD";
+export const EDIT_USER_INFO = "EDIT";
+export const REMOVE_USER_INFO = "REMOVE";
 
-type UserState = {
+export type UserState = {
 	accountName: string | null;
 };
 
@@ -15,31 +15,31 @@ const initialState: UserState = {
 	accountName: null,
 };
 
-export const addUser = (user: UserState) => {
-	return { type: ADD, user };
+export const addUser = (user: string) => {
+	return { type: ADD_USER_INFO, user };
 };
 
-export const editUser = (user: UserState) => {
-	return { type: EDIT, user };
+export const editUser = (user: string) => {
+	return { type: EDIT_USER_INFO, user };
 };
 
-export const removeUser = (user: UserState) => {
-	return { type: REMOVE, user };
+export const removeUser = (user: string) => {
+	return { type: REMOVE_USER_INFO, user };
 };
 
 const userReducer = (state: UserState = initialState, action: UserAction) => {
 	switch (action.type) {
-		case ADD:
+		case ADD_USER_INFO:
 			return {
 				...state,
-				accountName: action.user.accountName,
+				accountName: action.user,
 			};
-		case EDIT:
+		case EDIT_USER_INFO:
 			return {
 				...state,
-				accountName: action.user.accountName,
+				accountName: action.user,
 			};
-		case REMOVE:
+		case REMOVE_USER_INFO:
 			return {
 				...state,
 				accountName: null,

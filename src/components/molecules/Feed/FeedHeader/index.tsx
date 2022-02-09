@@ -1,6 +1,6 @@
 import { dropdownHandler } from "lib/Handler";
 import { DropdownContainer } from "common/styles";
-import Dropdown from "components/atoms/Dropdown";
+import Dropdown from "components/molecules/Dropdown";
 import LinkedId from "components/atoms/LinkedId";
 import ButtonIcon from "components/molecules/ButtonIcon";
 import React, { FunctionComponent } from "react";

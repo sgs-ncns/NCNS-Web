@@ -1,4 +1,4 @@
-import { CATEGORY, REQUEST_BUTTON_TYPE } from "./types";
+import { CATEGORY, REQUEST_BUTTON_TYPE } from "../common/types";
 import Logo from "static/imgs/logo.png";
 import Home from "static/imgs/icons/home@2x.png";
 import Add from "static/imgs/icons/add@2x.png";

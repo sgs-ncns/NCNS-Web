@@ -5,17 +5,22 @@ import FeedHeader from "components/molecules/Feed/FeedHeader";
 import FeedTool from "components/molecules/Feed/FeedTool";
 import styled from "styled-components";
 
-function Feed() {
+interface FeedProps {
+	src: any;
+}
+
+const Feed = (props: FeedProps) => {
+	const { src } = props;
 	return (
 		<Wrapper>
 			<FeedHeader />
-			<FeedBody />
-			<FeedTool />
+			<FeedBody src={src} />
+			<FeedTool id="95.seong" />
 			<FeedFooter />
 			<CommentTab />
 		</Wrapper>
 	);
-}
+};
 
 export default Feed;
 

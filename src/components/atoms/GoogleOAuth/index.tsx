@@ -25,7 +25,7 @@ const GoogleOAuth: FunctionComponent = () => {
 			email: res.profileObj.email,
 			name: res.profileObj.name,
 		});
-		dispatch(addUser({ accountName: res.profileObj.name }));
+		dispatch(addUser(res.profileObj.name));
 		console.log(res.profileObj.email);
 		await requestToken(res.profileObj.email, "Google");
 	};

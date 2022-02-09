@@ -1,4 +1,4 @@
-import React, { FunctionComponent, useEffect, useRef, useState } from "react";
+import React, { FunctionComponent, useEffect, useState } from "react";
 import styled from "styled-components";
 import GoogleOAuth from "components/atoms/GoogleOAuth";
 import Image from "components/atoms/Image/index";
@@ -6,26 +6,52 @@ import Logo from "static/imgs/logo.png";
 import SignUpInput from "components/atoms/LoginInput";
 import LoginBox from "components/atoms/LoginBox";
 import RequestButton from "components/atoms/RequestButton";
+import { sendSignUp } from "lib/request/signUp";
+import { useNavigate } from "react-router-dom";
+import { emailHandler } from "util/regex";
 
 const SignUp: FunctionComponent = () => {
 	const [active, setActive] = useState<boolean>(false);
-	const [id, setId] = useState<string>("");
-	const [name, setName] = useState<string>("");
-	const [username, setUsername] = useState<string>("");
+	const [email, setEmail] = useState<string>("");
+	const [nickname, setNickname] = useState<string>("");
+	const [accountName, setAccountName] = useState<string>("");
 	const [password, setPassword] = useState<string>("");
+	const [checkEmail, setCheckEmail] = useState<boolean>(true);
+	const navigate = useNavigate();
 
-	const requestDuplicate = (): void => {
-		console.log(`서버로 ${id}값으로 요청 보내고 중복 체크한 값 돌려받기`);
+	const duplicateHandler = (category: "email" | "accountName"): void => {
+		switch (category) {
+			case "email":
+				email &&
+					checkEmail &&
+					console.log(
+						`서버로 ${email}값으로 요청 보내고 중복 체크한 값 돌려받기`,
+					);
+				break;
+			case "accountName":
+				accountName &&
+					console.log(
+						`서버로 ${accountName}값으로 요청 보내고 중복 체크한 값 돌려받기`,
+					);
+				break;
+			default:
+				return;
+		}
 		//checked 값 가지고 있어야하는가? 각각의 useState마다??
 	};
 
 	useEffect(() => {
-		if (id && name && username && password) setActive(true);
+		if (checkEmail && email && accountName && nickname && password)
+			setActive(true);
 		else setActive(false);
-	}, [id, name, username, password]);
+	}, [email, accountName, nickname, password, checkEmail]);
 
-	const submitHandler = () => {
-		alert(`${id}, ${name}, ${username}, ${password}값 서버로 보냄`);
+	const submitHandler = (event: React.FormEvent<HTMLFormElement>) => {
+		event.preventDefault();
+		const res = sendSignUp(email, nickname, accountName, password, () => {
+			navigate("/login");
+		}).then((res) => console.log(res));
+		alert(`${email}, ${accountName}, ${nickname}, ${password}값 서버로 보냄`);
 	};
 
 	return (
@@ -37,28 +63,37 @@ const SignUp: FunctionComponent = () => {
 					가입하세요.
 				</StyledMent>
 			</Header>
-			<StyledForm onSubmit={submitHandler}>
+			<StyledForm onSubmit={(event) => submitHandler(event)}>
 				<div style={{ display: "flex", justifyContent: "center" }}>
 					<GoogleOAuth />
 				</div>
+				{/* <div style={{ border: "1px solid black" }}> */}
 				<SignUpInput
 					type="text"
-					placeholder="휴대폰 번호 또는 이메일 주소"
+					placeholder="이메일 주소"
 					onChange={(e) => {
-						setId(e.target.value);
-						console.log(id);
+						setEmail(e.target.value);
 					}}
-					onBlur={id && requestDuplicate}
+					onBlur={() => {
+						emailHandler(email, (state: boolean) => {
+							setCheckEmail(state);
+						});
+						duplicateHandler("email");
+					}}
+					//콜백 넣기
 				/>
+				{!checkEmail && <Warning>잘못된 이메일 형식입니다.</Warning>}
+				{/* </div> */}
 				<SignUpInput
 					type="text"
 					placeholder="성명"
-					onChange={(e) => setName(e.target.value)}
+					onChange={(e) => setNickname(e.target.value)}
 				/>
 				<SignUpInput
 					type="text"
 					placeholder="사용자 이름"
-					onChange={(e) => setUsername(e.target.value)}
+					onChange={(e) => setAccountName(e.target.value)}
+					onBlur={() => duplicateHandler("accountName")}
 				/>
 				<SignUpInput
 					type="password"
@@ -113,4 +148,11 @@ const StyledForm = styled.form`
 	align-items: center;
 	width: 100%;
 	margin-bottom: 20px;
+`;
+
+const Warning = styled.p`
+	color: red;
+	margin-top: 0;
+	font-size: 11px;
+	margin-bottom: 0;
 `;

@@ -16,6 +16,7 @@ const uploadStyle = {
 		margin: "auto auto",
 		width: "500px",
 		height: "500px",
+		borderRadius: "15px",
 		opacity: "initial",
 		padding: "0 0",
 	},
@@ -28,7 +29,7 @@ const profileStyle = {
 	},
 	content: {
 		margin: "auto auto",
-		width: "70%",
+		width: "60%",
 		height: "80%",
 		padding: "0 0",
 	},

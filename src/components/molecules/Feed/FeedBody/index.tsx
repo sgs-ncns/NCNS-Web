@@ -6,8 +6,12 @@ import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
-const FeedBody: FunctionComponent = () => {
-	const mok = [mok1, mok1, mok1, mok1];
+interface FeedBodyProps {
+	src: any;
+}
+
+const FeedBody: FunctionComponent<FeedBodyProps> = (props) => {
+	const { src } = props;
 	const settings = {
 		dots: true,
 		infinite: true,
@@ -18,8 +22,11 @@ const FeedBody: FunctionComponent = () => {
 	};
 	return (
 		<Slider {...settings}>
-			{mok.map((src, index) => {
-				return <Image src={src} category={"rectangle"} width="612px" />;
+			{src.map((image: { key: string }, index: any) => {
+				const imageUrl =
+					"https://sgsncns130837-dev.s3.ap-northeast-2.amazonaws.com/public/" +
+					image.key;
+				return <Image src={imageUrl} category={"rectangle"} width="612px" />;
 			})}
 		</Slider>
 	);

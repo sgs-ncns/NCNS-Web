@@ -17,12 +17,14 @@ const Icon: FunctionComponent<IconProps> = (props) => {
 			return <StyledLike hover={hover} />;
 		case "Comment":
 			return <StyledComment hover={hover} />;
-		case "Add":
-			return <svg.Add />;
+		case "LikeFilledBlack":
+			return <svg.LikeFilledBlack />;
+		case "LikeFilledRed":
+			return <svg.LikeFilledRed />;
+		case "Upload":
+			return <svg.Upload />;
 		case "Home":
 			return <svg.Home />;
-		case "Messanger":
-			return <svg.Messanger />;
 		default:
 			return null;
 	}
@@ -34,15 +36,10 @@ const StyledLike = styled(svg.Like)<{ hover: boolean }>`
 	${(props) =>
 		props.hover &&
 		css`
-			:hover {
-				path {
-					fill: #dbdbdb;
-				}
+			path {
+				fill: #dbdbdb;
 			}
 		`}
-	path {
-		fill: black;
-	}
 `;
 
 const StyledComment = styled(svg.Comment)<{ hover: boolean }>`
