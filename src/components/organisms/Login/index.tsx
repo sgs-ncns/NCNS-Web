@@ -4,10 +4,10 @@ import GoogleOAuth from "components/atoms/GoogleOAuth";
 import Image from "components/atoms/Image/index";
 import Logo from "static/imgs/logo.png";
 import LoginInput from "components/atoms/LoginInput";
-import LoginBox from "components/atoms/LoginBox";
 import RequestButton from "components/atoms/RequestButton";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "router/auth";
+import { LoginBox } from "common/styles";
 
 const Login: FunctionComponent = () => {
 	const [active, setActive] = useState<boolean>(false);

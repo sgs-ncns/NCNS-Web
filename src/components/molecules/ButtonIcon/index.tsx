@@ -5,7 +5,7 @@ import { useDispatch } from "react-redux";
 import Image from "components/atoms/Image";
 
 /* 버튼 아이콘은 icon과 profile 그리고 feed 버튼으로 나뉩니다.
- 피드에 나타나는 */
+ 피드에 나타나는 버튼은 마우스 오버시 드롭다운 기능이 있습니다.*/
 
 interface ButtonType {
 	category: "icon" | "profile" | "feed";

@@ -2,6 +2,9 @@ import { Divider } from "common/styles";
 import React, { useState } from "react";
 import styled from "styled-components";
 
+// 이미지 업로드를 할 수 있는 컴포넌트입니다.
+// 클릭 시 이미지 업로드가 되며, preview 기능을 구현할 예정입니다.
+
 function ImgUploadBox() {
 	const [files, setFiles] = useState<string>("");
 

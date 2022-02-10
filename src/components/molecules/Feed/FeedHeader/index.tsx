@@ -9,6 +9,9 @@ import { RootState } from "reducers";
 import { closeMenu, openMenu } from "reducers/dropReducer";
 import styled from "styled-components";
 
+// 피드의 머릿부분입니다. 이 부분에는 mouseover시 드롭다운으로
+// 사용자의 최근 세가지의 게시물을 보여주는 기능을 담을 예정입니다.
+
 interface HeaderProps {
 	id?: string;
 }

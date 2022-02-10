@@ -10,6 +10,10 @@ import FeedHeader from "../Feed/FeedHeader";
 import Comment from "../Comment";
 import ImgUploadBox from "../ImgUploadBox";
 
+// Modal도 어디에서나 켜고 끌 수 있게 구현이 되었습니다.
+// 하지만 피드에서 가져온 내용이 상세되게 뜰 수 있는 부분이 있어
+// 재사용성을 높이기 위해 컴포넌트를 분리해야할 것 같습니다.
+
 interface ProfileModalProps {
 	id?: string;
 }

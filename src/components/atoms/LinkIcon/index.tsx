@@ -4,6 +4,9 @@ import { Link } from "react-router-dom";
 import styled, { css } from "styled-components";
 import { handleImgType } from "lib/utils";
 
+// svg가 무엇인지 모르고 아토믹 디자인 패턴을 처음 적용 시켜보았을 때의 컴포넌트로
+// 합쳐질 예정입니다. 확인 따로 안해보셔도 될 것 같습니다!
+
 const StyledDiv = styled.div<divType>`
 	background-size: cover;
 	background-position: center;

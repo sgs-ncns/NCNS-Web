@@ -5,6 +5,10 @@ import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
+// react slick 라이브러리를 사용하여 image carousel을 구현한 부분입니다.
+// custom arrow를 통해 화살표의 위치나 모양을 변경하였으며,
+// map 함수를 통해 이미지 소스를 S3에 접근하여 가져옵니다.
+
 interface FeedBodyProps {
 	src: any;
 }

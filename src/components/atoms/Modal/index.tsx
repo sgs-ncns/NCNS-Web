@@ -7,6 +7,10 @@ import {
 	CLOSE_UPLOAD_MODAL,
 } from "reducers/modalReducer";
 
+// react-modal 라이브러리를 사용하여 구현한 모달 창으로 redux와 함께 움직입니다.
+// 모달 컴포넌트의 위치는 index.tsx에 존재합니다.
+// modalReducer에 전역 상태 값이 존재합니다.
+
 const uploadStyle = {
 	overlay: {
 		zIndex: 10,
@@ -45,6 +49,7 @@ const Modal: FunctionComponent<ModalProps> = (props) => {
 	const { category, children, isOpen } = props;
 	const dispatch = useDispatch();
 
+	//전체 모달 끄는 것으로 변경하기
 	const requestClose = () => {
 		category === "upload"
 			? dispatch(closeModal(CLOSE_UPLOAD_MODAL))
