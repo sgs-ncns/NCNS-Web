@@ -3,6 +3,7 @@ import styled, { css } from "styled-components";
 
 import * as svg from "./svg";
 
+/* qkfjdslkjfsladjkfdjf;adfdk;lsaj */
 export type IconTypes = keyof typeof svg;
 
 interface IconProps {
