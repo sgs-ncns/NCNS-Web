@@ -26,4 +26,5 @@ export default Feed;
 
 const Wrapper = styled.div`
 	border: 1px solid #dbdbdb;
+	background: white;
 `;
