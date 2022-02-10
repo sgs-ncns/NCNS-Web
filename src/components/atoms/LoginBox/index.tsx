@@ -1,6 +1,8 @@
 import React from "react";
 import styled from "styled-components";
 
+// 전역 스타일로 넘어갈 스타일입니다.
+
 const LoginBox = styled.div`
 	width: 350px;
 	display: flex;

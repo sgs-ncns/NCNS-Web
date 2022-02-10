@@ -2,6 +2,10 @@ import React, { FunctionComponent } from "react";
 import mok from "static/imgs/mok1.jpg";
 import styled, { css } from "styled-components";
 
+// 인스타그램에서 이미지는 3가지의 형태로 구분됩니다.
+// 피드 직사각형 이미지, 추천/검색 정사각형 이미지, 프로필용 원형 이미지
+// 저는 이 부분을 category 값을 통해 세 가지 모양의 이미지 컴포넌트를 구현하였습니다.
+
 interface ImageType {
 	category: "circle" | "square" | "rectangle";
 	src?: string;
@@ -11,9 +15,9 @@ interface ImageType {
 const Image: FunctionComponent<ImageType> = (props) => {
 	const { category, src, width } = props;
 	return (
-		<StyledCanvas category={category} width={width}>
+		<Canvas category={category} width={width}>
 			<StyledImg category={category} src={src} width={width} />
-		</StyledCanvas>
+		</Canvas>
 	);
 };
 
@@ -23,7 +27,7 @@ Image.defaultProps = {
 
 export default Image;
 
-const StyledCanvas = styled.div<ImageType>`
+const Canvas = styled.div<ImageType>`
 	${(props) =>
 		props.category === "rectangle"
 			? css`

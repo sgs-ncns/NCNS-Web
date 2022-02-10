@@ -1,3 +1,5 @@
+// svg 파일들을 전부 불러와 ReactComponent로 모듈화 시킵니다.
+
 export { ReactComponent as Like } from "./like.svg";
 export { ReactComponent as LikeFilledBlack } from "./like_filled_black.svg";
 export { ReactComponent as LikeFilledRed } from "./like_filled_red.svg";

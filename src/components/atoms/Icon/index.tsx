@@ -3,7 +3,10 @@ import styled, { css } from "styled-components";
 
 import * as svg from "./svg";
 
-/* qkfjdslkjfsladjkfdjf;adfdk;lsaj */
+// svg 정보들을 받아와서 JSX element로 만들어주는 부분입니다.
+// 이미지 리소스를 최소화하기 위해 hover시 스타일 변경이 필요한 이미지는
+// props로 넘겨 받아 path값을 수정합니다.
+
 export type IconTypes = keyof typeof svg;
 
 interface IconProps {
