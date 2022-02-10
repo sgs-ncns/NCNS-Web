@@ -1,6 +1,5 @@
 import React, { FunctionComponent, useEffect, useState } from "react";
 import styled from "styled-components";
-import Button from "components/atoms/Button";
 import GoogleOAuth from "components/atoms/GoogleOAuth";
 import Image from "components/atoms/Image/index";
 import Logo from "static/imgs/logo.png";

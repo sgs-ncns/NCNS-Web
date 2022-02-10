@@ -8,7 +8,7 @@ import LoginBox from "components/atoms/LoginBox";
 import RequestButton from "components/atoms/RequestButton";
 import { sendSignUp } from "lib/request/signUp";
 import { useNavigate } from "react-router-dom";
-import { emailHandler } from "util/regex";
+import { emailHandler } from "utils/format";
 
 const SignUp: FunctionComponent = () => {
 	const [active, setActive] = useState<boolean>(false);

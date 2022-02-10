@@ -1,10 +1,11 @@
-import { handleImgType } from "lib/utils";
 import React, { FunctionComponent, useEffect, useRef, useState } from "react";
 import styled from "styled-components";
-import Like from "static/imgs/icons/like@2x.png";
 import Icon, { IconTypes } from "../../atoms/Icon";
 import { useDispatch } from "react-redux";
 import Image from "components/atoms/Image";
+
+/* 버튼 아이콘은 icon과 profile 그리고 feed 버튼으로 나뉩니다.
+ 피드에 나타나는 */
 
 interface ButtonType {
 	category: "icon" | "profile" | "feed";
@@ -16,12 +17,7 @@ interface ButtonType {
 }
 const ButtonIcon: FunctionComponent<ButtonType> = (props) => {
 	const { category, name, hover = false, onClick } = props;
-	const dispatch = useDispatch();
 	const [isHover, setHoverState] = useState<boolean>(false);
-
-	useEffect(() => {
-		console.log(isHover);
-	}, [isHover]);
 
 	return (
 		<StyledButton

@@ -15,6 +15,8 @@ const FeedTool: FunctionComponent<ToolProps> = (props) => {
 	const { likeCount = 1000, id, isLiked = false } = props;
 	const [liked, setLiked] = useState(isLiked);
 
+	console.log("Liked", liked);
+
 	const likeCallback = () => {
 		//like false로 만들어주기
 		setLiked(true);
@@ -31,14 +33,14 @@ const FeedTool: FunctionComponent<ToolProps> = (props) => {
 				{liked ? (
 					<ButtonIcon
 						category="icon"
-						name="Like"
+						name="LikeFilledRed"
 						hover={true}
 						onClick={() => sendUnlike(id, unlikeCallback)}
 					/>
 				) : (
 					<ButtonIcon
 						category="icon"
-						name="LikeFilledRed"
+						name="Like"
 						hover={false}
 						onClick={() => sendLike(id, likeCallback)}
 					/>

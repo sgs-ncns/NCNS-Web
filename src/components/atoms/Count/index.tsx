@@ -6,33 +6,16 @@ interface CountProps {
 	number: number;
 }
 
+/*제목과 숫자를 받아 숫자는 1000단위로 콤마를 찍어주는 로직을 포함하고 있습니다.
+숫자는 1000단위 콤마가 찍혀서 반환됩니다. */
+
 const Count = (props: CountProps) => {
 	const { title, number } = props;
-
-	const numberHandler = (number: number): string => {
-		const numToString = number.toString();
-		let from = numToString.length;
-		console.log(numToString.substring(0, from));
-		let result = "";
-		for (let i = from; i > 0; i--) {
-			if (i % 3 === 0) {
-				const to = i;
-				result = "," + numToString.substring(to - 1, from) + result;
-				from = i - 1;
-			}
-			if (i < 3) {
-				result = numToString.substring(0, from) + result;
-				break;
-			}
-		}
-		console.log(result);
-		return result;
-	};
 
 	return (
 		<StyledSpan>
 			{title}
-			<StyledNumber>{numberHandler(number)}</StyledNumber>
+			<StyledNumber>{number.toLocaleString()}</StyledNumber>
 			{/* 개수 받아와서 수정하기 */}
 		</StyledSpan>
 	);

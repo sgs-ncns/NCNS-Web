@@ -2,7 +2,7 @@ import NavBar from "components/organisms/NavBar";
 import React, { FunctionComponent, useEffect, useState } from "react";
 import HomeTemplate from "components/templates/Home";
 import Feed from "components/organisms/Feed";
-import { requestImages } from "util/amplify";
+import { requestImages } from "utils/amplify";
 
 const HomePage: FunctionComponent = () => {
 	const [Images, setImages] = useState([]);
