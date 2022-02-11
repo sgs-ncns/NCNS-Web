@@ -2,7 +2,8 @@ import LinkedId from "components/atoms/LinkedId";
 import ProfileImg from "components/atoms/ProfileImg";
 import hashtagHandler from "lib/hashtagHandler";
 import React, { FunctionComponent, useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "reducers";
 import { openModal, OPEN_PROFILE_MODAL } from "reducers/modalReducer";
 import styled from "styled-components";
 

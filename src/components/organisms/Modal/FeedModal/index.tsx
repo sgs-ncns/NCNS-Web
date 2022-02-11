@@ -1,40 +1,47 @@
+import { modalCloseHandler } from "lib/Handler";
 import React from "react";
-import StyledModal from "components/atoms/Modal";
-import styled, { css } from "styled-components";
-import Image from "components/atoms/Image";
+import ReactModal from "react-modal";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "reducers";
-import CommentTab from "../Feed/CommentTab";
-import FeedTool from "../Feed/FeedTool";
-import FeedHeader from "../Feed/FeedHeader";
-import Comment from "../Comment";
-import ImgUploadBox from "../ImgUploadBox";
+import styled from "styled-components";
+import FeedHeader from "components/molecules/Feed/FeedHeader";
+import FeedTool from "components/molecules/Feed/FeedTool";
+import CommentTab from "components/molecules/Feed/CommentTab";
+import Comment from "components/molecules/Comment";
+import Image from "components/atoms/Image";
 
-// Modal도 어디에서나 켜고 끌 수 있게 구현이 되었습니다.
-// 하지만 피드에서 가져온 내용이 상세되게 뜰 수 있는 부분이 있어
-// 재사용성을 높이기 위해 컴포넌트를 분리해야할 것 같습니다.
+const profileStyle = {
+	overlay: {
+		zIndex: 10,
+		backgroundColor: "rgba(var(--jb7,0,0,0),.5)",
+	},
+	content: {
+		margin: "auto auto",
+		width: "60%",
+		height: "80%",
+		padding: "0 0",
+	},
+};
 
-interface ProfileModalProps {
+interface FeedModalProps {
 	id?: string;
 }
 
-const Modal = (props: ProfileModalProps) => {
+const FeedModal = (props: FeedModalProps) => {
 	const { id = "95.seong" } = props;
-	const isUploadOpen = useSelector(
-		(state: RootState) => state.modalReducer.isUploadOpen,
-	);
+	const dispatch = useDispatch();
 	const isProfileOpen = useSelector(
 		(state: RootState) => state.modalReducer.isProfileOpen,
 	);
 
-	return isUploadOpen && !isProfileOpen ? (
-		<StyledModal category="upload" isOpen={isUploadOpen}>
-			<Grid>
-				<ImgUploadBox />
-			</Grid>
-		</StyledModal>
-	) : (
-		<StyledModal category="profile" isOpen={isProfileOpen}>
+	return (
+		<ReactModal
+			onAfterOpen={() => (document.body.style.overflow = "hidden")}
+			onAfterClose={() => (document.body.style.overflow = "unset")}
+			style={profileStyle}
+			isOpen={isProfileOpen}
+			onRequestClose={() => modalCloseHandler(dispatch)}
+		>
 			<Grid>
 				<ImageBox>
 					<Image category="rectangle" />
@@ -49,16 +56,15 @@ const Modal = (props: ProfileModalProps) => {
 							<Comment />
 						</StyledLi>
 					</StyledUl>
-					{/* <div style={{ border: "1px solid black" }}> 댓글 창 </div> */}
 					<FeedTool id={id} />
 					<CommentTab />
 				</ProfileContents>
 			</Grid>
-		</StyledModal>
+		</ReactModal>
 	);
 };
 
-export default Modal;
+export default FeedModal;
 
 const Grid = styled.div`
 	display: flex;

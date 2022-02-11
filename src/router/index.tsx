@@ -7,13 +7,15 @@ import SearchPage from "pages/Search";
 import ProfilePage from "pages/Profile";
 import RequireAuth from "./RequireAuth";
 import AuthProvider from "./AuthProvider";
-import Modal from "components/molecules/Modal";
+import UploadModal from "components/organisms/Modal/UploadModal";
+import FeedModal from "components/organisms/Modal/FeedModal";
 
 const index: FC = () => {
 	return (
 		<AuthProvider>
 			<BrowserRouter>
-				<Modal />
+				<FeedModal />
+				<UploadModal />
 				<Routes>
 					<Route path="login" element={<LoginPage />} />
 					<Route path="/account/emailSignUp" element={<SignUpPage />} />

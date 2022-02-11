@@ -10,7 +10,7 @@ import "slick-carousel/slick/slick-theme.css";
 // map 함수를 통해 이미지 소스를 S3에 접근하여 가져옵니다.
 
 interface FeedBodyProps {
-	src: any;
+	src: Array<string>;
 }
 
 const PrevArrow = (props: any) => {
@@ -64,10 +64,7 @@ const FeedBody: FunctionComponent<FeedBodyProps> = (props) => {
 	return (
 		<Container>
 			<StyledSlider {...settings}>
-				{src.map((image: { key: string }, index: number) => {
-					const imageUrl =
-						"https://sgsncns130837-dev.s3.ap-northeast-2.amazonaws.com/public/" +
-						image.key;
+				{src.map((imageUrl: string, index: number) => {
 					return (
 						<Image
 							src={imageUrl}

@@ -14,7 +14,14 @@ const Feed = (props: FeedProps) => {
 	return (
 		<Wrapper>
 			<FeedHeader />
-			<FeedBody src={src} />
+			<FeedBody
+				src={src.map((image: { key: string }, index: number) => {
+					return (
+						"https://sgsncns130837-dev.s3.ap-northeast-2.amazonaws.com/public/" +
+						image.key
+					);
+				})}
+			/>
 			<FeedTool id="95.seong" />
 			<FeedFooter />
 			<CommentTab />
