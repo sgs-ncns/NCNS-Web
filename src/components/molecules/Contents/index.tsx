@@ -2,6 +2,10 @@ import React, { FunctionComponent } from "react";
 import styled from "styled-components";
 import Image from "components/atoms/Image";
 
+// 검색뷰와 프로필의 그리드 뷰입니다.
+// 같이 사용할 수 있을 것 같아서 category를 두고
+// 인기 게시물을 표시하고 안하고의 여부에 대한 생각을 담았습니다.
+
 interface ContentType {
 	category: "search" | "profile";
 	popular?: Array<string>;

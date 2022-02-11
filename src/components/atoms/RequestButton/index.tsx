@@ -1,13 +1,20 @@
 import React, { FunctionComponent } from "react";
 import styled, { css } from "styled-components";
 
+// 가장 주요하게 사용되는 버튼입니다.
+//
+// 로그인 때의 폼 타입 체크 후 활성화 되는 기능과 팔로우시 회색으로 바뀌는 기능을 내포하고 있습니다.
+
 interface ButtonType {
 	type: "button" | "submit";
 	onClick?: React.MouseEventHandler<HTMLButtonElement>;
+	//primary는 파란색 바탕의 하얀 글씨인 팔로우버튼과 그 반대인 게시물 게시 버튼을 갖게 됩니다.
 	primary?: boolean;
 	width?: string;
 	height?: string;
+	//valid는 팔로우 언팔로우 에 대한 조건적 css 기능을 위한 props입니다.
 	valid?: boolean;
+	//active는 로그인 회원가입 때 폼 타입 체크 시 활성화 비활성화 되는 기능을 위한 props입니다.
 	active?: boolean;
 }
 

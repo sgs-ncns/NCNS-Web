@@ -1,4 +1,4 @@
-import LoginBox from "components/atoms/LoginBox";
+import { LoginBox } from "common/styles";
 import RequestButton from "components/atoms/RequestButton";
 import React, { FunctionComponent } from "react";
 import { useNavigate } from "react-router-dom";

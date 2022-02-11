@@ -4,25 +4,24 @@ import { handleButtonType } from "lib/utils";
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 
+// 피드의 댓글을 달 수 있는 부분입니다.
+
 const CommentTab = () => {
-	const [input, setInput] = useState<string>("");
-	//댓글 달기 기능
-	const [active, setActive] = useState(false);
+	const [textAreaValue, setTextAreaValue] = useState<string>("");
+	const [active, setActive] = useState<boolean>(false);
 	const myId = "myId";
 
+	// useEffect의 의존성배열에 textAreaValue 상태값을 체크하여
+	// textArea의 길이가 0이 아니면 게시 버튼 활성화를 시킵니다.
 	useEffect(() => {
 		// input값 들어오면 버튼 활성화
-		input.length != 0 ? setActive(true) : setActive(false);
-	}, [input]);
-
-	const onChange = (event: any) => {
-		setInput(event.target.value);
-	};
+		textAreaValue.length != 0 ? setActive(true) : setActive(false);
+	}, [textAreaValue]);
 
 	const onSubmit = (event: React.FormEvent<HTMLFormElement>) => {
 		event.preventDefault();
-		handleButtonType(REQUEST_BUTTON_TYPE.Comment, input);
-		setInput("");
+		handleButtonType(REQUEST_BUTTON_TYPE.Comment, textAreaValue);
+		setTextAreaValue("");
 		// const diffContents = comment.contents;
 		// diffContents.push({ username: myId, content: input });
 
@@ -37,7 +36,12 @@ const CommentTab = () => {
 	return (
 		<StyledCommentTab>
 			<StyledForm onSubmit={onSubmit}>
-				<StyledArea placeholder="댓글 달기..." onChange={onChange} />
+				<StyledArea
+					placeholder="댓글 달기..."
+					onChange={(ev: React.ChangeEvent<HTMLTextAreaElement>): void =>
+						setTextAreaValue(ev.target.value)
+					}
+				/>
 				<RequestButton type="submit" primary={true} active={active}>
 					게시
 				</RequestButton>

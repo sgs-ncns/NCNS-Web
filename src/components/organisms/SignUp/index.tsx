@@ -4,11 +4,11 @@ import GoogleOAuth from "components/atoms/GoogleOAuth";
 import Image from "components/atoms/Image/index";
 import Logo from "static/imgs/logo.png";
 import SignUpInput from "components/atoms/LoginInput";
-import LoginBox from "components/atoms/LoginBox";
 import RequestButton from "components/atoms/RequestButton";
 import { sendSignUp } from "lib/request/signUp";
 import { useNavigate } from "react-router-dom";
 import { emailHandler } from "utils/format";
+import { LoginBox } from "common/styles";
 
 const SignUp: FunctionComponent = () => {
 	const [active, setActive] = useState<boolean>(false);

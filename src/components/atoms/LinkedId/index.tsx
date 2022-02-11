@@ -2,6 +2,9 @@ import React, { FunctionComponent } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 
+// 링크 아이디는 피드 헤더 부분, 댓글 창 등에 쓰이기 때문에
+// 재사용성을 위해 컴포넌트화를 시켰습니다.
+
 type LinkProps = {
 	children?: string;
 	underline: boolean;

@@ -3,6 +3,9 @@ import React from "react";
 import styled from "styled-components";
 import ButtonIcon from "../ButtonIcon";
 
+// 모달 창들에 나타나게 되는 comment입니다. 재사용을 예상했지만 재사용 되지 않으면
+// 피드 파트에 합쳐질 예정입니다.
+
 const Comment = () => {
 	return (
 		<Grid>
