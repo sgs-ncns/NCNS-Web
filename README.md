@@ -1,5 +1,5 @@
 # Getting Started with Create React App
-[![TypeScript](https://badges.frapsoft.com/typescript/version/typescript-v455.svg?v=101)](https://github.com/ellerbrock/typescript-badges/)
+[![TypeScript](https://badges.frapsoft.com/typescript/version/typescript-v45.svg?v=101)](https://github.com/ellerbrock/typescript-badges/)
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
