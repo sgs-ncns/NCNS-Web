@@ -27,7 +27,7 @@
 
 ### Organism
 
-- 실질적으로 화면에 바로 표시될 수 있는 형태로 Atom과 Molecule의 조합입니다.
+- 실질적으로 화면의 한 부분이 완성된 형태로 Atom과 Molecule의 조합입니다.
 
 ### Templates
 
