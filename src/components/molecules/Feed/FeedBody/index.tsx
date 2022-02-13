@@ -14,19 +14,59 @@ interface FeedBodyProps {
 	src: Array<string>;
 }
 
+interface ArrowProps {
+	className: any;
+	style: React.CSSProperties;
+	onClick: VoidFunction;
+	category: "left" | "right";
+}
+
+// const Arrow = (props: ArrowProps) => {
+// 	const { className, style, onClick } = props;
+// 	return (
+// 		<div
+// 			className="slick-arrow"
+// 			// className={className}
+// 			style={{
+// 				...style,
+// 				position: "absolute",
+// 				marginTop: "60%",
+// 				width: "26px",
+// 				height: "26px",
+// 				zIndex: 1,
+// 				background: "#dbdbdb",
+// 				borderRadius: "50%",
+// 				display: "flex",
+// 				justifyContent: "center",
+// 			}}
+// 		>
+// 			<ButtonIcon
+// 				name="LeftArrow"
+// 				hover={false}
+// 				category={"icon"}
+// 				onClick={onClick}
+// 			/>
+// 		</div>
+// 	);
+// };
+
 const PrevArrow = (props: any) => {
 	const { className, style, onClick } = props;
 	return (
 		<div
-			className="slick-arrow"
+			// className="slick-prev"
+			// className={className}
 			style={{
-				// ...style,
+				...style,
+				position: "fixed",
+				marginTop: "60%",
 				width: "26px",
 				height: "26px",
-				display: "flex",
 				zIndex: 1,
 				background: "#dbdbdb",
 				borderRadius: "50%",
+				display: "flex",
+				justifyContent: "center",
 			}}
 		>
 			<ButtonIcon
@@ -43,11 +83,19 @@ const NextArrow = (props: any) => {
 	const { className, style, onClick } = props;
 	return (
 		<div
-			className={className}
+			// className={"slick-arrow"}
 			style={{
 				...style,
-				marginRight: "5%",
+				position: "fixed",
+				width: "26px",
+				height: "26px",
 				zIndex: 1,
+				background: "#dbdbdb",
+				borderRadius: "50%",
+				// display: "flex",
+				// justifyContent: "center",
+				// marginLeft: "calc(100% - 26px)",
+				// marginBottom: "200px",
 			}}
 		>
 			<ButtonIcon
