@@ -1,47 +1,81 @@
-# Getting Started with Create React App
-[![TypeScript](https://badges.frapsoft.com/typescript/version/typescript-v45.svg?v=101)](https://github.com/ellerbrock/typescript-badges/)
+# NCNS Frontend
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## ****📚****사용 기술 및 언어
 
-## Available Scripts
+### 환경
 
-In the project directory, you can run:
+- React
 
-### `npm start`
+### 언어
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+- Typescript
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+### 개발 도구
 
-### `npm test`
+- VS Code
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## 설치 방법
 
-### `npm run build`
+```tsx
+npm install
+```
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## 실행 방법
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+```tsx
+npm start
+```
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## 🥰목표
 
-### `npm run eject`
+- 프론트엔드 개발자로써의 첫 프로젝트인만큼 **디자인 패턴**에 대해 고민해보고 **깔끔한 코드**를 짜도록 노력한다.
+    - 인스타그램 개발에 가장 적합한 디자인 패턴은 무엇인가 생각해보기
+    - 실제 디자인 패턴을 적용하고 주기적인 리팩토링을 통해 결국에는 깔끔한 코드를 생산한다.
+- **전역 상태 관리**는 어디에 필요한 것인지 진지하게 고민해보고 완벽한 이해 후 적용하기
+    - 전역 상태 관리 툴인 Redux에 대한 스터디
+    - 전역 상태 관리가 필요한 상태 값들에 대한 고민하기
+- 비동기 처리에 대한 스터디와 적용을 통해 실제로 어디에 필요한 지 확인하기
+    - Promise 구조 완벽히 이해하기
+    - async / await 함수를 통해 흐름을 제어하는 법 익히기
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+## 디렉토리 구조
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+```markdown
+├─common
+├─components
+│  ├─atoms
+│  │  ├─Count
+│  │  ├─GoogleOAuth
+│  │  └─ . . . 
+│  ├─molecules
+│  │  ├─ButtonIcon
+│  │  ├─Comment
+│  │  └─ . . .
+│  ├─organisms
+│  │  ├─Feed
+│  │  ├─Login
+│  │  └─ . . . 
+│  └─templates
+│      ├─Home
+│      ├─Login
+│      └─ . . .
+├─hooks
+├─lib
+│  ├─auth
+│  └─request
+├─mocks
+├─pages
+│  ├─Login
+│  ├─Profile
+│  ├─Search
+│  └─SignUp
+├─reducers
+├─router
+├─static
+│  └─imgs
+└─utils
+```
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+## 실행 화면
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+(추가 예정)
