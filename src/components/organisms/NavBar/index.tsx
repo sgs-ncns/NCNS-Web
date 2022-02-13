@@ -20,10 +20,10 @@ const NavBar: FunctionComponent = () => {
 	const onKeyPress = (e: { key: string }) => {
 		if (e.key === "Enter") {
 			navigate(`/explore/tags/${value}`);
-			// requestSearchData(value);
 		}
 	};
 
+	// TODO : requestSearchData(value) 통신 파트로 옮겨놓기
 	const requestSearchData = (value: string) => {
 		//라우팅 걸기
 		alert(`value ${value}`);
@@ -54,7 +54,6 @@ const NavBar: FunctionComponent = () => {
 
 export default NavBar;
 
-// import useOutsideClick from "components/hooks";
 const StyledWrapper = styled.div`
 	display: flex;
 	justify-content: center;

@@ -4,6 +4,9 @@ import Image from "components/atoms/Image";
 import ProfileInfo from "components/molecules/ProfileInfo";
 import { useParams } from "react-router-dom";
 
+// 프로필 페이지를 가게 되면 위쪽에 뜨는 헤더 부분입니다.
+// Body 파트는 Contents 컴포넌트를 재사용 하였습니다.
+
 const ProfileHeader = () => {
 	return (
 		<StyledHeader>

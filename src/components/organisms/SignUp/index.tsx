@@ -10,6 +10,9 @@ import { useNavigate } from "react-router-dom";
 import { emailHandler } from "utils/format";
 import { LoginBox } from "common/styles";
 
+// 회원가입 컴포넌트입니다. 네 가지의 항목을 입력해야 하며,
+// 이메일 계정과 accountName은 중복이 불가능 하므로 포커싱 아웃이 될 때, 중복하는 지를 체크하는 함수를 부릅니다.
+
 const SignUp: FunctionComponent = () => {
 	const [active, setActive] = useState<boolean>(false);
 	const [email, setEmail] = useState<string>("");
@@ -19,6 +22,7 @@ const SignUp: FunctionComponent = () => {
 	const [checkEmail, setCheckEmail] = useState<boolean>(true);
 	const navigate = useNavigate();
 
+	// 포커싱 아웃 될 때 불리우는 함수입니다.
 	const duplicateHandler = (category: "email" | "accountName"): void => {
 		switch (category) {
 			case "email":
@@ -40,12 +44,14 @@ const SignUp: FunctionComponent = () => {
 		//checked 값 가지고 있어야하는가? 각각의 useState마다??
 	};
 
+	// 의존성 배열에 담긴 값들을 전부 판별하여 모두 참일 때만 전송 버튼을 활성화 합니다.
 	useEffect(() => {
 		if (checkEmail && email && accountName && nickname && password)
 			setActive(true);
 		else setActive(false);
 	}, [email, accountName, nickname, password, checkEmail]);
 
+	// 회원가입 버튼을 누르게 되면, 서버로 보내며 응답코드에 대한 에러 처리 예정입니다.
 	const submitHandler = (event: React.FormEvent<HTMLFormElement>) => {
 		event.preventDefault();
 		const res = sendSignUp(email, nickname, accountName, password, () => {

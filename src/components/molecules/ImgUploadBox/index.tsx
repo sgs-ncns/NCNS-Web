@@ -6,7 +6,11 @@ import { MentionsInput, Mention } from "react-mentions";
 import { followers, hashtags } from "mocks/tags";
 
 // 이미지 업로드를 할 수 있는 컴포넌트입니다.
-// 클릭 시 이미지 업로드가 되며, preview 기능을 구현할 예정입니다.
+// 이 컴포넌트에는 흐름을 넣었습니다.
+// 1. 사진을 업로드 할 수 있는 버튼을 클릭합니다.
+// 2. 사진 파일을 업로드 시 이미지 미리보기가 생성됩니다.
+// 3. 다음 버튼을 누르면 글을 작성할 수 있는 칸이 뜨게 됩니다.
+// 4. 게시 버튼을 누르면 글이 게시됩니다.
 
 function ImgUploadBox() {
 	const [files, setFiles] = useState(null);
@@ -17,6 +21,7 @@ function ImgUploadBox() {
 	const [isSecond, setSecond] = useState<boolean>(false);
 	const ref = useRef(null);
 
+	// 업로드 버튼을 누른 후 사진을 첨부하면 파일 리더를 통해 미리보기 기능을 제공합니다.
 	const onLoadFile = (event: React.ChangeEvent<HTMLInputElement>) => {
 		if (!event.target.files) return;
 
@@ -26,21 +31,24 @@ function ImgUploadBox() {
 		reader.onload = () => {
 			setFiles([reader.result]);
 		};
-		// console.log(imgArray);
 		reader.readAsDataURL(file);
 	};
 
+	//흐름이 있기에 다음 스탭으로 이동할 수 있는 로직입니다.
+	//isFirst와 isSecond를 통해 흐름이 움직입니다.
 	const toNextStep = () => {
 		if (isFirst === true) {
 			setFirst(false);
 			setSecond(true);
 		}
 		if (isSecond === true) {
+			// TODO : 게시 로직 추가하기
 			alert(contents);
 			onReset();
 		}
 	};
 
+	// 취소 버튼을 눌렀을 때, 모든 흐름을 처음으로 돌립니다.
 	const onReset = () => {
 		setFirst(true);
 		setSecond(false);

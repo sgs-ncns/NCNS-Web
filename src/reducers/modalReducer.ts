@@ -3,6 +3,8 @@ export const OPEN_PROFILE_MODAL = "OPEN_PROFILE_MODAL";
 export const CLOSE_MODAL = "CLOSE_MODAL";
 export const CLOSE_PROFILE_MODAL = "CLOSE_PROFILE_MODAL";
 
+// 모달 구현 파트입니다.
+
 export const openModal = (category: string) => {
 	switch (category.toString()) {
 		case OPEN_UPLOAD_MODAL:

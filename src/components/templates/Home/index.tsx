@@ -4,6 +4,8 @@ import { useSelector } from "react-redux";
 import { RootState } from "reducers";
 import styled, { css } from "styled-components";
 
+//홈페이지의 레이아웃을 정한 부분입니다.
+
 type HomeProps = {
 	navbar?: React.ReactNode;
 	feed: React.ReactNode;
@@ -12,15 +14,13 @@ type HomeProps = {
 
 const Home: FunctionComponent<HomeProps> = (props) => {
 	const { navbar, feed, sidebar } = props;
+	// 페이지마다 반응형이 다르고 기기에 따른 값이 아니게 반응하기 위해 reducer로 전체 페이지 width를 관리 해보았습니다.
+	// 자세한 부분은 reducer 부분에서 설명 드리도록 하겠습니다.
 	const pageWidth = useSelector(
 		(state: RootState) => state.pageWidthReducer.width,
 	);
 	const ref = useRef();
 	console.log(sidebar, navbar);
-
-	useEffect(() => {
-		console.log(pageWidth > 1000);
-	}, [pageWidth]);
 
 	return (
 		<Grid>
