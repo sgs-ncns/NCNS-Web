@@ -89,6 +89,9 @@ context api로 처리하는 도중 context api와 redux의 차이점이 궁금�
 
 [https://olaf-go.medium.com/context-api-vs-redux-e8a53df99b8](https://olaf-go.medium.com/context-api-vs-redux-e8a53df99b8)
 
-하지만 react-router-dom이 v6로 업데이트 됨에 따라 레퍼런스가 존재하지 않게 되었고, 추가적으로 v6에 대한 공부를 진행하여 **제가 다른 사람들에게 레퍼런스가 될 수 있는 코드를 작성하게 되었다고 생각합니다.**
+하지만 react-router-dom이 v6로 업데이트 됨에 따라 레퍼런스가 존재하지 않게 되었고, 추가적으로 v6에 대한 공부를 진행하여
+**제가 다른 사람들에게 레퍼런스가 될 수 있는 코드를 작성하게 되었다고 생각합니다.**
+
+진행 흐름은 로그인 -> 서버 제공 정보를 토대로 유저 정보를 redux에 저장 -> context api
 
 결론적으로, 제 페이지 접근 제한 구조는 Redux + Context api 구조이며 Redux는 상태값 저장을 Context api는 종속성 주입을 시키는 형태로 구현하였습니다.
