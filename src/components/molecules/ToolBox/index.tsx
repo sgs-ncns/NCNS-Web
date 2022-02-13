@@ -1,5 +1,4 @@
 import ButtonIcon from "components/molecules/ButtonIcon";
-import LinkIcon from "components/atoms/LinkIcon";
 import React, { FunctionComponent, useRef, useState } from "react";
 import styled from "styled-components";
 import Dropdown from "components/molecules/Dropdown";
@@ -36,12 +35,14 @@ const ToolBox: FunctionComponent = () => {
 					category={"icon"}
 					name={"HomeFilled"}
 					onClick={() => navigate("/")}
+					hover={false}
 				/>
 			) : (
 				<ButtonIcon
 					category={"icon"}
 					name={"Home"}
 					onClick={() => navigate("/")}
+					hover={false}
 				/>
 			)}
 			<DropdownContainer>
@@ -51,6 +52,7 @@ const ToolBox: FunctionComponent = () => {
 							category={"icon"}
 							name={"LikeFilledBlack"}
 							onClick={() => dropdownHandler("notify", showNotify, dispatch)}
+							hover={false}
 						/>
 						<Dropdown category="notify" />
 					</>
@@ -59,6 +61,7 @@ const ToolBox: FunctionComponent = () => {
 						category={"icon"}
 						name={"Like"}
 						onClick={() => dropdownHandler("notify", showNotify, dispatch)}
+						hover={false}
 					/>
 				)}
 			</DropdownContainer>
@@ -67,18 +70,21 @@ const ToolBox: FunctionComponent = () => {
 					category={"icon"}
 					name={"UploadFilled"}
 					onClick={() => dispatch(openModal(OPEN_UPLOAD_MODAL))}
+					hover={false}
 				/>
 			) : (
 				<ButtonIcon
 					category={"icon"}
 					name={"Upload"}
 					onClick={() => dispatch(openModal(OPEN_UPLOAD_MODAL))}
+					hover={false}
 				/>
 			)}
 			<DropdownContainer>
 				<ButtonIcon
 					category={"profile"}
 					onClick={() => dropdownHandler("profile", showProfile, dispatch)}
+					hover={false}
 				/>
 				{showProfile && <Dropdown category="profile" />}
 			</DropdownContainer>

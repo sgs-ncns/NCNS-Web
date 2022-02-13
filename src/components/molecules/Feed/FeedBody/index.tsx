@@ -58,7 +58,7 @@ const PrevArrow = (props: any) => {
 			// className={className}
 			style={{
 				...style,
-				position: "fixed",
+				position: "absolute",
 				marginTop: "60%",
 				width: "26px",
 				height: "26px",
@@ -86,7 +86,7 @@ const NextArrow = (props: any) => {
 			// className={"slick-arrow"}
 			style={{
 				...style,
-				position: "fixed",
+				position: "absolute",
 				width: "26px",
 				height: "26px",
 				zIndex: 1,

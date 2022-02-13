@@ -5,6 +5,10 @@ import FeedHeader from "components/molecules/Feed/FeedHeader";
 import FeedTool from "components/molecules/Feed/FeedTool";
 import styled from "styled-components";
 
+// 피드 컴포넌트입니다. 현재는 목업 데이터로 이루어져 있고
+// page에서 데이터를 받아와 바인딩 될 예정입니다.
+// 바인딩 되는 정보에 따라 props 타입을 줄 예정입니다.
+
 interface FeedProps {
 	src: any;
 }

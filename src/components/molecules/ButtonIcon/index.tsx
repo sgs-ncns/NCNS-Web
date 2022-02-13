@@ -8,9 +8,9 @@ import Image from "components/atoms/Image";
  피드에 나타나는 버튼은 마우스 오버시 드롭다운 기능이 있습니다.*/
 
 interface ButtonType {
-	category: "icon" | "profile" | "feed";
+	category: "icon" | "profile";
 	name?: IconTypes;
-	hover?: boolean;
+	hover: boolean;
 	onClick?: React.MouseEventHandler<HTMLButtonElement>;
 	onMouseOver?: React.MouseEventHandler<HTMLButtonElement>;
 	onMouseLeave?: React.MouseEventHandler<HTMLButtonElement>;
@@ -26,7 +26,7 @@ const ButtonIcon: FunctionComponent<ButtonType> = (props) => {
 			onMouseLeave={() => hover && setHoverState(false)}
 		>
 			{category === "icon" ? (
-				<Icon name={name} hover={hover && isHover} />
+				<Icon name={name} hover={hover} />
 			) : (
 				<Image category={"circle"} width="25px" />
 			)}

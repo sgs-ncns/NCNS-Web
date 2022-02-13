@@ -9,6 +9,10 @@ import { useNavigate } from "react-router-dom";
 import { useAuth } from "router/auth";
 import { LoginBox } from "common/styles";
 
+// 로그인 파트입니다. 로그인 버튼은 아이디 값과 비밀번호 값이 차 있을 때 활성화되며
+// 로그인 버튼을 누르게 되면, 유효한 id인지 체크하는 함수를 실행하고 콜백 함수로 돌아와
+// 홈 피드로 보내주게 됩니다.
+
 const Login: FunctionComponent = () => {
 	const [active, setActive] = useState<boolean>(false);
 	const [id, setId] = useState<string>("");
@@ -22,8 +26,6 @@ const Login: FunctionComponent = () => {
 	}, [id, password]);
 
 	const submitHandler = (event: React.FormEvent<HTMLFormElement>) => {
-		alert(`${id}, ${password}값 서버로 보냄`);
-		//여기서 redux 값 변경 되어야 할 듯 하다.
 		event.preventDefault();
 
 		auth.signin(id, () => {

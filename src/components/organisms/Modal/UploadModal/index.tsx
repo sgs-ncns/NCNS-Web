@@ -6,6 +6,9 @@ import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "reducers";
 import styled from "styled-components";
 
+// 사진 업로드 시 뜨는 모달입니다.
+// 게시물 업로드 흐름은 홈 화면에 뜨는 부분과 동일합니다.
+
 const uploadStyle = {
 	overlay: {
 		zIndex: 10,

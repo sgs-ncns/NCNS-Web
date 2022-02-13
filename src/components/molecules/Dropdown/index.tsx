@@ -9,6 +9,7 @@ import { closeMenu } from "reducers/dropReducer";
 import styled, { css } from "styled-components";
 
 // 드롭다운을 구현한 파트입니다. 조건부 렌더링과 Redux 상태 관리 툴을 사용해 구현해보았습니다.
+// 통신이 일어나게 되어 전부 나눠서 구현될 예정입니다.
 
 interface DropdownProps {
 	category: "notify" | "profile" | "feed";

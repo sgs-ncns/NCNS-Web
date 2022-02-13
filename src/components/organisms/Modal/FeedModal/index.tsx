@@ -10,6 +10,10 @@ import CommentTab from "components/molecules/Feed/CommentTab";
 import Comment from "components/molecules/Comment";
 import Image from "components/atoms/Image";
 
+// 피드에 댓글 설정을 누르면 뜨게 되는 모달입니다.
+// 모달을 들어가면 댓글 통신이 일어나게 되고, 그 값으로 S3에서 정보를 받아와
+// 사진과 댓글들이 뜨게 됩니다.
+
 const profileStyle = {
 	overlay: {
 		zIndex: 10,

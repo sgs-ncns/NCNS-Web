@@ -28,9 +28,10 @@ const FeedHeader: FunctionComponent<HeaderProps> = (props) => {
 			<Header>
 				<DropdownContainer>
 					<ButtonIcon
-						category={"feed"}
+						category={"profile"}
 						onMouseOver={() => dispatch(openMenu("feed"))}
 						onMouseLeave={() => dispatch(closeMenu("feed"))}
+						hover={true}
 					/>
 					{showFeed && <Dropdown category="feed" />}
 				</DropdownContainer>

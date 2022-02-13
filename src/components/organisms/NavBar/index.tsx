@@ -1,8 +1,10 @@
-import LinkIcon from "components/atoms/LinkIcon";
 import ToolBox from "components/molecules/ToolBox";
 import React, { FunctionComponent, useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
+import logo from "static/imgs/logo.png";
+
+// 네비게이션 바입니다.
 
 const NavBar: FunctionComponent = () => {
 	const [clicked, setClicked] = useState(false);
@@ -31,7 +33,7 @@ const NavBar: FunctionComponent = () => {
 		<StyledWrapper>
 			<Grid>
 				<FirstItem>
-					<LinkIcon category={"logo"} />
+					<img src={logo} />
 				</FirstItem>
 				<SecondItem>
 					<StyledInput

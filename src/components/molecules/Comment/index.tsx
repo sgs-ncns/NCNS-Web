@@ -9,7 +9,7 @@ import ButtonIcon from "../ButtonIcon";
 const Comment = () => {
 	return (
 		<Grid>
-			<ButtonIcon category={"profile"} />
+			<ButtonIcon category={"profile"} hover={true} />
 			<ContentGrid>
 				<LinkedId underline={false}>누군가</LinkedId>
 				contentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontent
