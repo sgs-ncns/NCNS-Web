@@ -1,6 +1,6 @@
+import React from "react";
 import ImgUploadBox from "components/molecules/ImgUploadBox";
 import { modalCloseHandler } from "lib/Handler";
-import React from "react";
 import ReactModal from "react-modal";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "reducers";

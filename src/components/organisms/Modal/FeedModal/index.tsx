@@ -25,6 +25,7 @@ const profileStyle = {
 
 interface FeedModalProps {
 	id?: string;
+	comments?: Array<object>; //타입 상세하게 해서 common/types에 지정해주기
 }
 
 const FeedModal = (props: FeedModalProps) => {
@@ -49,6 +50,7 @@ const FeedModal = (props: FeedModalProps) => {
 				<ProfileContents>
 					<FeedHeader />
 					<StyledUl>
+						{/* 통신 되면 리스트 맵함수로 변경하기 */}
 						<StyledLi>
 							<Comment />
 						</StyledLi>

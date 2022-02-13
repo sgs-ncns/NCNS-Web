@@ -33,6 +33,10 @@ const Icon: FunctionComponent<IconProps> = (props) => {
 			return <svg.Home />;
 		case "HomeFilled":
 			return <svg.HomeFilled />;
+		case "LeftArrow":
+			return <svg.LeftArrow />;
+		case "RightArrow":
+			return <svg.RightArrow />;
 		default:
 			return null;
 	}

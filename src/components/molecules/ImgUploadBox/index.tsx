@@ -2,22 +2,20 @@ import RequestButton from "components/atoms/RequestButton";
 import React, { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 import FeedBody from "../Feed/FeedBody";
+import { MentionsInput, Mention } from "react-mentions";
+import { followers, hashtags } from "mocks/tags";
 
 // 이미지 업로드를 할 수 있는 컴포넌트입니다.
 // 클릭 시 이미지 업로드가 되며, preview 기능을 구현할 예정입니다.
 
 function ImgUploadBox() {
 	const [files, setFiles] = useState(null);
-	const [Contents, setContents] = useState<string>("");
+	const [contents, setContents] = useState<string>("");
+	// const [hashtags, setHashtags] = useState<Array<string>>([]);
 	const [isLoading, setIsLoading] = useState<boolean>(false);
 	const [isFirst, setFirst] = useState<boolean>(true);
 	const [isSecond, setSecond] = useState<boolean>(false);
 	const ref = useRef(null);
-
-	useEffect(() => {
-		console.log("files", files);
-		return;
-	}, [files]);
 
 	const onLoadFile = (event: React.ChangeEvent<HTMLInputElement>) => {
 		if (!event.target.files) return;
@@ -37,11 +35,16 @@ function ImgUploadBox() {
 			setFirst(false);
 			setSecond(true);
 		}
+		if (isSecond === true) {
+			alert(contents);
+			onReset();
+		}
 	};
 
 	const onReset = () => {
 		setFirst(true);
 		setSecond(false);
+		setContents(null);
 		setFiles(null);
 	};
 
@@ -53,11 +56,20 @@ function ImgUploadBox() {
 					<FeedBody src={files} />
 				</UploadBox>
 			)}
-			{isSecond && <p>textArea</p>}
+			{isSecond && (
+				<InputArea
+					value={contents}
+					onChange={(e) => setContents(e.target.value)}
+				>
+					<Mention trigger="@" data={followers} />
+					<Mention trigger="#" data={hashtags} />
+				</InputArea>
+			)}
 			{files ? (
 				<ButtonGrid>
 					<RequestButton type={"button"} primary={false} onClick={toNextStep}>
-						다음
+						{isFirst && "다음"}
+						{isSecond && "게시"}
 					</RequestButton>
 					<RequestButton type={"button"} onClick={onReset} primary={false}>
 						취소
@@ -107,6 +119,13 @@ const ButtonGrid = styled.div`
 	width: 40%;
 	justify-content: center;
 	align-items: center;
+`;
+
+const InputArea = styled(MentionsInput)`
+	width: 80%;
+	margin-bottom: 10px;
+	height: 50%;
+	overflow: visible;
 `;
 
 const StyledDiv = styled.div`

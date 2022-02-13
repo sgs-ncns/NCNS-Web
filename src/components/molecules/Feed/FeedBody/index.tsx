@@ -4,6 +4,7 @@ import styled from "styled-components";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+import ButtonIcon from "components/molecules/ButtonIcon";
 
 // react slick 라이브러리를 사용하여 image carousel을 구현한 부분입니다.
 // custom arrow를 통해 화살표의 위치나 모양을 변경하였으며,
@@ -17,17 +18,24 @@ const PrevArrow = (props: any) => {
 	const { className, style, onClick } = props;
 	return (
 		<div
-			className={className}
+			className="slick-arrow"
 			style={{
-				...style,
-				display: "block",
-				background: "lightgreen",
-				marginLeft: "5%",
+				// ...style,
+				width: "26px",
+				height: "26px",
+				display: "flex",
 				zIndex: 1,
+				background: "#dbdbdb",
 				borderRadius: "50%",
 			}}
-			onClick={onClick}
-		/>
+		>
+			<ButtonIcon
+				name="LeftArrow"
+				hover={false}
+				category={"icon"}
+				onClick={onClick}
+			/>
+		</div>
 	);
 };
 
@@ -38,14 +46,17 @@ const NextArrow = (props: any) => {
 			className={className}
 			style={{
 				...style,
-				display: "block",
-				background: "lightgreen",
 				marginRight: "5%",
 				zIndex: 1,
-				borderRadius: "50%",
 			}}
-			onClick={onClick}
-		/>
+		>
+			<ButtonIcon
+				name="RightArrow"
+				hover={false}
+				category={"icon"}
+				onClick={onClick}
+			/>
+		</div>
 	);
 };
 
