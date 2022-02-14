@@ -5,10 +5,14 @@ import Image from "components/atoms/Image/index";
 import Logo from "static/imgs/logo.png";
 import SignUpInput from "components/atoms/LoginInput";
 import RequestButton from "components/atoms/RequestButton";
-import { sendSignUp } from "lib/request/signUp";
+import {
+	requestDuplicateAccount,
+	requestDuplicateEmail,
+	sendSignUp,
+} from "lib/request/signUp";
 import { useNavigate } from "react-router-dom";
 import { emailHandler } from "utils/format";
-import { LoginBox } from "common/styles";
+import { LoginBox, Warning } from "common/styles";
 
 // 회원가입 컴포넌트입니다. 네 가지의 항목을 입력해야 하며,
 // 이메일 계정과 accountName은 중복이 불가능 하므로 포커싱 아웃이 될 때, 중복하는 지를 체크하는 함수를 부릅니다.
@@ -20,6 +24,8 @@ const SignUp: FunctionComponent = () => {
 	const [accountName, setAccountName] = useState<string>("");
 	const [password, setPassword] = useState<string>("");
 	const [checkEmail, setCheckEmail] = useState<boolean>(true);
+	const [isDuplicateEmail, setDuplicateEmail] = useState<boolean>(false);
+	const [isDuplicateAccount, setDuplicateAccount] = useState<boolean>(true);
 	const navigate = useNavigate();
 
 	// 포커싱 아웃 될 때 불리우는 함수입니다.
@@ -31,17 +37,34 @@ const SignUp: FunctionComponent = () => {
 					console.log(
 						`서버로 ${email}값으로 요청 보내고 중복 체크한 값 돌려받기`,
 					);
+				requestDuplicateEmail(email)
+					.then((response) => {
+						if (response.data.result === true) setDuplicateEmail(true);
+						else setDuplicateEmail(false);
+					})
+					.catch((err) => {
+						console.log(err);
+						return;
+					});
 				break;
 			case "accountName":
 				accountName &&
 					console.log(
 						`서버로 ${accountName}값으로 요청 보내고 중복 체크한 값 돌려받기`,
 					);
+				requestDuplicateEmail(accountName)
+					.then((response) => {
+						if (response.data.result === true) setDuplicateEmail(true);
+						else setDuplicateEmail(false);
+					})
+					.catch((err) => {
+						console.log(err);
+						return;
+					});
 				break;
 			default:
 				return;
 		}
-		//checked 값 가지고 있어야하는가? 각각의 useState마다??
 	};
 
 	// 의존성 배열에 담긴 값들을 전부 판별하여 모두 참일 때만 전송 버튼을 활성화 합니다.
@@ -154,11 +177,4 @@ const StyledForm = styled.form`
 	align-items: center;
 	width: 100%;
 	margin-bottom: 20px;
-`;
-
-const Warning = styled.p`
-	color: red;
-	margin-top: 0;
-	font-size: 11px;
-	margin-bottom: 0;
 `;

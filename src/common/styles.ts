@@ -26,3 +26,10 @@ export const LoginBox = styled.div`
 	margin: 0 0 10px;
 	padding: 10px 0;
 `;
+
+export const Warning = styled.p`
+	color: red;
+	margin-top: 0;
+	font-size: 11px;
+	margin-bottom: 0;
+`;

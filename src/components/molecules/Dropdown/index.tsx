@@ -3,10 +3,11 @@ import useOutsideClick from "hooks/useOutsideClick";
 import { requestNotify } from "lib/request/notify";
 import React, { FunctionComponent, useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { NavigateFunction, useNavigate } from "react-router-dom";
 import { RootState } from "reducers";
 import { closeMenu } from "reducers/dropReducer";
 import styled, { css } from "styled-components";
+import Notify from "../Notify";
 
 // 드롭다운을 구현한 파트입니다. 조건부 렌더링과 Redux 상태 관리 툴을 사용해 구현해보았습니다.
 // 통신이 일어나게 되어 전부 나눠서 구현될 예정입니다.
@@ -55,8 +56,18 @@ const Dropdown = (props: DropdownProps) => {
 			{category === "feed" && <div>hello</div>}
 			{category === "notify" &&
 				datas.map((data, index) => {
+					const username: string = data.target_name;
 					return (
-						<div key={index}>{data.target_name}이 좋아요를 눌렀습니다.</div>
+						<Notify
+							key={index}
+							onClick={() => {
+								navigate(`/${username}`);
+								dispatch(closeMenu());
+							}}
+							category={"like"}
+						>
+							{username}님이 좋아요를 눌렀습니다.
+						</Notify>
 					);
 				})}
 			{category === "profile" && (
@@ -83,6 +94,8 @@ export default Dropdown;
 
 // display: ${(props) => (props.show ? `block` : `none`)};
 const DropdownMenu = styled.div<{ category: string }>`
+	overflow: auto;
+	overflow-x: hidden;
 	position: absolute;
 	background: white;
 	width: 300px;

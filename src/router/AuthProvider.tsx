@@ -1,7 +1,10 @@
+import { sendLogin } from "lib/request/login";
+import { checkResponseCode } from "lib/utils";
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "reducers";
 import { addUser, removeUser, UserState } from "reducers/userReducer";
+import { emailHandler } from "utils/format";
 import { AuthContext } from "./auth";
 
 // 로직을 포함한 객체입니다. 이 객체에서는 로그인 시  불리울 함수를 정의하고 기능만 정의하고 있습니다.
@@ -28,12 +31,20 @@ const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 	const user = useSelector((state: RootState) => state.userReducer.accountName);
 	// const [user, setUser] = React.useState<any>(null);
 
-	const signin = (newUser: string, callback: VoidFunction) => {
+	const signin = (id: string, password: string, callback: VoidFunction) => {
 		return AuthProviderObject.signin(() => {
 			try {
-				//await 걸어서 받아오기
-				dispatch(addUser(newUser));
-				callback();
+				const res = sendLogin(id, password).then((response) => {
+					const responseCode = checkResponseCode(response.data.response_code);
+					if (responseCode === "00") {
+						//email일 떄 나눠주기
+						dispatch(addUser(id));
+						callback();
+					} else {
+						WarningAlert("유효하지 않은 아이디입니다.");
+						return;
+					}
+				});
 			} catch (err) {
 				console.log(err);
 				return;
@@ -59,3 +70,6 @@ const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 };
 
 export default AuthProvider;
+function WarningAlert(arg0: string) {
+	throw new Error("Function not implemented.");
+}

@@ -1,5 +1,9 @@
 import axios from "axios";
-import { SEND_SIGNUP_INFO_API } from "common/url";
+import {
+	SEND_DUPLICATE_ACCOUNT,
+	SEND_DUPLICATE_EMAIL,
+	SEND_SIGNUP_INFO_API,
+} from "common/url";
 
 export const sendSignUp = async (
 	email: string,
@@ -25,4 +29,18 @@ export const sendSignUp = async (
 		console.log(err);
 		return;
 	}
+};
+
+export const requestDuplicateEmail = async (email: string) => {
+	const body = {
+		email: email,
+	};
+	return await axios.post(SEND_DUPLICATE_EMAIL, body);
+};
+
+export const requestDuplicateAccount = async (accountName: string) => {
+	const body = {
+		account_name: accountName,
+	};
+	return await axios.post(SEND_DUPLICATE_ACCOUNT, body);
 };

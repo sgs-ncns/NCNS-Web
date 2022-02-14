@@ -16,3 +16,7 @@ export const handleButtonType = (category: string, comment: string) => {
 			return;
 	}
 };
+
+export const checkResponseCode = (code: string): string => {
+	return code.substring(code.length - 3, code.length - 1);
+};
