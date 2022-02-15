@@ -1,23 +1,24 @@
 import axios from "axios";
 import { SEND_LOGIN_ACCOUNT_API, SEND_LOGIN_EMAIL_API } from "common/url";
-import { emailHandler } from "utils/format";
+import { isEmail } from "utils/format";
 
 export const sendLogin = async (id: string, password: string) => {
-	let isEmail: boolean;
-	emailHandler(id, (value: boolean) => (isEmail = value));
-	console.log(isEmail);
+	let email: boolean;
+	isEmail(id, (value: boolean) => (email = value));
 	let body: object;
-	if (isEmail) {
+	if (email) {
 		body = {
 			email: id,
 			password: password,
 		};
+		console.log(body);
 		return await axios.post(SEND_LOGIN_EMAIL_API, body);
 	} else {
 		body = {
-			accountName: id,
+			account_name: id,
 			password: password,
 		};
+		console.log(body);
 		return await axios.post(SEND_LOGIN_ACCOUNT_API, body);
 	}
 };

@@ -1,4 +1,6 @@
 import Amplify, { Auth, Storage } from "aws-amplify";
+export const S3_ADDRESS =
+	"https://sgsncns130837-dev.s3.ap-northeast-2.amazonaws.com/public/";
 
 Amplify.configure({
 	Auth: {
@@ -15,12 +17,11 @@ Amplify.configure({
 	},
 });
 
-export const requestImages = async () => {
+export const requestImages = async (userId: string, s3FolderName: string) => {
 	try {
-		const res = await Storage.list("test1/");
+		const res = await Storage.list(`${userId}/${s3FolderName}/`);
 		res.shift();
 		return res;
-		// console.log(res);
 	} catch (err) {
 		console.log(err);
 		return;

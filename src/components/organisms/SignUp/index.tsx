@@ -11,7 +11,7 @@ import {
 	sendSignUp,
 } from "lib/request/signUp";
 import { useNavigate } from "react-router-dom";
-import { emailHandler } from "utils/format";
+import { isEmail } from "utils/format";
 import { LoginBox, Warning } from "common/styles";
 
 // 회원가입 컴포넌트입니다. 네 가지의 항목을 입력해야 하며,
@@ -24,7 +24,7 @@ const SignUp: FunctionComponent = () => {
 	const [accountName, setAccountName] = useState<string>("");
 	const [password, setPassword] = useState<string>("");
 	const [checkEmail, setCheckEmail] = useState<boolean>(true);
-	const [isDuplicateEmail, setDuplicateEmail] = useState<boolean>(false);
+	const [isDuplicateEmail, setDuplicateEmail] = useState<boolean>(true);
 	const [isDuplicateAccount, setDuplicateAccount] = useState<boolean>(true);
 	const navigate = useNavigate();
 
@@ -39,7 +39,8 @@ const SignUp: FunctionComponent = () => {
 					);
 				requestDuplicateEmail(email)
 					.then((response) => {
-						if (response.data.result === true) setDuplicateEmail(true);
+						console.log(response.data.data.result);
+						if (response.data.data.result === true) setDuplicateEmail(true);
 						else setDuplicateEmail(false);
 					})
 					.catch((err) => {
@@ -52,10 +53,11 @@ const SignUp: FunctionComponent = () => {
 					console.log(
 						`서버로 ${accountName}값으로 요청 보내고 중복 체크한 값 돌려받기`,
 					);
-				requestDuplicateEmail(accountName)
+				requestDuplicateAccount(accountName)
 					.then((response) => {
-						if (response.data.result === true) setDuplicateEmail(true);
-						else setDuplicateEmail(false);
+						console.log(response.data.data.result);
+						if (response.data.data.result === true) setDuplicateAccount(true);
+						else setDuplicateAccount(false);
 					})
 					.catch((err) => {
 						console.log(err);
@@ -69,10 +71,26 @@ const SignUp: FunctionComponent = () => {
 
 	// 의존성 배열에 담긴 값들을 전부 판별하여 모두 참일 때만 전송 버튼을 활성화 합니다.
 	useEffect(() => {
-		if (checkEmail && email && accountName && nickname && password)
+		if (
+			checkEmail &&
+			email &&
+			accountName &&
+			nickname &&
+			password &&
+			!isDuplicateEmail &&
+			!isDuplicateAccount
+		)
 			setActive(true);
 		else setActive(false);
-	}, [email, accountName, nickname, password, checkEmail]);
+	}, [
+		email,
+		accountName,
+		nickname,
+		password,
+		checkEmail,
+		isDuplicateEmail,
+		isDuplicateAccount,
+	]);
 
 	// 회원가입 버튼을 누르게 되면, 서버로 보내며 응답코드에 대한 에러 처리 예정입니다.
 	const submitHandler = (event: React.FormEvent<HTMLFormElement>) => {
@@ -104,7 +122,7 @@ const SignUp: FunctionComponent = () => {
 						setEmail(e.target.value);
 					}}
 					onBlur={() => {
-						emailHandler(email, (state: boolean) => {
+						isEmail(email, (state: boolean) => {
 							setCheckEmail(state);
 						});
 						duplicateHandler("email");
@@ -112,6 +130,7 @@ const SignUp: FunctionComponent = () => {
 					//콜백 넣기
 				/>
 				{!checkEmail && <Warning>잘못된 이메일 형식입니다.</Warning>}
+				{isDuplicateEmail && <Warning>중복된 이메일입니다.</Warning>}
 				{/* </div> */}
 				<SignUpInput
 					type="text"
@@ -124,6 +143,7 @@ const SignUp: FunctionComponent = () => {
 					onChange={(e) => setAccountName(e.target.value)}
 					onBlur={() => duplicateHandler("accountName")}
 				/>
+				{isDuplicateAccount && <Warning>중복된 아이디입니다.</Warning>}
 				<SignUpInput
 					type="password"
 					placeholder="비밀번호"

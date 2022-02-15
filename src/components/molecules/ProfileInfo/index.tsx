@@ -9,7 +9,8 @@ import styled from "styled-components";
 
 function ProfileInfo() {
 	const userName = useParams();
-	const [valid, setValid] = useState(true);
+	const [isFollow, setFollow] = useState(true);
+	const [isKkanbu, setKkanbu] = useState(true);
 
 	const followerModal = () => {
 		console.log("팔로워 서버 요청 후 모달 띄우기");
@@ -21,21 +22,38 @@ function ProfileInfo() {
 
 	const requestFollow = () => {
 		console.log("서버로 팔로우 요청 보내기");
-		setValid(!valid);
+		setFollow(!isFollow);
 	};
+
+	const requestKkanbu = () => {
+		console.log("서버로 깐부 요청 보내기");
+		setKkanbu(!isKkanbu);
+	};
+
 	return (
 		<ProfileSection>
 			<Profile>
 				<StyledH2>{userName.id}</StyledH2>
-				<RequestButton
-					type={"button"}
-					primary={false}
-					height="30px"
-					onClick={requestFollow}
-					valid={valid}
-				>
-					{valid ? "팔로우" : "팔로우 취소"}
-				</RequestButton>
+				<ButtonGrid>
+					<RequestButton
+						type={"button"}
+						primary={false}
+						height="30px"
+						onClick={requestFollow}
+						valid={isFollow}
+					>
+						{isFollow ? "팔로우" : "팔로우 취소"}
+					</RequestButton>
+					<RequestButton
+						type={"button"}
+						kkanbu={true}
+						height="30px"
+						onClick={requestKkanbu}
+						valid={isKkanbu}
+					>
+						{isKkanbu ? "깐부" : "깐부 취소"}
+					</RequestButton>
+				</ButtonGrid>
 			</Profile>
 			<InfoList>
 				<Info>
@@ -58,7 +76,9 @@ function ProfileInfo() {
 				</Info>
 			</InfoList>
 			<Details>
-				Erik Lamela Twitter @ErikLamela www.facebook.com/Eriklamelacoco
+				Erik Lamela Twitter @ErikLamela www.facebook.com/EriklamelacocoErik
+				Lamela Twitter @ErikLamela www.facebook.com/EriklamelacocoErik Lamela
+				Twitter @ErikLamela www.facebook.com/Eriklamelacoco
 			</Details>
 		</ProfileSection>
 	);
@@ -72,8 +92,7 @@ const StyledLink = styled.a`
 
 const ProfileSection = styled.section`
 	display: flex;
-	flex-basis: 30px;
-	flex-grow: 3;
+	width: 60%;
 	color: rgba(var(--i1d, 38, 38, 38), 1);
 	flex-shrink: 1;
 	flex-direction: column;
@@ -82,7 +101,6 @@ const ProfileSection = styled.section`
 
 const Profile = styled.div`
 	display: flex;
-	margin-bottom: 20px;
 `;
 
 const StyledH2 = styled.h2`
@@ -95,6 +113,12 @@ const StyledH2 = styled.h2`
 	overflow: hidden;
 	text-overflow: ellipsis;
 	white-space: nowrap;
+`;
+
+const ButtonGrid = styled.div`
+	display: flex;
+	margin-left: 3%;
+	gap: 10px;
 `;
 
 const InfoList = styled.ul`
@@ -114,5 +138,6 @@ const Details = styled.div`
 	font-size: 16px;
 	line-height: 24px;
 	word-wrap: break-word;
-	display: block;
+	display: flex;
+	word-break: break-all;
 `;

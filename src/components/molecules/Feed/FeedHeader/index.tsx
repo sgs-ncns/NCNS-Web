@@ -3,7 +3,7 @@ import { DropdownContainer } from "common/styles";
 import Dropdown from "components/molecules/Dropdown";
 import LinkedId from "components/atoms/LinkedId";
 import ButtonIcon from "components/molecules/ButtonIcon";
-import React, { FunctionComponent } from "react";
+import React, { FunctionComponent, RefObject } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "reducers";
 import { closeMenu, openMenu } from "reducers/dropReducer";
@@ -14,6 +14,7 @@ import styled from "styled-components";
 
 interface HeaderProps {
 	id?: string;
+	ref?: any;
 }
 
 const FeedHeader: FunctionComponent<HeaderProps> = (props) => {
@@ -36,7 +37,7 @@ const FeedHeader: FunctionComponent<HeaderProps> = (props) => {
 					{showFeed && <Dropdown category="feed" />}
 				</DropdownContainer>
 				<StyledDiv>
-					<LinkedId underline={true}>MyId</LinkedId>
+					<LinkedId underline={true}>{id}</LinkedId>
 				</StyledDiv>
 			</Header>
 		</Grid>

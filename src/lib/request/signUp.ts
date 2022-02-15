@@ -13,6 +13,7 @@ export const sendSignUp = async (
 	callback: VoidFunction,
 ) => {
 	const body = {
+		auth_type: "LOCAL",
 		email: email,
 		nickname: nickname,
 		accountName: accountName,
@@ -26,7 +27,7 @@ export const sendSignUp = async (
 		console.log(data);
 		callback();
 	} catch (err) {
-		console.log(err);
+		console.log("signUp error", err);
 		return;
 	}
 };

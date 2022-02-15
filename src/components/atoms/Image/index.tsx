@@ -10,13 +10,14 @@ interface ImageType {
 	category: "circle" | "square" | "rectangle";
 	src?: string;
 	width?: string;
+	height?: string;
 }
 
 const Image: FunctionComponent<ImageType> = (props) => {
-	const { category, src, width } = props;
+	const { category, src, width, height } = props;
 	return (
-		<StyledCanvas category={category} width={width}>
-			<StyledImg category={category} src={src} width={width} />
+		<StyledCanvas category={category} width={width} height={height}>
+			<StyledImg category={category} src={src} />
 		</StyledCanvas>
 	);
 };
@@ -31,7 +32,8 @@ const StyledCanvas = styled.div<ImageType>`
 	${(props) =>
 		props.category === "rectangle"
 			? css`
-					height: 100%;
+					width: ${props.width ? props.width : "auto"};
+					height: ${props.height ? props.height : "auto"};
 			  `
 			: css`
 					width: ${props.width};
@@ -39,7 +41,7 @@ const StyledCanvas = styled.div<ImageType>`
 			  `};
 `;
 
-const StyledImg = styled.img<ImageType>`
+const StyledImg = styled.img<{ category: string }>`
 	width: 100%;
 	height: 100%;
 	border-radius: ${(props) => props.category === "circle" && "50%"};

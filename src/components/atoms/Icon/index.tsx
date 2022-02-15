@@ -1,5 +1,6 @@
 import React, { FunctionComponent } from "react";
 import styled, { css } from "styled-components";
+import Logo from "static/imgs/logo.png";
 
 import * as svg from "./svg";
 
@@ -8,9 +9,10 @@ import * as svg from "./svg";
 // props로 넘겨 받아 path값을 수정합니다.
 
 export type IconTypes = keyof typeof svg;
+type ImgTypes = keyof typeof Logo;
 
 interface IconProps {
-	name: IconTypes;
+	name: IconTypes | ImgTypes;
 	hover: boolean;
 }
 

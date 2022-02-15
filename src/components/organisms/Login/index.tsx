@@ -50,6 +50,7 @@ const Login: FunctionComponent = () => {
 					placeholder="전화번호, 사용자 이름 또는 이메일"
 					onChange={(e) => setId(e.target.value)}
 					onBlur={() =>
+						id &&
 						checkValidId(id, (isValid: boolean) => {
 							isValid ? setIsValidId(true) : setIsValidId(false);
 						})

@@ -10,6 +10,7 @@ interface ButtonType {
 	onClick?: React.MouseEventHandler<HTMLButtonElement>;
 	//primary는 파란색 바탕의 하얀 글씨인 팔로우버튼과 그 반대인 게시물 게시 버튼을 갖게 됩니다.
 	primary?: boolean;
+	kkanbu?: boolean;
 	width?: string;
 	height?: string;
 	//valid는 팔로우 언팔로우 에 대한 조건적 css 기능을 위한 props입니다.
@@ -25,6 +26,7 @@ const RequestButton: FunctionComponent<ButtonType> = (props) => {
 		primary = true,
 		width,
 		height,
+		kkanbu = false,
 		valid = true,
 		active = true,
 	} = props;
@@ -34,6 +36,7 @@ const RequestButton: FunctionComponent<ButtonType> = (props) => {
 			primary={primary}
 			width={width}
 			height={height}
+			kkanbu={kkanbu}
 			onClick={onClick}
 			valid={valid}
 		>
@@ -53,6 +56,7 @@ const StyledButton = styled.button<{
 	height: string;
 	primary: boolean;
 	valid: boolean;
+	kkanbu: boolean;
 }>`
 	width: ${(props) => props.width};
 	height: ${(props) => props.height};
@@ -72,6 +76,14 @@ const StyledButton = styled.button<{
 					background: #3598f0;
 					border: none;
 			  `};
+
+	${(props) =>
+		props.kkanbu &&
+		css`
+			color: white;
+			background: #76d672;
+			border: none;
+		`}
 
 	${(props) =>
 		!props.valid &&

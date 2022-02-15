@@ -54,22 +54,25 @@ const Dropdown = (props: DropdownProps) => {
 	return (
 		<DropdownMenu ref={ref} category={category}>
 			{category === "feed" && <div>hello</div>}
-			{category === "notify" &&
-				datas.map((data, index) => {
-					const username: string = data.target_name;
-					return (
-						<Notify
-							key={index}
-							onClick={() => {
-								navigate(`/${username}`);
-								dispatch(closeMenu());
-							}}
-							category={"like"}
-						>
-							{username}님이 좋아요를 눌렀습니다.
-						</Notify>
-					);
-				})}
+			{category === "notify" && (
+				<HideScroll>
+					{datas.map((data, index) => {
+						const username: string = data.target_name;
+						return (
+							<Notify
+								key={index}
+								onClick={() => {
+									navigate(`/${username}`);
+									dispatch(closeMenu());
+								}}
+								category={"like"}
+							>
+								{username}님이 좋아요를 눌렀습니다.
+							</Notify>
+						);
+					})}
+				</HideScroll>
+			)}
 			{category === "profile" && (
 				<>
 					<DropdownItem
@@ -91,6 +94,12 @@ const Dropdown = (props: DropdownProps) => {
 };
 
 export default Dropdown;
+
+const HideScroll = styled.div`
+	// width: 100%;
+	// position: absolute;
+	// border: 1px solid black;
+`;
 
 // display: ${(props) => (props.show ? `block` : `none`)};
 const DropdownMenu = styled.div<{ category: string }>`

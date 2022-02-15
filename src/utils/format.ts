@@ -1,6 +1,6 @@
 import { SetStateAction } from "react";
 
-export const emailHandler = (
+export const isEmail = (
 	email: string,
 	callback: { (state: boolean): void; (arg0: boolean): any },
 ): void => {

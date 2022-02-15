@@ -1,8 +1,9 @@
 import ToolBox from "components/molecules/ToolBox";
 import React, { FunctionComponent, useEffect, useRef, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import styled from "styled-components";
-import logo from "static/imgs/logo.png";
+import Image from "components/atoms/Image";
+import Logo from "static/imgs/logo.png";
 
 // 네비게이션 바입니다.
 
@@ -33,7 +34,9 @@ const NavBar: FunctionComponent = () => {
 		<StyledWrapper>
 			<Grid>
 				<FirstItem>
-					<img src={logo} />
+					<Link to="/">
+						<Image src={Logo} category={"rectangle"} height={"100%"} />
+					</Link>
 				</FirstItem>
 				<SecondItem>
 					<StyledInput
@@ -74,7 +77,7 @@ const Grid = styled.div`
 
 const FirstItem = styled.div`
 	display: flex;
-	justify-content: left;
+	height: 70%;
 `;
 
 const SecondItem = styled.div`

@@ -1,6 +1,6 @@
 import Swal from "sweetalert2";
 
-const WarningAlert = async (title: string) => {
+export const WarningAlert = async (title: string) => {
 	await Swal.fire({
 		title: title,
 		icon: "error",

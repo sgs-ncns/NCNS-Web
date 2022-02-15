@@ -29,5 +29,9 @@ const Grid = styled.div`
 `;
 const Content = styled.div`
 	word-break: break-all;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	height: 30px;
 	margin-left: 8px;
 `;

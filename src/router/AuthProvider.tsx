@@ -4,7 +4,8 @@ import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "reducers";
 import { addUser, removeUser, UserState } from "reducers/userReducer";
-import { emailHandler } from "utils/format";
+import { WarningAlert } from "utils/swal";
+import { isEmail } from "utils/format";
 import { AuthContext } from "./auth";
 
 // 로직을 포함한 객체입니다. 이 객체에서는 로그인 시  불리울 함수를 정의하고 기능만 정의하고 있습니다.
@@ -27,21 +28,25 @@ const AuthProviderObject = {
 // 지역 상태 변수를 사용하지 않은 이유는 리듀서에 어차피 로그인 유저 정보가 저장되기 때문에,
 // 굳이 상태 값을 지역 변수로 또 한 번 선언하지 않아도 된다고 생각했기 때문입니다.
 const AuthProvider = ({ children }: { children: React.ReactNode }) => {
-	const dispatch = useDispatch();
-	const user = useSelector((state: RootState) => state.userReducer.accountName);
-	// const [user, setUser] = React.useState<any>(null);
+	const [user, setUser] = React.useState<any>(null);
 
 	const signin = (id: string, password: string, callback: VoidFunction) => {
 		return AuthProviderObject.signin(() => {
 			try {
 				const res = sendLogin(id, password).then((response) => {
+					console.log(response);
 					const responseCode = checkResponseCode(response.data.response_code);
 					if (responseCode === "00") {
-						//email일 떄 나눠주기
-						dispatch(addUser(id));
+						setUser(response.data.data.account_name);
+						localStorage.setItem(
+							"access_token",
+							response.data.data.access_token,
+						);
 						callback();
 					} else {
-						WarningAlert("유효하지 않은 아이디입니다.");
+						WarningAlert("유효하지 않은 아이디입니다.")
+							.then((response) => console.log(response))
+							.catch((err) => console.log(err));
 						return;
 					}
 				});
@@ -70,6 +75,6 @@ const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 };
 
 export default AuthProvider;
-function WarningAlert(arg0: string) {
+function dispatch(arg0: { type: string; user: string }) {
 	throw new Error("Function not implemented.");
 }
