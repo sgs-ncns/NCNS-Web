@@ -6,7 +6,6 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import ButtonIcon from "components/molecules/ButtonIcon";
 import Spinner from "components/atoms/Spinner";
-import { requestImages } from "utils/amplify";
 
 // react slick 라이브러리를 사용하여 image carousel을 구현한 부분입니다.
 // custom arrow를 통해 화살표의 위치나 모양을 변경하였으며,
@@ -51,58 +50,32 @@ interface ArrowProps {
 const PrevArrow = (props: any) => {
 	const { className, style, onClick } = props;
 	return (
-		<div
-			// className="slick-prev"
-			// className={className}
+		<ButtonIcon
+			className={"slick-prev slick-arrow"}
 			style={{
 				...style,
-				position: "absolute",
-				marginTop: "60%",
-				width: "26px",
-				height: "26px",
-				zIndex: 1,
-				background: "#dbdbdb",
-				borderRadius: "50%",
-				display: "flex",
-				justifyContent: "center",
 			}}
-		>
-			<ButtonIcon
-				name="LeftArrow"
-				hover={false}
-				category={"icon"}
-				onClick={onClick}
-			/>
-		</div>
+			name="LeftArrow"
+			hover={false}
+			category={"icon"}
+			onClick={onClick}
+		/>
 	);
 };
 
 const NextArrow = (props: any) => {
 	const { className, style, onClick } = props;
 	return (
-		<div
-			// className={"slick-arrow"}
+		<ButtonIcon
+			className={"slick-next slick-arrow"}
 			style={{
 				...style,
-				position: "absolute",
-				width: "26px",
-				height: "26px",
-				zIndex: 1,
-				background: "#dbdbdb",
-				borderRadius: "50%",
-				// display: "flex",
-				// justifyContent: "center",
-				// marginLeft: "calc(100% - 26px)",
-				// marginBottom: "200px",
 			}}
-		>
-			<ButtonIcon
-				name="RightArrow"
-				hover={false}
-				category={"icon"}
-				onClick={onClick}
-			/>
-		</div>
+			name="RightArrow"
+			hover={false}
+			category={"icon"}
+			onClick={onClick}
+		/>
 	);
 };
 

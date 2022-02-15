@@ -1,3 +1,4 @@
+import Spinner from "components/atoms/Spinner";
 import CommentTab from "components/molecules/Feed/CommentTab";
 import FeedBody from "components/molecules/Feed/FeedBody";
 import FeedFooter from "components/molecules/Feed/FeedFooter";
@@ -30,8 +31,8 @@ const Feed = () => {
 						setLoading(true);
 						const newFeed = await requestFeedInfo(page + 1);
 						setPage((prev) => prev + 1);
-						console.log(newFeed);
 						setFeedInfos((feedInfos) => [...feedInfos, ...newFeed]);
+						console.log(feedInfos);
 						setLoading(false);
 					};
 					getNewMovie()
@@ -49,16 +50,21 @@ const Feed = () => {
 
 	useEffect(() => {
 		console.log(feedInfos);
-		const getfeedList = () => {
+		const getfeedList = async () => {
 			// const feedList = await requestFeedInfo(page);
-			requestFeedInfo(page)
-				.then((res: Array<feedArrayType>) => setFeedInfos(res))
-				.catch((err) => {
-					console.log(err);
-					return;
-				});
+			try {
+				const res = await requestFeedInfo(page);
+				setFeedInfos(res);
+			} catch (err) {
+				console.log(err);
+				return;
+			}
 		};
-		getfeedList();
+		getfeedList()
+			.then(() => setLoading(false))
+			.catch((err) => {
+				return;
+			});
 	}, []);
 
 	// useEffect(() => {
@@ -75,18 +81,18 @@ const Feed = () => {
 	// 	// console.log("res", res);
 	// }, []);
 
-	useEffect(() => {
-		if (feedInfos) setLoading(false);
-		else setLoading(true);
-	}, [feedInfos]);
+	// useEffect(() => {
+	// 	if (feedInfos) setLoading(false);
+	// 	else setLoading(true);
+	// }, [feedInfos]);
 
 	return (
 		<Wrapper>
-			{isLoading ? null : (
-				<div>
-					{feedInfos.map((value, index) => {
-						return (
-							<div ref={lastFeedRef}>
+			{feedInfos &&
+				feedInfos.map((value, index) => {
+					return (
+						<>
+							<FeedWrapper>
 								{feedInfos.length === index + 1 ? (
 									<FeedHeader id={value.user_id} />
 								) : (
@@ -105,18 +111,32 @@ const Feed = () => {
 								<FeedTool id="95.seong" />
 								<FeedFooter />
 								<CommentTab />
-							</div>
-						);
-					})}
-				</div>
-			)}
+							</FeedWrapper>
+							<Divider ref={lastFeedRef} />
+						</>
+					);
+				})}
+			<SpinnerWrapper>{isLoading && <Spinner />}</SpinnerWrapper>
 		</Wrapper>
 	);
 };
 
 export default Feed;
 
-const Wrapper = styled.div`
+const Wrapper = styled.div``;
+
+const FeedWrapper = styled.div`
 	border: 1px solid #dbdbdb;
 	background: white;
+`;
+
+const Divider = styled.div`
+	display: flex;
+	height: 3rem;
+`;
+
+const SpinnerWrapper = styled.div`
+	display: flex;
+	justify-content: center;
+	align-itmes: center;
 `;

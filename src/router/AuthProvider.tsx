@@ -7,6 +7,7 @@ import { addUser, removeUser, UserState } from "reducers/userReducer";
 import { WarningAlert } from "utils/swal";
 import { isEmail } from "utils/format";
 import { AuthContext } from "./auth";
+import { requestUserInfo } from "lib/request/feed";
 
 // 로직을 포함한 객체입니다. 이 객체에서는 로그인 시  불리울 함수를 정의하고 기능만 정의하고 있습니다.
 const AuthProviderObject = {
@@ -34,7 +35,7 @@ const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 		return AuthProviderObject.signin(() => {
 			try {
 				const res = sendLogin(id, password).then((response) => {
-					console.log(response);
+					console.log("AuthProvider", response);
 					const responseCode = checkResponseCode(response.data.response_code);
 					if (responseCode === "00") {
 						setUser(response.data.data.account_name);
@@ -42,6 +43,12 @@ const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 							"access_token",
 							response.data.data.access_token,
 						);
+						requestUserInfo(response.data.data.user_id)
+							.then((res) => console.log("dispatch user Info", res))
+							.catch((err) => {
+								console.log(err);
+								return;
+							});
 						callback();
 					} else {
 						WarningAlert("유효하지 않은 아이디입니다.")

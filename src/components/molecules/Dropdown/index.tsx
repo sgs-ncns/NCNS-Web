@@ -29,6 +29,7 @@ const Dropdown = (props: DropdownProps) => {
 	const myId = useSelector((state: RootState) => state.userReducer.accountName);
 	const ref = useRef(null);
 	const [datas, setDatas] = useState([]);
+	const [isKkanbu, setKkanbu] = useState<boolean>(false);
 	const navigate = useNavigate();
 
 	switch (category) {
@@ -56,21 +57,27 @@ const Dropdown = (props: DropdownProps) => {
 			{category === "feed" && <div>hello</div>}
 			{category === "notify" && (
 				<HideScroll>
-					{datas.map((data, index) => {
-						const username: string = data.target_name;
-						return (
-							<Notify
-								key={index}
-								onClick={() => {
-									navigate(`/${username}`);
-									dispatch(closeMenu());
-								}}
-								category={"like"}
-							>
-								{username}님이 좋아요를 눌렀습니다.
-							</Notify>
-						);
-					})}
+					<Selector>
+						<Item onClick={() => setKkanbu(false)}>일반</Item>
+						<Item onClick={() => setKkanbu(true)}>깐부</Item>
+					</Selector>
+					{!isKkanbu
+						? datas.map((data, index) => {
+								const username: string = data.target_name;
+								return (
+									<Notify
+										key={index}
+										onClick={() => {
+											navigate(`/${username}`);
+											dispatch(closeMenu());
+										}}
+										category={"like"}
+									>
+										{username}님이 좋아요를 눌렀습니다.
+									</Notify>
+								);
+						  })
+						: null}
 				</HideScroll>
 			)}
 			{category === "profile" && (
@@ -95,11 +102,23 @@ const Dropdown = (props: DropdownProps) => {
 
 export default Dropdown;
 
-const HideScroll = styled.div`
-	// width: 100%;
-	// position: absolute;
-	// border: 1px solid black;
+const HideScroll = styled.div``;
+
+const Selector = styled.div`
+	display: flex;
+	height: 10%;
+	width: 100%;
 `;
+const Item = styled.div`
+	width: 50%;
+	height: 2rem;
+	border: 1px solid #dbdbdb;
+	text-align: center;
+	vertical-align: middle;
+`;
+// width: 100%;
+// position: absolute;
+// border: 1px solid black;
 
 // display: ${(props) => (props.show ? `block` : `none`)};
 const DropdownMenu = styled.div<{ category: string }>`
@@ -117,7 +136,7 @@ const DropdownMenu = styled.div<{ category: string }>`
 	${(props) =>
 		props.category === "notify" &&
 		css`
-			width: 300px;
+			width: 400px;
 			height: 300px;
 		`}
 

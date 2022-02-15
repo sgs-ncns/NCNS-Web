@@ -10,3 +10,6 @@ export const SEND_LOGIN_EMAIL_API = BASE_URL + "/api/auth/local";
 // 유저 서버
 export const SEND_DUPLICATE_EMAIL = BASE_URL + "/api/user/email";
 export const SEND_DUPLICATE_ACCOUNT = BASE_URL + "/api/user/account";
+
+//홈페이지
+export const GET_USER_PROFILE_INFO = BASE_URL + "/api/user/";

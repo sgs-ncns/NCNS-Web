@@ -1,4 +1,10 @@
-import React, { FunctionComponent, useEffect, useRef, useState } from "react";
+import React, {
+	CSSProperties,
+	FunctionComponent,
+	useEffect,
+	useRef,
+	useState,
+} from "react";
 import styled from "styled-components";
 import Icon, { IconTypes } from "../../atoms/Icon";
 import { useDispatch } from "react-redux";
@@ -11,16 +17,19 @@ interface ButtonType {
 	category: "icon" | "profile";
 	name?: IconTypes;
 	hover: boolean;
+	className?: string;
+	style?: CSSProperties;
 	onClick?: React.MouseEventHandler<HTMLButtonElement>;
 	onMouseOver?: React.MouseEventHandler<HTMLButtonElement>;
 	onMouseLeave?: React.MouseEventHandler<HTMLButtonElement>;
 }
 const ButtonIcon: FunctionComponent<ButtonType> = (props) => {
-	const { category, name, hover = false, onClick } = props;
+	const { category, name, hover = false, onClick, className } = props;
 	const [isHover, setHoverState] = useState<boolean>(false);
 
 	return (
 		<StyledButton
+			className={className}
 			onClick={onClick}
 			onMouseOver={() => hover && setHoverState(true)}
 			onMouseLeave={() => hover && setHoverState(false)}
