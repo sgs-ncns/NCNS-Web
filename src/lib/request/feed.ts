@@ -25,7 +25,7 @@ export const requestFeedInfo = async (
 ): Promise<Array<feedArrayType>> => {
 	try {
 		const res = await axios.get(
-			"https://864aedf4-9033-4ea5-ad3c-736b182d96e2.mock.pstmn.io/api/post/" +
+			"https://4858f6c5-7e7e-40e8-8dc8-76e63466ff41.mock.pstmn.io/api/post/" +
 				postId.toString(),
 		);
 		const data: responseType = await res.data;

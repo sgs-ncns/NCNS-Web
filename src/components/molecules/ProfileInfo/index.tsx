@@ -4,13 +4,16 @@ import {
 	StyledSpan,
 } from "components/organisms/Search/SearchHeader";
 import React, { useState } from "react";
+import { useDispatch } from "react-redux";
 import { useParams } from "react-router-dom";
+import { openModal, OPEN_FOLLOW_MODAL } from "reducers/modalReducer";
 import styled from "styled-components";
 
 function ProfileInfo() {
 	const userName = useParams();
 	const [isFollow, setFollow] = useState(true);
 	const [isKkanbu, setKkanbu] = useState(true);
+	const dispatch = useDispatch();
 
 	const followerModal = () => {
 		console.log("팔로워 서버 요청 후 모달 띄우기");
@@ -63,7 +66,7 @@ function ProfileInfo() {
 					</StyledSpan>
 				</Info>
 				<Info>
-					<StyledLink onClick={followerModal}>
+					<StyledLink onClick={() => dispatch(openModal(OPEN_FOLLOW_MODAL))}>
 						팔로워
 						<StyledNumber>1.5백만</StyledNumber>
 					</StyledLink>

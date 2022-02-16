@@ -1,12 +1,14 @@
-import axios from "axios";
+import axios, { AxiosInstance } from "axios";
+import { BASE_URL } from "./url";
 
-const token = () => {
-	return `Bearer ${localStorage.getItem("access_token")}`;
+export const customAxios = (): AxiosInstance => {
+	return axios.create({
+		baseURL: BASE_URL,
+		timeout: 10000,
+		headers: {
+			Authorization: localStorage.getItem("access_token"),
+		},
+	});
 };
 
-export const CustomAxios = axios.create({
-	timeout: 0,
-	headers: {
-		access_token: (token = () => {}),
-	},
-});
+export default customAxios;

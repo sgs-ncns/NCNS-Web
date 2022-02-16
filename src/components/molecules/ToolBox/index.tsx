@@ -85,6 +85,7 @@ const ToolBox: FunctionComponent = () => {
 					category={"profile"}
 					onClick={() => dropdownHandler("profile", showProfile, dispatch)}
 					hover={false}
+					gradation={false}
 				/>
 				{showProfile && <Dropdown category="profile" />}
 			</DropdownContainer>

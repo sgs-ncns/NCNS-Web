@@ -10,30 +10,29 @@ type HomeProps = {
 	navbar?: React.ReactNode;
 	feed: React.ReactNode;
 	sidebar?: React.ReactNode;
+	children?: React.ReactNode;
+	isPicture?: boolean;
 };
 
 const Home: FunctionComponent<HomeProps> = (props) => {
-	const { navbar, feed, sidebar } = props;
+	const { navbar, feed, sidebar, children, isPicture } = props;
 	// 페이지마다 반응형이 다르고 기기에 따른 값이 아니게 반응하기 위해 reducer로 전체 페이지 width를 관리 해보았습니다.
 	// 자세한 부분은 reducer 부분에서 설명 드리도록 하겠습니다.
 	const pageWidth = useSelector(
 		(state: RootState) => state.pageWidthReducer.width,
 	);
-	const ref = useRef();
-	console.log(sidebar, navbar);
 
 	return (
 		<Grid>
 			<Header>{navbar && <>{navbar}</>}</Header>
+			{children && <>{children}</>}
 			<Body>
-				<StyledSection pageWidth={pageWidth}>
-					<FeedLayout ref={ref}>
+				<StyledSection pageWidth={pageWidth} category={isPicture}>
+					<FeedLayout category={isPicture}>
 						<Article>{feed && <>{feed}</>}</Article>
 					</FeedLayout>
-					{pageWidth > 1000 && (
-						<ImgUploadBar pageWidth={pageWidth}>
-							{sidebar && <>{sidebar}</>}
-						</ImgUploadBar>
+					{!isPicture && pageWidth > 1000 && (
+						<ImgUploadBar>{sidebar && <>{sidebar}</>}</ImgUploadBar>
 					)}
 				</StyledSection>
 			</Body>
@@ -55,15 +54,12 @@ const Header = styled.div`
 `;
 
 const Body = styled.main`
-	background: #fafafa;
 	display: flex;
 	height: auto;
+	background: #fafafa;
 `;
 
-const StyledSection = styled.section<{ pageWidth: number }>`
-	align-items: stretch;
-	padding-top: 30px;
-	padding-left: calc((100% - 927px) * 1 / 2);
+const StyledSection = styled.section<{ pageWidth: number; category: boolean }>`
 	display: flex;
 	width: 100%;
 
@@ -73,22 +69,39 @@ const StyledSection = styled.section<{ pageWidth: number }>`
 			padding-left: 0;
 			justify-content: center;
 		`}
+
+	${(props) =>
+		props.category
+			? css`
+					justify-content: center;
+			  `
+			: css`
+					align-items: stretch;
+					padding-left: calc((100% - 927px) * 1 / 2);
+			  `}
 `;
 // justify-content: center;
 
-const FeedLayout = styled.div`
+const FeedLayout = styled.div<{ category: boolean }>`
 	height: auto;
 	display: flex;
 	position: relative;
-	max-width: 614px;
+	width: 614px;
 	flex-direction: column;
+	border: 1px solid black;
+	${(props) =>
+		props.category &&
+		css`
+			width: 80%;
+			justify-content: center;
+		`};
 `;
 
 const Article = styled.article`
-	width: 614px;
+	width: 100%;
 `;
 
-const ImgUploadBar = styled.div<{ pageWidth: number }>`
+const ImgUploadBar = styled.div`
 	margin: 0px 0px 30px;
 	width: 293px;
 	height: 80%;
