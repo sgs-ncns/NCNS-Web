@@ -1,3 +1,5 @@
+import createAxios from "common/createAxios";
+import { GET_USER_PROFILE_INFO } from "common/url";
 import ImgUploadBox from "components/molecules/ImgUploadBox";
 import React, { FunctionComponent, useEffect, useRef } from "react";
 import { useSelector } from "react-redux";

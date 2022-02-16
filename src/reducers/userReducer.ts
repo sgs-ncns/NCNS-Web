@@ -1,3 +1,5 @@
+import { userInfoType } from "lib/request/type";
+
 export const ADD_USER_INFO = "ADD";
 export const EDIT_USER_INFO = "EDIT";
 export const REMOVE_USER_INFO = "REMOVE";
@@ -7,6 +9,12 @@ export const REMOVE_USER_INFO = "REMOVE";
 
 export type UserState = {
 	accountName: string | null;
+	followerCount: number;
+	followingCount: number;
+	userId: number;
+	introduce: string | null;
+	nickname: string | null;
+	postCount: number;
 };
 
 type UserAction =
@@ -16,18 +24,33 @@ type UserAction =
 
 const initialState: UserState = {
 	accountName: null,
+	followerCount: 0,
+	followingCount: 0,
+	userId: 0,
+	introduce: null,
+	nickname: null,
+	postCount: 0,
 };
 
-export const addUser = (user: string) => {
-	return { type: ADD_USER_INFO, user };
+export const addUser = (user: userInfoType) => {
+	const payload: UserState = {
+		accountName: user.account_name,
+		followerCount: user.follower_count,
+		followingCount: user.following_count,
+		userId: user.id,
+		introduce: user.introduce,
+		nickname: user.nickname,
+		postCount: user.post_count,
+	};
+	return { type: ADD_USER_INFO, payload };
 };
 
-export const editUser = (user: string) => {
-	return { type: EDIT_USER_INFO, user };
+export const editUser = (payload: object) => {
+	return { type: EDIT_USER_INFO, payload };
 };
 
-export const removeUser = (user: string) => {
-	return { type: REMOVE_USER_INFO, user };
+export const removeUser = (payload: object) => {
+	return { type: REMOVE_USER_INFO, payload };
 };
 
 const userReducer = (state: UserState = initialState, action: UserAction) => {
@@ -35,12 +58,12 @@ const userReducer = (state: UserState = initialState, action: UserAction) => {
 		case ADD_USER_INFO:
 			return {
 				...state,
-				accountName: action.user,
+				...action.payload,
 			};
 		case EDIT_USER_INFO:
 			return {
 				...state,
-				accountName: action.user,
+				...action.payload,
 			};
 		case REMOVE_USER_INFO:
 			return {
