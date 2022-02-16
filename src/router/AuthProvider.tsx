@@ -30,6 +30,7 @@ const AuthProviderObject = {
 // 굳이 상태 값을 지역 변수로 또 한 번 선언하지 않아도 된다고 생각했기 때문입니다.
 const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 	const [user, setUser] = React.useState<any>(null);
+	const dispatch = useDispatch();
 
 	const signin = (id: string, password: string, callback: VoidFunction) => {
 		return AuthProviderObject.signin(() => {
@@ -44,7 +45,10 @@ const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 							response.data.data.access_token,
 						);
 						requestUserInfo(response.data.data.user_id)
-							.then((res) => console.log("dispatch user Info", res))
+							.then((res) => {
+								dispatch(addUser(res));
+								console.log(res);
+							})
 							.catch((err) => {
 								console.log(err);
 								return;
@@ -82,6 +86,3 @@ const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 };
 
 export default AuthProvider;
-function dispatch(arg0: { type: string; user: string }) {
-	throw new Error("Function not implemented.");
-}

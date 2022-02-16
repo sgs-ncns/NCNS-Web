@@ -1,18 +1,15 @@
 import axios from "axios";
+import createAxios from "common/createAxios";
 import { GET_USER_PROFILE_INFO } from "common/url";
 import { checkResponseCode } from "lib/utils";
 import { feedArrayType } from "pages";
-
-type responseType = {
-	response_code: string;
-	message: string;
-	data: any;
-};
+import { responseType, userInfoType } from "./type";
 
 export const requestUserInfo = async (userId: number) => {
 	try {
-		const res = await axios.get(GET_USER_PROFILE_INFO + userId.toString());
-		const data = await res.data;
+		const res = await createAxios().get(GET_USER_PROFILE_INFO + `${userId}`);
+		const data: userInfoType = await res.data.data;
+		console.log("data", data);
 		return data;
 	} catch (err) {
 		console.log(err);

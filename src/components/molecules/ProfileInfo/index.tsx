@@ -3,14 +3,34 @@ import {
 	StyledNumber,
 	StyledSpan,
 } from "components/organisms/Search/SearchHeader";
-import React, { useState } from "react";
-import { useParams } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
+import { useLocation, useParams } from "react-router-dom";
+import { RootState } from "reducers";
 import styled from "styled-components";
 
 function ProfileInfo() {
 	const userName = useParams();
 	const [isFollow, setFollow] = useState(true);
 	const [isKkanbu, setKkanbu] = useState(true);
+	const [isMe, setIsMe] = useState(false);
+	const location = useLocation();
+	const myAccountName = useSelector(
+		(state: RootState) => state.userReducer.accountName,
+	);
+	const myFollower = useSelector(
+		(state: RootState) => state.userReducer.followerCount,
+	);
+	const myFollowing = useSelector(
+		(state: RootState) => state.userReducer.followingCount,
+	);
+	const myPostCount = useSelector(
+		(state: RootState) => state.userReducer.postCount,
+	);
+
+	useEffect(() => {
+		if (location.pathname.match(myAccountName)) setIsMe(true);
+	}, []);
 
 	const followerModal = () => {
 		console.log("팔로워 서버 요청 후 모달 띄우기");
@@ -34,44 +54,58 @@ function ProfileInfo() {
 		<ProfileSection>
 			<Profile>
 				<StyledH2>{userName.id}</StyledH2>
-				<ButtonGrid>
-					<RequestButton
-						type={"button"}
-						primary={false}
-						height="30px"
-						onClick={requestFollow}
-						valid={isFollow}
-					>
-						{isFollow ? "팔로우" : "팔로우 취소"}
-					</RequestButton>
-					<RequestButton
-						type={"button"}
-						kkanbu={true}
-						height="30px"
-						onClick={requestKkanbu}
-						valid={isKkanbu}
-					>
-						{isKkanbu ? "깐부" : "깐부 취소"}
-					</RequestButton>
-				</ButtonGrid>
+				{!isMe && (
+					<ButtonGrid>
+						<RequestButton
+							type={"button"}
+							primary={false}
+							height="30px"
+							onClick={requestFollow}
+							valid={isFollow}
+						>
+							{isFollow ? "팔로우" : "팔로우 취소"}
+						</RequestButton>
+						<RequestButton
+							type={"button"}
+							kkanbu={true}
+							height="30px"
+							onClick={requestKkanbu}
+							valid={isKkanbu}
+						>
+							{isKkanbu ? "깐부" : "깐부 취소"}
+						</RequestButton>
+					</ButtonGrid>
+				)}
 			</Profile>
 			<InfoList>
 				<Info>
 					<StyledSpan>
 						게시물
-						<StyledNumber>725</StyledNumber>
+						{isMe ? (
+							<StyledNumber>{myPostCount}</StyledNumber>
+						) : (
+							<StyledNumber>725</StyledNumber>
+						)}
 					</StyledSpan>
 				</Info>
 				<Info>
 					<StyledLink onClick={followerModal}>
 						팔로워
-						<StyledNumber>1.5백만</StyledNumber>
+						{isMe ? (
+							<StyledNumber>{myFollower}</StyledNumber>
+						) : (
+							<StyledNumber>1.5백만</StyledNumber>
+						)}
 					</StyledLink>
 				</Info>
 				<Info>
 					<StyledLink onClick={followModal}>
-						팔로우
-						<StyledNumber>888</StyledNumber>
+						팔로잉
+						{isMe ? (
+							<StyledNumber>{myFollowing}</StyledNumber>
+						) : (
+							<StyledNumber>888</StyledNumber>
+						)}
 					</StyledLink>
 				</Info>
 			</InfoList>
@@ -101,6 +135,7 @@ const ProfileSection = styled.section`
 
 const Profile = styled.div`
 	display: flex;
+	margin-bottom: 3px;
 `;
 
 const StyledH2 = styled.h2`
@@ -110,7 +145,6 @@ const StyledH2 = styled.h2`
 	margin: -5px 0 -6px;
 	color: rgba(var(--i1d, 38, 38, 38), 1);
 	display: block;
-	overflow: hidden;
 	text-overflow: ellipsis;
 	white-space: nowrap;
 `;
