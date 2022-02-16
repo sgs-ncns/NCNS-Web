@@ -3,16 +3,19 @@ import {
 	StyledNumber,
 	StyledSpan,
 } from "components/organisms/Search/SearchHeader";
+
 import React, { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { useLocation, useParams } from "react-router-dom";
 import { RootState } from "reducers";
+import { openModal, OPEN_FOLLOW_MODAL } from "reducers/modalReducer";
 import styled from "styled-components";
 
 function ProfileInfo() {
 	const userName = useParams();
 	const [isFollow, setFollow] = useState(true);
 	const [isKkanbu, setKkanbu] = useState(true);
+	const dispatch = useDispatch();
 	const [isMe, setIsMe] = useState(false);
 	const location = useLocation();
 	const myAccountName = useSelector(
@@ -89,7 +92,7 @@ function ProfileInfo() {
 					</StyledSpan>
 				</Info>
 				<Info>
-					<StyledLink onClick={followerModal}>
+					<StyledLink onClick={() => dispatch(openModal(OPEN_FOLLOW_MODAL))}>
 						팔로워
 						{isMe ? (
 							<StyledNumber>{myFollower}</StyledNumber>

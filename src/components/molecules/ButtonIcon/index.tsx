@@ -18,13 +18,23 @@ interface ButtonType {
 	name?: IconTypes;
 	hover: boolean;
 	className?: string;
+	width?: string;
 	style?: CSSProperties;
+	gradation?: boolean;
 	onClick?: React.MouseEventHandler<HTMLButtonElement>;
 	onMouseOver?: React.MouseEventHandler<HTMLButtonElement>;
 	onMouseLeave?: React.MouseEventHandler<HTMLButtonElement>;
 }
 const ButtonIcon: FunctionComponent<ButtonType> = (props) => {
-	const { category, name, hover = false, onClick, className } = props;
+	const {
+		width = "25px",
+		category,
+		name,
+		hover = false,
+		onClick,
+		className,
+		gradation = true,
+	} = props;
 	const [isHover, setHoverState] = useState<boolean>(false);
 
 	return (
@@ -37,7 +47,7 @@ const ButtonIcon: FunctionComponent<ButtonType> = (props) => {
 			{category === "icon" ? (
 				<Icon name={name} hover={hover} />
 			) : (
-				<Image category={"circle"} width="25px" />
+				<Image category={"circle"} width={width} gradation={gradation} />
 			)}
 		</StyledButton>
 	);

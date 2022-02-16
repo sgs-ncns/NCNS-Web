@@ -18,35 +18,6 @@ interface ArrowProps {
 	category: "left" | "right";
 }
 
-// const Arrow = (props: ArrowProps) => {
-// 	const { className, style, onClick } = props;
-// 	return (
-// 		<div
-// 			className="slick-arrow"
-// 			// className={className}
-// 			style={{
-// 				...style,
-// 				position: "absolute",
-// 				marginTop: "60%",
-// 				width: "26px",
-// 				height: "26px",
-// 				zIndex: 1,
-// 				background: "#dbdbdb",
-// 				borderRadius: "50%",
-// 				display: "flex",
-// 				justifyContent: "center",
-// 			}}
-// 		>
-// 			<ButtonIcon
-// 				name="LeftArrow"
-// 				hover={false}
-// 				category={"icon"}
-// 				onClick={onClick}
-// 			/>
-// 		</div>
-// 	);
-// };
-
 const PrevArrow = (props: any) => {
 	const { className, style, onClick } = props;
 	return (
@@ -70,6 +41,8 @@ const NextArrow = (props: any) => {
 			className={"slick-next slick-arrow"}
 			style={{
 				...style,
+				position: "absolute",
+				marginLeft: "-20px",
 			}}
 			name="RightArrow"
 			hover={false}
@@ -129,6 +102,8 @@ const FeedBody: FunctionComponent<FeedBodyProps> = (props) => {
 	);
 };
 
+export default FeedBody;
+
 const Container = styled.div<{ isLoading: boolean }>`
 	${(props) =>
 		props.isLoading &&
@@ -157,4 +132,3 @@ const StyledSlider = styled(Slider)`
 		align-items: center;
 	}
 `;
-export default FeedBody;

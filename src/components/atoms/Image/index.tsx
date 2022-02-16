@@ -11,12 +11,18 @@ interface ImageType {
 	src?: string;
 	width?: string;
 	height?: string;
+	gradation?: boolean;
 }
 
 const Image: FunctionComponent<ImageType> = (props) => {
-	const { category, src, width, height } = props;
+	const { category, src, width, height, gradation = false } = props;
 	return (
-		<StyledCanvas category={category} width={width} height={height}>
+		<StyledCanvas
+			category={category}
+			width={width}
+			height={height}
+			gradation={gradation}
+		>
 			<StyledImg category={category} src={src} />
 		</StyledCanvas>
 	);
@@ -39,6 +45,21 @@ const StyledCanvas = styled.div<ImageType>`
 					width: ${props.width};
 					height: ${props.width};
 			  `};
+
+	${(props) =>
+		props.category === "circle" &&
+		css`
+			border-radius: 50%;
+		`}
+	${(props) =>
+		props.gradation &&
+		css`
+			border: 3px solid transparent;
+			background-image: linear-gradient(#fff, #fff),
+				linear-gradient(to right, red 0%, orange 100%);
+			background-origin: border-box;
+			background-clip: content-box, border-box;
+		`}
 `;
 
 const StyledImg = styled.img<{ category: string }>`

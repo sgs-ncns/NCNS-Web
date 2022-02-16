@@ -5,6 +5,9 @@ import Feed from "components/organisms/Feed";
 import { requestImages } from "utils/amplify";
 import ImgUploadBox from "components/molecules/ImgUploadBox";
 import { requestFeedInfo } from "lib/request/feed";
+import RequestButton from "components/atoms/RequestButton";
+import styled from "styled-components";
+import PictureFeed from "components/organisms/PictureFeed";
 
 export type feedArrayType = {
 	post_id: number;
@@ -17,13 +20,42 @@ export type feedArrayType = {
 };
 
 const HomePage: FunctionComponent = () => {
+	const [isPicture, setIsPicture] = useState<boolean>(false);
+
 	return (
 		<HomeTemplate
 			navbar={<NavBar />}
-			feed={<Feed />}
+			feed={!isPicture ? <Feed /> : <PictureFeed />}
 			sidebar={<ImgUploadBox />}
-		></HomeTemplate>
+			isPicture={isPicture}
+		>
+			<ButtonGrid>
+				<RequestButton
+					type={"button"}
+					primary={false}
+					onClick={() => setIsPicture(false)}
+				>
+					피드
+				</RequestButton>
+				<RequestButton
+					type={"button"}
+					primary={false}
+					onClick={() => setIsPicture(true)}
+				>
+					사진
+				</RequestButton>
+			</ButtonGrid>
+		</HomeTemplate>
 	);
 };
 
 export default HomePage;
+
+const ButtonGrid = styled.div`
+	display: flex;
+	justify-content: center;
+	gap: 20px;
+	margin: 0 auto;
+	margin-top: 2%;
+	margin-bottom: 2%;
+`;
