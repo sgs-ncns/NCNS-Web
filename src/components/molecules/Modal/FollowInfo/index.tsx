@@ -8,10 +8,11 @@ interface FollowProps {
 	category?: "follower" | "follow";
 	src?: string;
 	accountName: string;
+	nickName: string;
 }
 
 const FollowInfo = (props: FollowProps) => {
-	const { category, src, accountName } = props;
+	const { category, src, accountName, nickName } = props;
 	return (
 		<Grid>
 			<ProfileImage>
@@ -20,11 +21,9 @@ const FollowInfo = (props: FollowProps) => {
 			<ProfileInfo>
 				<LinkedId underline={false}>{accountName}</LinkedId>
 			</ProfileInfo>
-			<SelectButton>
-				<RequestButton type={"button"} primary={false}>
-					팔로잉
-				</RequestButton>
-			</SelectButton>
+			<NickInfo>
+				<p>{nickName}</p>
+			</NickInfo>
 		</Grid>
 	);
 };
@@ -36,7 +35,9 @@ const Grid = styled.div`
 	flex-direction: row;
 	height: 60px;
 	border-bottom: 1px solid gray;
-	width: 100%;
+	width: 90%;
+	border: 1px solid gray;
+	border-radius: 5px;
 `;
 
 const ProfileImage = styled.div`
@@ -46,14 +47,16 @@ const ProfileImage = styled.div`
 `;
 
 const ProfileInfo = styled.div`
-	width: 60%;
+	width: 20%;
 	display: flex;
 	justify-content: left;
 	align-items: center;
 `;
 
-const SelectButton = styled.div`
+const NickInfo = styled.div`
 	display: flex;
 	padding: 3% 0;
-	width: 20%;
+	width: 60%;
+	align-items: center;
+	color: lightgray;
 `;

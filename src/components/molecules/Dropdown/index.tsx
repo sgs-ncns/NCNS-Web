@@ -32,6 +32,8 @@ const Dropdown = (props: DropdownProps) => {
 	const [isKkanbu, setKkanbu] = useState<boolean>(false);
 	const navigate = useNavigate();
 
+	console.log(myId);
+
 	switch (category) {
 		case "notify":
 			{

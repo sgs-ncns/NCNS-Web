@@ -1,5 +1,6 @@
 import { combineReducers } from "redux";
 import dropReducer from "./dropReducer";
+import followModalReducer from "./followModalReducer";
 import modalReducer from "./modalReducer";
 import pageWidthReducer from "./pageWidthReducer";
 import userReducer from "./userReducer";
@@ -12,6 +13,7 @@ const rootReducer = combineReducers({
 	dropReducer,
 	pageWidthReducer,
 	modalReducer,
+	followModalReducer,
 });
 
 export default rootReducer;

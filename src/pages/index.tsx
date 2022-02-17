@@ -11,7 +11,8 @@ import PictureFeed from "components/organisms/PictureFeed";
 
 export type feedArrayType = {
 	post_id: number;
-	user_id: string;
+	user_id: number;
+	account_name: string;
 	image_path: string;
 	content: string;
 	created_at: string;

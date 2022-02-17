@@ -13,3 +13,20 @@ export type responseType = {
 	message: string;
 	data: any;
 };
+
+export type followerInfoType = {
+	id: number;
+	account_name: string;
+	nickname: string;
+};
+
+export type userPostsType = {
+	account_name: string;
+	comment_count: number;
+	content: string;
+	created_at: string;
+	image_path: string;
+	like_count: number;
+	post_id: number;
+	user_id: number;
+};

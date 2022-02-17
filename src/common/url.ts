@@ -12,4 +12,9 @@ export const SEND_DUPLICATE_EMAIL = BASE_URL + "/api/user/email";
 export const SEND_DUPLICATE_ACCOUNT = BASE_URL + "/api/user/account";
 
 //홈페이지
-export const GET_USER_PROFILE_INFO = BASE_URL + "/api/user/";
+export const GET_USER_PROFILE_INFO = "/api/user/";
+
+//프로필 페이지
+export const GET_FOLLOWER_INFO = "/api/user/";
+export const GET_FOLLOWING_INFO = "/api/user/";
+export const GET_USER_POSTS = "/api/post";

@@ -90,7 +90,6 @@ const FeedLayout = styled.div<{ category: boolean }>`
 	position: relative;
 	width: 614px;
 	flex-direction: column;
-	border: 1px solid black;
 	${(props) =>
 		props.category &&
 		css`

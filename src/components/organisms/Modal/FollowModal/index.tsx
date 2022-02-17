@@ -1,6 +1,8 @@
 import FollowInfo from "components/molecules/Modal/FollowInfo";
 import { modalCloseHandler } from "lib/Handler";
-import React, { useEffect } from "react";
+import { requestFollowerInfo, requestFollowingInfo } from "lib/request/profile";
+import { followerInfoType } from "lib/request/type";
+import React, { useEffect, useState } from "react";
 import ReactModal from "react-modal";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "reducers";
@@ -23,33 +25,68 @@ const uploadStyle = {
 };
 
 const FollowModal = () => {
-	const isFollowOpen = useSelector(
-		(state: RootState) => state.modalReducer.isFollowOpen,
+	const isOpen = useSelector(
+		(state: RootState) => state.followModalReducer.isOpen,
 	);
+	const category = useSelector(
+		(state: RootState) => state.followModalReducer.category,
+	);
+	const userId = useSelector(
+		(state: RootState) => state.followModalReducer.userId,
+	);
+	const [datas, setDatas] = useState<Array<followerInfoType>>([]);
 	const dispatch = useDispatch();
 
-	// useEffect(() => {}, []);
+	useEffect(() => {
+		if (isOpen) {
+			if (category === "follower") {
+				requestFollowerInfo(userId)
+					.then((res: Array<followerInfoType>) => {
+						const newData = res;
+						setDatas(newData);
+					})
+					.catch((err) => {
+						return;
+					});
+			} else {
+				requestFollowingInfo(userId)
+					.then((res: Array<followerInfoType>) => {
+						const newData = res;
+						setDatas(newData);
+					})
+					.catch((err) => {
+						return;
+					});
+			}
+		}
+	}, [isOpen]);
 
 	return (
 		<ReactModal
 			onAfterOpen={() => (document.body.style.overflow = "hidden")}
 			onAfterClose={() => (document.body.style.overflow = "unset")}
 			style={uploadStyle}
-			isOpen={isFollowOpen}
+			isOpen={isOpen}
 			onRequestClose={() => modalCloseHandler(dispatch)}
 		>
 			<Title>
-				<h2>팔로워</h2>
+				{category === "follower" && <h2>팔로워</h2>}
+				{category === "following" && <h2>팔로잉</h2>}
 			</Title>
 			<Grid>
-				<FollowInfo accountName={"myId"} />
-				<FollowInfo accountName={"myId"} />
-				<FollowInfo accountName={"myId"} />
-				<FollowInfo accountName={"myId"} />
-				<FollowInfo accountName={"myId"} />
-				<FollowInfo accountName={"myId"} />
-				<FollowInfo accountName={"myId"} />
-				<FollowInfo accountName={"myId"} />
+				{datas.length > 0 ? (
+					datas.map((person) => (
+						<FollowInfo
+							accountName={person.account_name}
+							nickName={person.nickname}
+						/>
+					))
+				) : (
+					<>
+						{category === "follower" && <h2>팔로워가 없습니다</h2>}
+						{category === "following" && <h2>팔로잉이 없습니다</h2>}
+					</>
+				)}
 			</Grid>
 		</ReactModal>
 	);
@@ -65,7 +102,6 @@ const Grid = styled.div`
 	overflow: auto;
 	overflow-x: hidden;
 	margin: 0 auto;
-	border: 1px solid gray;
 `;
 
 const Title = styled.div`

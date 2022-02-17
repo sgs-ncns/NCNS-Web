@@ -5,11 +5,13 @@ import { checkResponseCode } from "lib/utils";
 import { feedArrayType } from "pages";
 import { responseType, userInfoType } from "./type";
 
-export const requestUserInfo = async (userId: number) => {
+export const requestUserInfo = async (accountName: string) => {
 	try {
-		const res = await createAxios().get(GET_USER_PROFILE_INFO + `${userId}`);
-		const data: userInfoType = await res.data.data;
-		console.log("data", data);
+		console.log("idididi", accountName);
+		const res = await createAxios().get(
+			GET_USER_PROFILE_INFO + `${accountName}`,
+		);
+		const data: any = await res.data.data;
 		return data;
 	} catch (err) {
 		console.log(err);

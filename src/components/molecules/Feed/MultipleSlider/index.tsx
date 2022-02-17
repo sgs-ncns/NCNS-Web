@@ -31,7 +31,7 @@ const MulitpleSlider = () => {
 	return (
 		<Container>
 			<StyledSlider {...settings}>
-				<div style={{ width: "400px" }}>
+				<div style={{ width: "calc(7%)", border: "1px solid blue" }}>
 					<h3>1</h3>
 				</div>
 				<div style={{ width: "200px" }}>
@@ -58,19 +58,18 @@ export default MulitpleSlider;
 
 const Container = styled.div`
 	display: flex;
-	background-color: orange;
+	background: gray;
+	border-radius: 10px;
 	flex-direction: row;
 	height: 300px;
 	width: 100%;
 	overflow: visible;
 	justify-content: center;
 	align-items: center;
-	border: 1px solid orange;
 `;
 
 const StyledSlider = styled(Slider)`
 	padding: 0 0;
-	border: 1px solid green;
-	width: 80%;
+	width: 90%;
 	height: 100%;
 `;

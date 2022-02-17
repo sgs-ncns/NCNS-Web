@@ -9,12 +9,7 @@ export const REMOVE_USER_INFO = "REMOVE";
 
 export type UserState = {
 	accountName: string | null;
-	followerCount: number;
-	followingCount: number;
 	userId: number;
-	introduce: string | null;
-	nickname: string | null;
-	postCount: number;
 };
 
 type UserAction =
@@ -24,23 +19,13 @@ type UserAction =
 
 const initialState: UserState = {
 	accountName: null,
-	followerCount: 0,
-	followingCount: 0,
 	userId: 0,
-	introduce: null,
-	nickname: null,
-	postCount: 0,
 };
 
 export const addUser = (user: userInfoType) => {
 	const payload: UserState = {
 		accountName: user.account_name,
-		followerCount: user.follower_count,
-		followingCount: user.following_count,
 		userId: user.id,
-		introduce: user.introduce,
-		nickname: user.nickname,
-		postCount: user.post_count,
 	};
 	return { type: ADD_USER_INFO, payload };
 };

@@ -81,10 +81,10 @@ const Feed = () => {
 	// 	// console.log("res", res);
 	// }, []);
 
-	// useEffect(() => {
-	// 	if (feedInfos) setLoading(false);
-	// 	else setLoading(true);
-	// }, [feedInfos]);
+	useEffect(() => {
+		if (feedInfos) setLoading(false);
+		else setLoading(true);
+	}, [feedInfos]);
 
 	return (
 		<Wrapper>
@@ -94,19 +94,13 @@ const Feed = () => {
 						<>
 							<FeedWrapper>
 								{feedInfos.length === index + 1 ? (
-									<FeedHeader id={value.user_id} />
+									<FeedHeader id={value.account_name} />
 								) : (
-									<FeedHeader id={value.user_id} />
+									<FeedHeader id={value.account_name} />
 								)}
 								<FeedBody
-									src={requestImages(value.user_id, value.image_path).then(
-										(response) => {
-											const result = response.map((value) => {
-												return S3_ADDRESS + value.key;
-											});
-											return result;
-										},
-									)}
+									accountName={value.account_name}
+									imagePath={value.image_path}
 								/>
 								<FeedTool id="95.seong" />
 								<FeedFooter />

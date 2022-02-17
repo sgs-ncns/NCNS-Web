@@ -6,6 +6,7 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import ButtonIcon from "components/molecules/ButtonIcon";
 import Spinner from "components/atoms/Spinner";
+import { requestImages, S3_ADDRESS } from "utils/amplify";
 
 // react slick 라이브러리를 사용하여 image carousel을 구현한 부분입니다.
 // custom arrow를 통해 화살표의 위치나 모양을 변경하였으며,
@@ -54,12 +55,35 @@ const NextArrow = (props: any) => {
 
 interface FeedBodyProps {
 	src?: Array<string> | any;
+	accountName?: string;
+	imagePath?: string;
 }
 
 const FeedBody: FunctionComponent<FeedBodyProps> = (props) => {
-	const { src } = props;
+	const { src, accountName, imagePath } = props;
 	const [imgs, setImgs] = useState<Array<string>>();
 	const [isLoading, setLoading] = useState<boolean>(true);
+
+	useEffect(() => {
+		if (accountName && imagePath) {
+			requestImages(accountName, imagePath)
+				.then((response) => {
+					const result = response.map((value) => {
+						return S3_ADDRESS + value.key;
+					});
+					setImgs([...result]);
+				})
+				.catch((err) => {
+					console.log(err);
+					return;
+				});
+		}
+		if (src) setImgs([...src]);
+	}, []);
+
+	useEffect(() => {
+		imgs && setLoading(false);
+	}, [imgs]);
 
 	const settings = {
 		dots: true,
@@ -71,13 +95,6 @@ const FeedBody: FunctionComponent<FeedBodyProps> = (props) => {
 		prevArrow: <PrevArrow />,
 		nextArrow: <NextArrow />,
 	};
-
-	useEffect(() => {
-		src.then((response: any) => {
-			setImgs(response);
-			setLoading(false);
-		});
-	}, [src]);
 
 	return (
 		<Container isLoading={isLoading}>

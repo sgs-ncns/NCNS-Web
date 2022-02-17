@@ -8,40 +8,35 @@ import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useLocation, useParams } from "react-router-dom";
 import { RootState } from "reducers";
-import { openModal, OPEN_FOLLOW_MODAL } from "reducers/modalReducer";
+import { openFollowModal } from "reducers/followModalReducer";
 import styled from "styled-components";
 
-function ProfileInfo() {
-	const userName = useParams();
+interface ProfileInfo {
+	isMe: boolean;
+	accountName: string;
+	userId: number;
+	postCount: number;
+	followerCount: number;
+	followingCount: number;
+	followStatus?: boolean;
+	subscribeStatus?: boolean;
+}
+
+const ProfileInfo = (props: ProfileInfo) => {
+	const {
+		isMe,
+		accountName,
+		userId,
+		postCount,
+		followerCount,
+		followingCount,
+		followStatus = false,
+		subscribeStatus = false,
+	} = props;
+	console.log("props", props);
 	const [isFollow, setFollow] = useState(true);
 	const [isKkanbu, setKkanbu] = useState(true);
 	const dispatch = useDispatch();
-	const [isMe, setIsMe] = useState(false);
-	const location = useLocation();
-	const myAccountName = useSelector(
-		(state: RootState) => state.userReducer.accountName,
-	);
-	const myFollower = useSelector(
-		(state: RootState) => state.userReducer.followerCount,
-	);
-	const myFollowing = useSelector(
-		(state: RootState) => state.userReducer.followingCount,
-	);
-	const myPostCount = useSelector(
-		(state: RootState) => state.userReducer.postCount,
-	);
-
-	useEffect(() => {
-		if (location.pathname.match(myAccountName)) setIsMe(true);
-	}, []);
-
-	const followerModal = () => {
-		console.log("팔로워 서버 요청 후 모달 띄우기");
-	};
-
-	const followModal = () => {
-		console.log("팔로우 서버 요청 후 모달 띄우기");
-	};
 
 	const requestFollow = () => {
 		console.log("서버로 팔로우 요청 보내기");
@@ -56,7 +51,7 @@ function ProfileInfo() {
 	return (
 		<ProfileSection>
 			<Profile>
-				<StyledH2>{userName.id}</StyledH2>
+				<StyledH2>{accountName}</StyledH2>
 				{!isMe && (
 					<ButtonGrid>
 						<RequestButton
@@ -84,31 +79,23 @@ function ProfileInfo() {
 				<Info>
 					<StyledSpan>
 						게시물
-						{isMe ? (
-							<StyledNumber>{myPostCount}</StyledNumber>
-						) : (
-							<StyledNumber>725</StyledNumber>
-						)}
+						<StyledNumber>{postCount}</StyledNumber>
 					</StyledSpan>
 				</Info>
 				<Info>
-					<StyledLink onClick={() => dispatch(openModal(OPEN_FOLLOW_MODAL))}>
+					<StyledLink
+						onClick={() => dispatch(openFollowModal("follower", userId))}
+					>
 						팔로워
-						{isMe ? (
-							<StyledNumber>{myFollower}</StyledNumber>
-						) : (
-							<StyledNumber>1.5백만</StyledNumber>
-						)}
+						<StyledNumber>{followerCount}</StyledNumber>
 					</StyledLink>
 				</Info>
 				<Info>
-					<StyledLink onClick={followModal}>
+					<StyledLink
+						onClick={() => dispatch(openFollowModal("following", userId))}
+					>
 						팔로잉
-						{isMe ? (
-							<StyledNumber>{myFollowing}</StyledNumber>
-						) : (
-							<StyledNumber>888</StyledNumber>
-						)}
+						<StyledNumber>{followingCount}</StyledNumber>
 					</StyledLink>
 				</Info>
 			</InfoList>
@@ -119,7 +106,7 @@ function ProfileInfo() {
 			</Details>
 		</ProfileSection>
 	);
-}
+};
 
 export default ProfileInfo;
 
