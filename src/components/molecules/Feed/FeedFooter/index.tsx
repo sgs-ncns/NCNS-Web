@@ -4,7 +4,7 @@ import hashtagHandler from "lib/hashtagHandler";
 import React, { FunctionComponent, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "reducers";
-import { openModal, OPEN_PROFILE_MODAL } from "reducers/modalReducer";
+import { openModal } from "reducers/modalReducer";
 import styled from "styled-components";
 
 // 하트와 댓글과 같은 피드 기능들 밑의 게시물의 컨텐츠(글)과
@@ -65,7 +65,7 @@ const FeedFooter: FunctionComponent = () => {
 				)}
 			</Contents>
 			<Comments>
-				<MoreButton onClick={() => dispatch(openModal(OPEN_PROFILE_MODAL))}>
+				<MoreButton onClick={() => dispatch(openModal("feed"))}>
 					댓글 더 보기
 				</MoreButton>
 			</Comments>

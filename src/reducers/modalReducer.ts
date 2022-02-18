@@ -5,12 +5,17 @@ export const CLOSE_MODAL = "CLOSE_MODAL";
 
 // 모달 구현 파트입니다.
 
-export const openModal = (category: string, userId?: number) => {
+export const openModal = (category: string, postId?: number) => {
+	const object = {
+		isOpen: true,
+		category: category,
+		postId: postId,
+	};
 	switch (category) {
-		case OPEN_UPLOAD_MODAL:
-			return { type: OPEN_UPLOAD_MODAL };
-		case OPEN_PROFILE_MODAL:
-			return { type: OPEN_PROFILE_MODAL };
+		case "upload":
+			return { type: OPEN_UPLOAD_MODAL, object };
+		case "feed":
+			return { type: OPEN_PROFILE_MODAL, object };
 		default:
 			return { type: "null" };
 	}
@@ -20,16 +25,18 @@ export const closeModal = () => {
 	return { type: CLOSE_MODAL };
 };
 
-type ModalAction = ReturnType<typeof openModal> | ReturnType<typeof closeModal>;
+type ModalAction = ReturnType<typeof openModal>;
 
 type ModalState = {
-	isUploadOpen: boolean;
-	isProfileOpen: boolean;
+	isOpen: boolean;
+	category: string;
+	postId: number;
 };
 
 const initialState: ModalState = {
-	isUploadOpen: false,
-	isProfileOpen: false,
+	isOpen: false,
+	category: null,
+	postId: null,
 };
 
 const modalReducer = (
@@ -40,18 +47,19 @@ const modalReducer = (
 		case OPEN_UPLOAD_MODAL:
 			return {
 				...state,
-				isUploadOpen: true,
+				...action.object,
 			};
 		case OPEN_PROFILE_MODAL:
 			return {
 				...state,
-				isProfileOpen: true,
+				...action.object,
 			};
 		case CLOSE_MODAL:
 			return {
 				...state,
-				isProfileOpen: false,
-				isUploadOpen: false,
+				isOpen: false,
+				category: null,
+				postId: null,
 			};
 		default:
 			return state;

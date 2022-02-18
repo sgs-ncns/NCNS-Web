@@ -25,23 +25,26 @@ const uploadStyle = {
 };
 
 const UploadModal = () => {
-	const isUploadOpen = useSelector(
-		(state: RootState) => state.modalReducer.isUploadOpen,
+	const isOpen = useSelector((state: RootState) => state.modalReducer.isOpen);
+	const category = useSelector(
+		(state: RootState) => state.modalReducer.category,
 	);
 	const dispatch = useDispatch();
 
 	return (
-		<ReactModal
-			onAfterOpen={() => (document.body.style.overflow = "hidden")}
-			onAfterClose={() => (document.body.style.overflow = "unset")}
-			style={uploadStyle}
-			isOpen={isUploadOpen}
-			onRequestClose={() => modalCloseHandler(dispatch)}
-		>
-			<Grid>
-				<ImgUploadBox />
-			</Grid>
-		</ReactModal>
+		category == "upload" && (
+			<ReactModal
+				onAfterOpen={() => (document.body.style.overflow = "hidden")}
+				onAfterClose={() => (document.body.style.overflow = "unset")}
+				style={uploadStyle}
+				isOpen={isOpen}
+				onRequestClose={() => modalCloseHandler(dispatch)}
+			>
+				<Grid>
+					<ImgUploadBox />
+				</Grid>
+			</ReactModal>
+		)
 	);
 };
 

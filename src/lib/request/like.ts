@@ -2,9 +2,9 @@ import { likeType } from "lib/types";
 import axios from "axios";
 import { SEND_LIKE_API } from "common/url";
 
-export const sendLike = async (id: string, callback: () => void) => {
+export const sendLike = async (id: number, callback: () => void) => {
 	const likeObj: likeType = {
-		account_name: id,
+		user_id: id,
 	};
 	try {
 		const res = await axios.post(SEND_LIKE_API, likeObj);
@@ -15,7 +15,7 @@ export const sendLike = async (id: string, callback: () => void) => {
 	}
 };
 
-export const sendUnlike = (id: string, callback: () => void) => {
+export const sendUnlike = (id: number, callback: () => void) => {
 	try {
 		// const res = await axios.post(NOTIFY_LIKE_API, likeObj);
 		// console.log(res);

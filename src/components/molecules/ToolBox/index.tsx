@@ -6,7 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "reducers";
 import { DropdownContainer } from "common/styles";
 import { dropdownHandler } from "lib/Handler";
-import { openModal, OPEN_UPLOAD_MODAL } from "reducers/modalReducer";
+import { openModal } from "reducers/modalReducer";
 import { useLocation, useNavigate } from "react-router-dom";
 
 // 네비게이션 바에 사용되는 기능들을 담은 컴포넌트입니다.
@@ -24,7 +24,7 @@ const ToolBox: FunctionComponent = () => {
 		(state: RootState) => state.dropReducer.showProfile,
 	);
 	const showUpload = useSelector(
-		(state: RootState) => state.modalReducer.isUploadOpen,
+		(state: RootState) => state.modalReducer.isOpen,
 	);
 	const dispatch = useDispatch();
 
@@ -69,14 +69,14 @@ const ToolBox: FunctionComponent = () => {
 				<ButtonIcon
 					category={"icon"}
 					name={"UploadFilled"}
-					onClick={() => dispatch(openModal(OPEN_UPLOAD_MODAL))}
+					onClick={() => dispatch(openModal("upload"))}
 					hover={false}
 				/>
 			) : (
 				<ButtonIcon
 					category={"icon"}
 					name={"Upload"}
-					onClick={() => dispatch(openModal(OPEN_UPLOAD_MODAL))}
+					onClick={() => dispatch(openModal("upload"))}
 					hover={false}
 				/>
 			)}

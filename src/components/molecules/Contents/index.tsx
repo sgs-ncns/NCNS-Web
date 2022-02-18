@@ -3,6 +3,8 @@ import styled from "styled-components";
 import Image from "components/atoms/Image";
 import { userPostsType } from "lib/request/type";
 import { requestRepImage, S3_ADDRESS } from "utils/amplify";
+import { openModal } from "reducers/modalReducer";
+import { useDispatch } from "react-redux";
 
 // 검색뷰와 프로필의 그리드 뷰입니다.
 // 같이 사용할 수 있을 것 같아서 category를 두고
@@ -17,6 +19,7 @@ interface ContentType {
 const Contents: FunctionComponent<ContentType> = (props) => {
 	const { category, popular, posts } = props;
 	const [contents, setContents] = useState<Array<string>>([]);
+	const dispatch = useDispatch();
 
 	useEffect(() => {
 		if (posts) {
@@ -64,8 +67,26 @@ const Contents: FunctionComponent<ContentType> = (props) => {
 				</>
 			)}
 			<Grid>
+				{/* {contents &&
+					posts.map((value, index) => {
+						return (
+							<div
+								onClick={() =>
+									dispatch(openModal("feed", value.user_id, value.post_id))
+								}
+							>
+								<Image category="square" src={contents[index]} width="293px" />;
+							</div>
+						);
+					})} */}
 				{contents.map((value, index) => {
-					return <Image category="square" src={value} width="293px" />;
+					return (
+						<PostDetail
+							onClick={() => dispatch(openModal("feed", posts[index].post_id))}
+						>
+							<Image category="square" src={value} width="293px" />
+						</PostDetail>
+					);
 				})}
 			</Grid>
 		</Wrapper>
@@ -85,6 +106,10 @@ const Title = styled.h2`
 	color: #8e8e8e;
 	font-size: 14px;
 	margin-bottom: 20px;
+`;
+
+const PostDetail = styled.div`
+	cursor: pointer;
 `;
 
 const Grid = styled.div`

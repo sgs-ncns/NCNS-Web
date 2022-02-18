@@ -21,7 +21,6 @@ Amplify.configure({
 export const requestImages = async (userId: number, s3FolderName: string) => {
 	try {
 		const res = await Storage.list(`${userId}/${s3FolderName}/`);
-		res.shift();
 		return res;
 	} catch (err) {
 		console.log(err);

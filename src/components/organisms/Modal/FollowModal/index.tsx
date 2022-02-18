@@ -41,6 +41,9 @@ const FollowModal = () => {
 	);
 	const [datas, setDatas] = useState<Array<followerInfoType>>([]);
 	const dispatch = useDispatch();
+	useEffect(() => {
+		console.log("category", category);
+	}, [category]);
 
 	useEffect(() => {
 		if (isOpen) {

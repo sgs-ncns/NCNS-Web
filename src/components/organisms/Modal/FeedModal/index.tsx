@@ -1,5 +1,5 @@
 import { modalCloseHandler } from "lib/Handler";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import ReactModal from "react-modal";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "reducers";
@@ -9,6 +9,11 @@ import FeedTool from "components/molecules/Feed/FeedTool";
 import CommentTab from "components/molecules/Feed/CommentTab";
 import Comment from "components/molecules/Comment";
 import Image from "components/atoms/Image";
+import { postDetailResponseType, requestPostDetails } from "lib/request/post";
+import { requestImages } from "utils/amplify";
+import { S3ProviderListOutput } from "@aws-amplify/storage";
+import FeedBody from "components/molecules/Feed/FeedBody";
+import { DataStore } from "aws-amplify";
 
 // 피드에 댓글 설정을 누르면 뜨게 되는 모달입니다.
 // 모달을 들어가면 댓글 통신이 일어나게 되고, 그 값으로 S3에서 정보를 받아와
@@ -27,46 +32,71 @@ const profileStyle = {
 	},
 };
 
-interface FeedModalProps {
-	id?: string;
-	comments?: Array<object>; // TODO : 타입 상세하게 해서 common/types에 지정해주기
-}
-
-const FeedModal = (props: FeedModalProps) => {
-	const { id = "95.seong" } = props;
+const FeedModal = () => {
+	const [datas, setDatas] = useState<postDetailResponseType>();
 	const dispatch = useDispatch();
-	const isProfileOpen = useSelector(
-		(state: RootState) => state.modalReducer.isProfileOpen,
+	const isOpen = useSelector((state: RootState) => state.modalReducer.isOpen);
+	const category = useSelector(
+		(state: RootState) => state.modalReducer.category,
 	);
+	const postId = useSelector((state: RootState) => state.modalReducer.postId);
+
+	useEffect(() => {
+		if (postId) {
+			const getDetailPageData = async () => {
+				try {
+					const res = await requestPostDetails(postId);
+					setDatas({ ...res });
+					return res;
+				} catch (err) {
+					console.log(err);
+					return;
+				}
+			};
+			getDetailPageData()
+				.then((res) => console.log(res))
+				.catch((err) => {
+					console.log(err);
+					return;
+				});
+		}
+	}, [postId]);
 
 	return (
-		<ReactModal
-			onAfterOpen={() => (document.body.style.overflow = "hidden")}
-			onAfterClose={() => (document.body.style.overflow = "unset")}
-			style={profileStyle}
-			isOpen={isProfileOpen}
-			onRequestClose={() => modalCloseHandler(dispatch)}
-		>
-			<Grid>
-				<ImageBox>
-					<Image category="rectangle" />
-				</ImageBox>
-				<ProfileContents>
-					<FeedHeader />
-					<StyledUl>
-						{/* TODO : 통신 되면 리스트 맵함수로 변경하기 */}
-						<StyledLi>
-							<Comment />
-						</StyledLi>
-						<StyledLi>
-							<Comment />
-						</StyledLi>
-					</StyledUl>
-					<FeedTool id={id} />
-					<CommentTab />
-				</ProfileContents>
-			</Grid>
-		</ReactModal>
+		category === "feed" && (
+			<ReactModal
+				onAfterOpen={() => (document.body.style.overflow = "hidden")}
+				onAfterClose={() => {
+					document.body.style.overflow = "unset";
+					setDatas(null);
+				}}
+				style={profileStyle}
+				isOpen={isOpen}
+				onRequestClose={() => modalCloseHandler(dispatch)}
+			>
+				{datas && (
+					<Grid>
+						<ImageBox>
+							<FeedBody userId={datas.user_id} imagePath={datas.image_path} />
+						</ImageBox>
+						<ProfileContents>
+							<FeedHeader id={datas.account_name} />
+							<StyledUl>
+								{/* TODO : 통신 되면 리스트 맵함수로 변경하기 */}
+								<StyledLi>
+									<Comment />
+								</StyledLi>
+								<StyledLi>
+									<Comment />
+								</StyledLi>
+							</StyledUl>
+							<FeedTool userId={datas.user_id} />
+							<CommentTab />
+						</ProfileContents>
+					</Grid>
+				)}
+			</ReactModal>
+		)
 	);
 };
 

@@ -99,7 +99,7 @@ const Feed = () => {
 									<FeedHeader id={value.account_name} />
 								)}
 								<FeedBody userId={value.user_id} imagePath={value.image_path} />
-								<FeedTool id="95.seong" />
+								<FeedTool userId={value.user_id} likeCount={value.like_count} />
 								<FeedFooter />
 								<CommentTab />
 							</FeedWrapper>

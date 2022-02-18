@@ -22,6 +22,7 @@ interface ProfileInfo {
 const ProfileInfo = (props: ProfileInfo) => {
 	const { isMe, userInfo } = props;
 	console.log("props", props);
+	const [followCount, setFollowCount] = useState<number>();
 	const [isFollow, setFollow] = useState(false);
 	console.log(userInfo);
 	const [isKkanbu, setKkanbu] = useState(false);
@@ -31,12 +32,15 @@ const ProfileInfo = (props: ProfileInfo) => {
 		setFollow(userInfo.follow_status);
 		setKkanbu(userInfo.subscribe_status);
 		console.log(isFollow, isKkanbu);
+		setFollowCount(userInfo.follower_count);
 	}, [userInfo]);
 
 	const followRequest = () => {
 		console.log("서버로 팔로우 요청 보내기");
 		requestFollow(userInfo.user_id)
 			.then((res) => {
+				if (isFollow) setFollowCount((prev) => prev - 1);
+				else setFollowCount((prev) => prev + 1);
 				if (checkResponseCode(res) === "00") {
 					setFollow(!isFollow);
 				}
@@ -104,7 +108,7 @@ const ProfileInfo = (props: ProfileInfo) => {
 						}
 					>
 						팔로워
-						<StyledNumber>{userInfo.follower_count}</StyledNumber>
+						<StyledNumber>{followCount}</StyledNumber>
 					</StyledLink>
 				</Info>
 				<Info>

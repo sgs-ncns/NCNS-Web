@@ -13,11 +13,12 @@ export const dropdownHandler = (
 
 export const tagsHandler = (content: string) => {
 	const hashtag: Array<string> = [];
-	const usertag: Array<string> = [];
+	const usertag: Array<number> = [];
 	const contentArray = content.split(" ");
 	contentArray.forEach((word) => {
-		if (word.startsWith("#")) hashtag.push(word);
-		if (word.startsWith("@")) usertag.push(word);
+		if (word.startsWith("#")) {
+			hashtag.push(word.substring(1, word.length));
+		}
 	});
 
 	return { hashtag, usertag };

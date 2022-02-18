@@ -22,26 +22,18 @@ export const openFollowModal = (
 	category: "follower" | "following" | "kkanbu",
 	userId: number,
 ) => {
+	const object = {
+		category: category,
+		userId: userId,
+	};
 	switch (category) {
 		case "follower": {
-			const object = {
-				category: category,
-				userId: userId,
-			};
 			return { type: OPEN_FOLLOWER_MODAL, object };
 		}
 		case "following": {
-			const object = {
-				category: category,
-				userId: userId,
-			};
 			return { type: OPEN_FOLLOWING_MODAL, object };
 		}
 		case "kkanbu": {
-			const object = {
-				category: category,
-				userId: userId,
-			};
 			return { type: OPEN_KKANBU_MODAL, object };
 		}
 		default:

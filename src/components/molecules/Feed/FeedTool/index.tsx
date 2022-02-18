@@ -11,12 +11,12 @@ import { sendLike, sendUnlike } from "lib/request/like";
 
 interface ToolProps {
 	likeCount?: number;
-	id: string;
+	userId: number;
 	isLiked?: boolean;
 }
 
 const FeedTool: FunctionComponent<ToolProps> = (props) => {
-	const { likeCount = 1000, id, isLiked = false } = props;
+	const { likeCount = 1000, userId, isLiked = false } = props;
 	const [liked, setLiked] = useState(isLiked);
 
 	return (
@@ -28,7 +28,7 @@ const FeedTool: FunctionComponent<ToolProps> = (props) => {
 						name="LikeFilledRed"
 						hover={true}
 						onClick={() =>
-							sendLike(id, () => {
+							sendLike(userId, () => {
 								setLiked(false);
 							})
 						}
@@ -39,7 +39,7 @@ const FeedTool: FunctionComponent<ToolProps> = (props) => {
 						name="Like"
 						hover={false}
 						onClick={() =>
-							sendLike(id, () => {
+							sendLike(userId, () => {
 								setLiked(true);
 							})
 						}

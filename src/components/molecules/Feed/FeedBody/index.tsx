@@ -79,10 +79,12 @@ const FeedBody: FunctionComponent<FeedBodyProps> = (props) => {
 				});
 		}
 		if (src) setImgs([...src]);
-	}, []);
+		return setImgs(null);
+	}, [userId, imagePath]);
 
 	useEffect(() => {
-		imgs && setLoading(false);
+		if (imgs) setLoading(false);
+		else setLoading(true);
 	}, [imgs]);
 
 	const settings = {
@@ -109,7 +111,7 @@ const FeedBody: FunctionComponent<FeedBodyProps> = (props) => {
 									src={imageUrl}
 									key={index}
 									category={"rectangle"}
-									width="612px"
+									width="100%"
 								/>
 							);
 						})}
@@ -136,16 +138,13 @@ const StyledSlider = styled(Slider)`
 	padding: 0 0;
 	width: 100%;
 	background-color: black;
-	.slick-slide .slidecontainer {
-		display: inline-block;
-		vertical-align: middle;
-		float: none;
-	}
 	.slick-track {
-		position: relative;
-		top: 0;
-		left: 0;
 		display: flex;
 		align-items: center;
+		.slick-slide {
+			display: flex;
+			height: auto;
+			align-items: center;
+		}
 	}
 `;
