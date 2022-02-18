@@ -1,4 +1,5 @@
 import Amplify, { Auth, Storage } from "aws-amplify";
+import { createFolderName } from "./format";
 export const S3_ADDRESS =
 	"https://sgsncns130837-dev.s3.ap-northeast-2.amazonaws.com/public/";
 
@@ -17,7 +18,7 @@ Amplify.configure({
 	},
 });
 
-export const requestImages = async (userId: string, s3FolderName: string) => {
+export const requestImages = async (userId: number, s3FolderName: string) => {
 	try {
 		const res = await Storage.list(`${userId}/${s3FolderName}/`);
 		res.shift();
@@ -26,4 +27,35 @@ export const requestImages = async (userId: string, s3FolderName: string) => {
 		console.log(err);
 		return;
 	}
+};
+
+export const requestRepImage = async (userId: number, s3FolderName: string) => {
+	try {
+		const res = await Storage.list(`${userId}/${s3FolderName}/`);
+		const image = res.shift();
+		console.log(image, "image도 잘 받아옴");
+		return image;
+	} catch (err) {
+		console.log(err);
+		return;
+	}
+};
+
+export const uploadImage = (files: File, userId: number) => {
+	const reader = new FileReader();
+	const date = new Date(+new Date() + 3240 * 10000)
+		.toISOString()
+		.replace("T", " ")
+		.replace(/\..*/, "");
+	const foldername = `${userId.toString()}/${date}/${files.name}`;
+	Storage.put(foldername, files, {
+		resumable: true,
+		completeCallback: (event) => {
+			console.log(`Successfully uploaded ${event.key}`);
+		},
+		errorCallback: (err) => {
+			console.error("Unexpected error while uploading", err);
+		},
+	});
+	return date;
 };

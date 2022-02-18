@@ -1,11 +1,14 @@
 export type userInfoType = {
 	account_name: string;
+	follow_status: boolean | null;
 	follower_count: number;
 	following_count: number;
-	id: number;
+	user_id: number;
 	introduce: string | null;
 	nickname: string;
 	post_count: number;
+	subscribe_status: boolean | null;
+	subscribing_count: number | null;
 };
 
 export type responseType = {

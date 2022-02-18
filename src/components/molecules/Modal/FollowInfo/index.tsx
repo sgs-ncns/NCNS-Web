@@ -9,12 +9,13 @@ interface FollowProps {
 	src?: string;
 	accountName: string;
 	nickName: string;
+	onClick: () => void;
 }
 
 const FollowInfo = (props: FollowProps) => {
-	const { category, src, accountName, nickName } = props;
+	const { category, src, accountName, nickName, onClick } = props;
 	return (
-		<Grid>
+		<Grid onClick={onClick}>
 			<ProfileImage>
 				<ButtonIcon category={"profile"} hover={false} width={"44px"} />
 			</ProfileImage>

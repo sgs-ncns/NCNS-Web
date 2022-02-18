@@ -1,5 +1,5 @@
 import React, { FunctionComponent } from "react";
-import mok from "static/imgs/mok1.jpg";
+import mok from "static/imgs/default_profile.jpg";
 import styled, { css } from "styled-components";
 
 // 인스타그램에서 이미지는 3가지의 형태로 구분됩니다.

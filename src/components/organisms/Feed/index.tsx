@@ -98,10 +98,7 @@ const Feed = () => {
 								) : (
 									<FeedHeader id={value.account_name} />
 								)}
-								<FeedBody
-									accountName={value.account_name}
-									imagePath={value.image_path}
-								/>
+								<FeedBody userId={value.user_id} imagePath={value.image_path} />
 								<FeedTool id="95.seong" />
 								<FeedFooter />
 								<CommentTab />

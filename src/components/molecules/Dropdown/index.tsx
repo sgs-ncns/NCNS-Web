@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { NavigateFunction, useNavigate } from "react-router-dom";
 import { RootState } from "reducers";
 import { closeMenu } from "reducers/dropReducer";
+import { useAuth } from "router/auth";
 import styled, { css } from "styled-components";
 import Notify from "../Notify";
 
@@ -31,6 +32,7 @@ const Dropdown = (props: DropdownProps) => {
 	const [datas, setDatas] = useState([]);
 	const [isKkanbu, setKkanbu] = useState<boolean>(false);
 	const navigate = useNavigate();
+	const auth = useAuth();
 
 	console.log(myId);
 
@@ -95,7 +97,16 @@ const Dropdown = (props: DropdownProps) => {
 					<DropdownItem>저장됨</DropdownItem>
 					<DropdownItem>계정 전환</DropdownItem>
 					<Divider />
-					<DropdownItem>로그아웃</DropdownItem>
+					<DropdownItem
+						onClick={() =>
+							auth.signout(() => {
+								navigate("/login");
+								dispatch(closeMenu());
+							})
+						}
+					>
+						로그아웃
+					</DropdownItem>
 				</>
 			)}
 		</DropdownMenu>

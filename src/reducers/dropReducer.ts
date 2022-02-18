@@ -36,18 +36,9 @@ export const openMenu = (category: string) => {
 	}
 };
 
-export const closeMenu = (category?: string) => {
+export const closeMenu = () => {
 	// console.log(`close ${category}`);
-	switch (category) {
-		case "notify":
-			return { type: CLOSE_NOTIFY_MENU };
-		case "profile":
-			return { type: CLOSE_PROFILE_MENU };
-		case "feed":
-			return { type: CLOSE_FEED };
-		default:
-			return { type: CLOSE_ALL };
-	}
+	return { type: CLOSE_ALL };
 };
 
 const dropReducer = (state: DropState = initialState, action: DropAction) => {
@@ -58,30 +49,15 @@ const dropReducer = (state: DropState = initialState, action: DropAction) => {
 				...state,
 				showNotify: true,
 			};
-		case CLOSE_NOTIFY_MENU:
-			return {
-				...state,
-				showNotify: false,
-			};
 		case OPEN_PROFILE_MENU:
 			return {
 				...state,
 				showProfile: true,
 			};
-		case CLOSE_PROFILE_MENU:
-			return {
-				...state,
-				showProfile: false,
-			};
 		case OPEN_FEED:
 			return {
 				...state,
 				showFeed: true,
-			};
-		case CLOSE_FEED:
-			return {
-				...state,
-				showFeed: false,
 			};
 		case CLOSE_ALL:
 			return {

@@ -1,11 +1,16 @@
 import FollowInfo from "components/molecules/Modal/FollowInfo";
 import { modalCloseHandler } from "lib/Handler";
-import { requestFollowerInfo, requestFollowingInfo } from "lib/request/profile";
+import {
+	requestFollowerInfo,
+	requestFollowingInfo,
+	requestSubscribeInfo,
+} from "lib/request/profile";
 import { followerInfoType } from "lib/request/type";
 import React, { useEffect, useState } from "react";
 import ReactModal from "react-modal";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "reducers";
+import { closeModal } from "reducers/modalReducer";
 import styled from "styled-components";
 
 const uploadStyle = {
@@ -48,8 +53,17 @@ const FollowModal = () => {
 					.catch((err) => {
 						return;
 					});
-			} else {
+			} else if (category === "following") {
 				requestFollowingInfo(userId)
+					.then((res: Array<followerInfoType>) => {
+						const newData = res;
+						setDatas(newData);
+					})
+					.catch((err) => {
+						return;
+					});
+			} else {
+				requestSubscribeInfo()
 					.then((res: Array<followerInfoType>) => {
 						const newData = res;
 						setDatas(newData);
@@ -72,11 +86,13 @@ const FollowModal = () => {
 			<Title>
 				{category === "follower" && <h2>팔로워</h2>}
 				{category === "following" && <h2>팔로잉</h2>}
+				{category === "kkanbu" && <h2>깐부</h2>}
 			</Title>
 			<Grid>
 				{datas.length > 0 ? (
 					datas.map((person) => (
 						<FollowInfo
+							onClick={() => dispatch(closeModal())}
 							accountName={person.account_name}
 							nickName={person.nickname}
 						/>
@@ -85,6 +101,7 @@ const FollowModal = () => {
 					<>
 						{category === "follower" && <h2>팔로워가 없습니다</h2>}
 						{category === "following" && <h2>팔로잉이 없습니다</h2>}
+						{category === "kkanbu" && <h2>깐부가 없습니다</h2>}
 					</>
 				)}
 			</Grid>

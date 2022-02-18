@@ -27,15 +27,15 @@ const Home: FunctionComponent<HomeProps> = (props) => {
 	return (
 		<Grid>
 			<Header>{navbar && <>{navbar}</>}</Header>
-			{children && <>{children}</>}
 			<Body>
+				{children && <>{children}</>}
 				<StyledSection pageWidth={pageWidth} category={isPicture}>
 					<FeedLayout category={isPicture}>
 						<Article>{feed && <>{feed}</>}</Article>
 					</FeedLayout>
-					{!isPicture && pageWidth > 1000 && (
+					{/* {!isPicture && pageWidth > 1000 && (
 						<ImgUploadBar>{sidebar && <>{sidebar}</>}</ImgUploadBar>
-					)}
+					)} */}
 				</StyledSection>
 			</Body>
 		</Grid>
@@ -47,6 +47,7 @@ export default Home;
 const Grid = styled.section`
 	display: flex;
 	flex-direction: column;
+	height: 100%;
 `;
 
 const Header = styled.div`
@@ -57,31 +58,20 @@ const Header = styled.div`
 
 const Body = styled.main`
 	display: flex;
-	height: auto;
+	flex-direction: column;
 	background: #fafafa;
 `;
 
 const StyledSection = styled.section<{ pageWidth: number; category: boolean }>`
 	display: flex;
-	width: 100%;
-
-	${(props) =>
-		props.pageWidth <= 1000 &&
-		css`
-			padding-left: 0;
-			justify-content: center;
-		`}
-
-	${(props) =>
-		props.category
-			? css`
-					justify-content: center;
-			  `
-			: css`
-					align-items: stretch;
-					padding-left: calc((100% - 927px) * 1 / 2);
-			  `}
+	justify-content: center;
 `;
+// align-items: stretch;
+// padding-left: calc((100% - 927px) * 1 / 2);
+// ${(props) =>
+// 	props.pageWidth <= 1000 &&
+// 	css`
+// 	`}
 // justify-content: center;
 
 const FeedLayout = styled.div<{ category: boolean }>`
@@ -102,11 +92,11 @@ const Article = styled.article`
 	width: 100%;
 `;
 
-const ImgUploadBar = styled.div`
-	margin: 0px 0px 30px;
-	width: 293px;
-	height: 80%;
-	position: fixed;
-	z-index: 1;
-	left: calc((100% - 927px) * 1 / 2 + 634px);
-`;
+// const ImgUploadBar = styled.div`
+// 	margin: 0px 0px 30px;
+// 	width: 293px;
+// 	height: 80%;
+// 	position: fixed;
+// 	z-index: 1;
+// 	left: calc((100% - 927px) * 1 / 2 + 634px);
+// `;

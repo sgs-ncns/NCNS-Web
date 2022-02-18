@@ -25,7 +25,7 @@ const initialState: UserState = {
 export const addUser = (user: userInfoType) => {
 	const payload: UserState = {
 		accountName: user.account_name,
-		userId: user.id,
+		userId: user.user_id,
 	};
 	return { type: ADD_USER_INFO, payload };
 };

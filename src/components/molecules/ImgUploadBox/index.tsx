@@ -4,6 +4,14 @@ import styled from "styled-components";
 import FeedBody from "../Feed/FeedBody";
 import { MentionsInput, Mention } from "react-mentions";
 import { followers, hashtags } from "mocks/tags";
+import Image from "components/atoms/Image";
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "reducers";
+import { uploadImage } from "utils/amplify";
+import { checkResponseCode } from "lib/utils";
+import { sendPostInfo } from "lib/request/post";
+import { useNavigate } from "react-router-dom";
+import { closeModal } from "reducers/modalReducer";
 
 // 이미지 업로드를 할 수 있는 컴포넌트입니다.
 // 이 컴포넌트에는 흐름을 넣었습니다.
@@ -13,12 +21,19 @@ import { followers, hashtags } from "mocks/tags";
 // 4. 게시 버튼을 누르면 글이 게시됩니다.
 
 function ImgUploadBox() {
-	const [files, setFiles] = useState(null);
+	const [preview, setPreview] = useState(null);
+	const [file, setFile] = useState<File>(null);
 	const [contents, setContents] = useState<string>("");
 	// const [hashtags, setHashtags] = useState<Array<string>>([]);
 	const [isLoading, setIsLoading] = useState<boolean>(false);
 	const [isFirst, setFirst] = useState<boolean>(true);
 	const [isSecond, setSecond] = useState<boolean>(false);
+	const userId = useSelector((state: RootState) => state.userReducer.userId);
+	const navigate = useNavigate();
+	const dispatch = useDispatch();
+	const accountName = useSelector(
+		(state: RootState) => state.userReducer.accountName,
+	);
 	const ref = useRef(null);
 
 	// 업로드 버튼을 누른 후 사진을 첨부하면 파일 리더를 통해 미리보기 기능을 제공합니다.
@@ -26,10 +41,11 @@ function ImgUploadBox() {
 		if (!event.target.files) return;
 
 		const file = event.target.files[0];
+		setFile(file);
 
 		const reader = new FileReader();
 		reader.onload = () => {
-			setFiles([reader.result]);
+			setPreview(reader.result);
 		};
 		reader.readAsDataURL(file);
 	};
@@ -43,8 +59,20 @@ function ImgUploadBox() {
 		}
 		if (isSecond === true) {
 			// TODO : 게시 로직 추가하기
-			alert(contents);
-			onReset();
+			const imagePath = uploadImage(file, userId);
+			sendPostInfo(accountName, contents, imagePath)
+				.then((res: string) => {
+					if (checkResponseCode(res) === "00") {
+						alert("게시물이 등록되었습니다!");
+						onReset();
+						dispatch(closeModal());
+						navigate("/");
+					} else throw Error("실패");
+				})
+				.catch((err: any) => {
+					console.log(err);
+					return;
+				});
 		}
 	};
 
@@ -53,15 +81,15 @@ function ImgUploadBox() {
 		setFirst(true);
 		setSecond(false);
 		setContents(null);
-		setFiles(null);
+		setPreview(null);
 	};
 
 	return (
 		<Wrapper>
 			<h2>새 게시물 만들기</h2>
-			{isFirst && files && (
+			{isFirst && preview && (
 				<UploadBox ref={ref}>
-					<FeedBody src={files} />
+					<Image src={preview} category={"rectangle"} />
 				</UploadBox>
 			)}
 			{isSecond && (
@@ -73,7 +101,7 @@ function ImgUploadBox() {
 					<Mention trigger="#" data={hashtags} />
 				</InputArea>
 			)}
-			{files ? (
+			{preview ? (
 				<ButtonGrid>
 					<RequestButton type={"button"} primary={false} onClick={toNextStep}>
 						{isFirst && "다음"}
@@ -90,7 +118,7 @@ function ImgUploadBox() {
 					</StyledLabel>
 				</StyledDiv>
 			)}
-			{isFirst && !files && (
+			{isFirst && !preview && (
 				<StyledInput
 					type="file"
 					id="input-file"
@@ -115,7 +143,7 @@ const Wrapper = styled.div`
 
 const UploadBox = styled.div`
 	border: 1px solid blue;
-	width: 70%;
+	width: 50%;
 	margin-bottom: 3%;
 `;
 

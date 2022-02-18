@@ -22,16 +22,7 @@ const ProfileHeader = (props: HeaderProps) => {
 			<ImageGrid>
 				<Image category={"circle"} width="150px" />
 			</ImageGrid>
-			{userInfo && (
-				<ProfileInfo
-					isMe={isMe}
-					accountName={userInfo.account_name}
-					userId={userInfo.id}
-					postCount={userInfo.post_count}
-					followerCount={userInfo.follower_count}
-					followingCount={userInfo.following_count}
-				/>
-			)}
+			{userInfo && <ProfileInfo isMe={isMe} userInfo={userInfo} />}
 		</StyledHeader>
 	);
 };

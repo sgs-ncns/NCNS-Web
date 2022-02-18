@@ -17,4 +17,9 @@ export const GET_USER_PROFILE_INFO = "/api/user/";
 //프로필 페이지
 export const GET_FOLLOWER_INFO = "/api/user/";
 export const GET_FOLLOWING_INFO = "/api/user/";
-export const GET_USER_POSTS = "/api/post";
+export const GET_SUBSCRIBE_INFO = "/api/user/subscribing/";
+export const USER_POSTS = "/api/post";
+
+//팔로우 및 깐부 신청
+export const SEND_FOLLOW = "/api/user/follow/";
+export const SEND_SUBSCRIBE = "/api/user/subscribe/";

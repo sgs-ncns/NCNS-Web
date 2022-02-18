@@ -55,18 +55,18 @@ const NextArrow = (props: any) => {
 
 interface FeedBodyProps {
 	src?: Array<string> | any;
-	accountName?: string;
+	userId?: number;
 	imagePath?: string;
 }
 
 const FeedBody: FunctionComponent<FeedBodyProps> = (props) => {
-	const { src, accountName, imagePath } = props;
+	const { src, userId, imagePath } = props;
 	const [imgs, setImgs] = useState<Array<string>>();
 	const [isLoading, setLoading] = useState<boolean>(true);
 
 	useEffect(() => {
-		if (accountName && imagePath) {
-			requestImages(accountName, imagePath)
+		if (userId && imagePath) {
+			requestImages(userId, imagePath)
 				.then((response) => {
 					const result = response.map((value) => {
 						return S3_ADDRESS + value.key;

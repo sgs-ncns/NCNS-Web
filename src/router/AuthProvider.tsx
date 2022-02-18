@@ -55,15 +55,13 @@ const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 								return;
 							});
 						callback();
-					} else {
-						WarningAlert("유효하지 않은 아이디입니다.")
-							.then((response) => console.log(response))
-							.catch((err) => console.log(err));
-						return;
 					}
 				});
 			} catch (err) {
 				console.log(err);
+				WarningAlert("유효하지 않은 아이디입니다.")
+					.then((response) => console.log(response))
+					.catch((err) => console.log(err));
 				return;
 			}
 		});
@@ -72,7 +70,7 @@ const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 	const signout = (callback: VoidFunction) => {
 		return AuthProviderObject.signout(() => {
 			try {
-				dispatch(removeUser(user));
+				localStorage.removeItem("access_token");
 				callback();
 			} catch (err) {
 				console.log(err);

@@ -32,10 +32,9 @@ const Profile: FunctionComponent = () => {
 				setUserInfo({ ...res });
 				if (res.post_count !== 0) {
 					const postArray: Array<userPostsType> = await requestUserPosts(
-						res.id,
+						res.user_id,
 					);
 					setPosts([...postArray]);
-					console.log(posts);
 				}
 			} catch (err) {
 				console.log(err);
@@ -54,7 +53,7 @@ const Profile: FunctionComponent = () => {
 			<SearchTemplate
 				navbar={<NavBar />}
 				header={<ProfileHeader isMe={isMe} userInfo={userInfo} />}
-				article={<Contents category={"profile"} thumbnails={thumbnails} />}
+				article={<Contents category={"profile"} posts={posts} />}
 			/>
 		</div>
 	);
