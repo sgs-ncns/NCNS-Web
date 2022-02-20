@@ -45,10 +45,11 @@ export const requestImages = async (
 
 export const uploadImage = (files: File, userId: number) => {
 	const reader = new FileReader();
-	const date = new Date(+new Date() + 3240 * 10000)
-		.toISOString()
-		.replace("T", " ")
-		.replace(/\..*/, "");
+	const date = createFolderName();
+	// new Date(+new Date() + 3240 * 10000)
+	// 	.toISOString()
+	// 	.replace("T", " ")
+	// 	.replace(/\..*/, "");
 	const foldername = `${userId.toString()}/${date}/${files.name}`;
 	Storage.put(foldername, files, {
 		resumable: true,

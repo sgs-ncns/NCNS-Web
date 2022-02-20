@@ -5,9 +5,10 @@ import { checkResponseCode } from "lib/utils";
 import { feedArrayType } from "pages";
 import { responseType } from "./type";
 
-// export const KkanbuFeedResponseType = {
-
-// }
+export type KkanbuFeedResponseType = {
+	recent_feeds: Array<feedArrayType>;
+	user_id: number;
+};
 
 export const requestUserInfo = async (accountName: string) => {
 	try {
@@ -36,10 +37,12 @@ export const requestFeedInfo = async (
 	}
 };
 
-export const requestKkanbuFeedInfo = async (): Promise<Array<number>> => {
+export const requestKkanbuFeedInfo = async (): Promise<
+	Array<KkanbuFeedResponseType>
+> => {
 	try {
-		const res: responseType = await createAxios().get(GET_KKANBU_FEED);
-		const data = await res.data;
+		const res = await createAxios().get(GET_KKANBU_FEED);
+		const data: responseType = await res.data;
 		if (checkResponseCode(data.response_code) === "00") return data.data;
 		else throw Error(data.response_code);
 	} catch (err) {

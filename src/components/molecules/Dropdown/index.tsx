@@ -5,7 +5,8 @@ import React, { FunctionComponent, useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { NavigateFunction, useNavigate } from "react-router-dom";
 import { RootState } from "reducers";
-import { closeMenu } from "reducers/dropReducer";
+import { closeMenu, openMenu } from "reducers/dropReducer";
+import { openModal } from "reducers/modalReducer";
 import { useAuth } from "router/auth";
 import styled, { css } from "styled-components";
 import Notify from "../Notify";
@@ -34,16 +35,17 @@ const Dropdown = (props: DropdownProps) => {
 	const navigate = useNavigate();
 	const auth = useAuth();
 
-	console.log(myId);
-
 	switch (category) {
 		case "notify":
 			{
 				//내 아이디는 selector해서
 				useEffect(() => {
-					const res = requestNotify("95.seong").then((data) => {
-						setDatas(data.data);
-					});
+					requestNotify(myId)
+						.then((data) => {
+							console.log(data.data);
+							setDatas(data.data.reverse());
+						})
+						.catch((err) => console.log(err));
 					return;
 				}, [showNotify]);
 			}
@@ -61,27 +63,24 @@ const Dropdown = (props: DropdownProps) => {
 			{category === "feed" && <div>hello</div>}
 			{category === "notify" && (
 				<HideScroll>
-					<Selector>
-						<Item onClick={() => setKkanbu(false)}>일반</Item>
-						<Item onClick={() => setKkanbu(true)}>깐부</Item>
-					</Selector>
-					{!isKkanbu
-						? datas.map((data, index) => {
-								const username: string = data.target_name;
-								return (
-									<Notify
-										key={index}
-										onClick={() => {
-											navigate(`/${username}`);
-											dispatch(closeMenu());
-										}}
-										category={"like"}
-									>
-										{username}님이 좋아요를 눌렀습니다.
-									</Notify>
-								);
-						  })
-						: null}
+					{!isKkanbu && datas ? (
+						datas.map((data, index) => {
+							return (
+								<Notify
+									key={index}
+									onClick={() => {
+										dispatch(closeMenu());
+										dispatch(dispatch(openModal("feed", data.postId)));
+									}}
+									category={"like"}
+								>
+									{data.likedName}님이 좋아요를 눌렀습니다.
+								</Notify>
+							);
+						})
+					) : (
+						<p>알림이 없습니다.</p>
+					)}
 				</HideScroll>
 			)}
 			{category === "profile" && (

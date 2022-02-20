@@ -108,12 +108,15 @@ const FeedBody: FunctionComponent<FeedBodyProps> = (props) => {
 					{imgs &&
 						imgs.map((imageUrl, index) => {
 							return (
-								<Image
-									src={imageUrl}
-									key={index}
-									category={"rectangle"}
-									width="100%"
-								/>
+								<ImageContainer>
+									<Image
+										src={imageUrl}
+										key={index}
+										category={"rectangle"}
+										width="100%"
+										height="100%"
+									/>
+								</ImageContainer>
 							);
 						})}
 				</StyledSlider>
@@ -125,28 +128,36 @@ const FeedBody: FunctionComponent<FeedBodyProps> = (props) => {
 export default FeedBody;
 
 const Container = styled.div<{ isLoading: boolean }>`
+	width: 100%;
+	align-items: center;
+	display: flex;
 	${(props) =>
 		props.isLoading &&
 		css`
-			display: flex;
 			height: 500px;
 			justify-content: center;
 			align-items: center;
 		`}
+`;
+const ImageContainer = styled.div`
+	display: flex;
+	max-height: 100%;
+	max-width: 100%;
 `;
 
 const StyledSlider = styled(Slider)`
 	padding: 0 0;
 	width: 100%;
 	background-color: black;
+
 	.slick-track {
 		display: flex;
 
 		.slick-slide {
 			display: flex;
 			height: auto;
-			align-items: center; //optional
-			justify-content: center; //optional
+			align-items: center;
+			justify-content: center;
 		}
 	}
 `;

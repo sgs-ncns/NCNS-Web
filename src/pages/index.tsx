@@ -21,30 +21,33 @@ export type feedArrayType = {
 };
 
 const HomePage: FunctionComponent = () => {
-	const [isPicture, setIsPicture] = useState<boolean>(false);
+	const [isKkanbu, setIsPicture] = useState<boolean>(false);
 
 	return (
 		<HomeTemplate
 			navbar={<NavBar />}
-			feed={!isPicture ? <Feed /> : <PictureFeed />}
+			feed={!isKkanbu ? <Feed /> : <PictureFeed />}
 			sidebar={<ImgUploadBox />}
-			isPicture={isPicture}
+			isPicture={isKkanbu}
 		>
 			<ButtonGrid>
-				<RequestButton
-					type={"button"}
-					primary={false}
-					onClick={() => setIsPicture(false)}
-				>
-					일반
-				</RequestButton>
-				<RequestButton
-					type={"button"}
-					primary={false}
-					onClick={() => setIsPicture(true)}
-				>
-					깐부
-				</RequestButton>
+				{isKkanbu ? (
+					<RequestButton
+						type={"button"}
+						primary={false}
+						onClick={() => setIsPicture(false)}
+					>
+						일반
+					</RequestButton>
+				) : (
+					<RequestButton
+						type={"button"}
+						primary={false}
+						onClick={() => setIsPicture(true)}
+					>
+						깐부
+					</RequestButton>
+				)}
 			</ButtonGrid>
 		</HomeTemplate>
 	);

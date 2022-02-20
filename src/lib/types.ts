@@ -1,3 +1,5 @@
 export type likeType = {
-	user_id: number;
+	account_name: string;
+	post_id: number;
+	target_account_name: string;
 };

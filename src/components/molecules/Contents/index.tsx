@@ -27,9 +27,7 @@ const Contents: FunctionComponent<ContentType> = (props) => {
 			const asyncLoop = async () => {
 				const newContents = posts.map(async (value) => {
 					return await requestImages(value.user_id, value.image_path, 1).then(
-						(res) => {
-							return S3_ADDRESS + res[0].key;
-						},
+						(res) => S3_ADDRESS + res[0].key,
 					);
 				});
 				const results = await Promise.all(newContents);
@@ -69,18 +67,6 @@ const Contents: FunctionComponent<ContentType> = (props) => {
 				</>
 			)}
 			<Grid>
-				{/* {contents &&
-					posts.map((value, index) => {
-						return (
-							<div
-								onClick={() =>
-									dispatch(openModal("feed", value.user_id, value.post_id))
-								}
-							>
-								<Image category="square" src={contents[index]} width="293px" />;
-							</div>
-						);
-					})} */}
 				{contents.map((value, index) => {
 					return (
 						<PostDetail
@@ -121,6 +107,3 @@ const Grid = styled.div`
 	row-gap: 28px;
 	margin-bottom: 50px;
 `;
-function requestImage(user_id: number, image_path: string, arg2: number) {
-	throw new Error("Function not implemented.");
-}

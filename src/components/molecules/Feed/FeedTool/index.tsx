@@ -4,6 +4,8 @@ import React, { FunctionComponent, useState } from "react";
 import styled from "styled-components";
 import Count from "components/atoms/Count";
 import { sendLike, sendUnlike } from "lib/request/like";
+import { useSelector } from "react-redux";
+import { RootState } from "reducers";
 
 // 하트와 댓글창을 눌러 모달을 켤 수 있는 기능을 담고 있습니다.
 // 하트를 누르게 되면 콜백 함수를 통해 liked 값을 변경시키며
@@ -11,13 +13,17 @@ import { sendLike, sendUnlike } from "lib/request/like";
 
 interface ToolProps {
 	likeCount?: number;
-	userId: number;
+	accountName: string;
+	postId: number;
 	isLiked?: boolean;
 }
 
 const FeedTool: FunctionComponent<ToolProps> = (props) => {
-	const { likeCount = 1000, userId, isLiked = false } = props;
+	const { likeCount = 1000, isLiked = false, accountName, postId } = props;
 	const [liked, setLiked] = useState(isLiked);
+	const myAccountName = useSelector(
+		(state: RootState) => state.userReducer.accountName,
+	);
 
 	return (
 		<div>
@@ -28,7 +34,7 @@ const FeedTool: FunctionComponent<ToolProps> = (props) => {
 						name="LikeFilledRed"
 						hover={true}
 						onClick={() =>
-							sendLike(userId, () => {
+							sendLike(accountName, postId, myAccountName, () => {
 								setLiked(false);
 							})
 						}
@@ -39,7 +45,7 @@ const FeedTool: FunctionComponent<ToolProps> = (props) => {
 						name="Like"
 						hover={false}
 						onClick={() =>
-							sendLike(userId, () => {
+							sendLike(accountName, postId, myAccountName, () => {
 								setLiked(true);
 							})
 						}

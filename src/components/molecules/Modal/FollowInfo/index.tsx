@@ -42,13 +42,13 @@ const Grid = styled.div`
 `;
 
 const ProfileImage = styled.div`
-	width: 20%;
+	width: 30%;
 	display: flex;
 	justify-content: center;
 `;
 
 const ProfileInfo = styled.div`
-	width: 20%;
+	width: 40%;
 	display: flex;
 	justify-content: left;
 	align-items: center;

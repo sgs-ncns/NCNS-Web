@@ -1,19 +1,25 @@
 import LinkedId from "components/atoms/LinkedId";
 import ButtonIcon from "components/molecules/ButtonIcon";
 import MulitpleSlider from "components/molecules/Feed/MultipleSlider";
-import { requestKkanbuFeedInfo } from "lib/request/feed";
+import {
+	KkanbuFeedResponseType,
+	requestKkanbuFeedInfo,
+} from "lib/request/feed";
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 
 const PictureFeed = () => {
-	const [kkanbuList, setKkanbuList] = useState<Array<number>>();
+	const [kkanbuList, setKkanbuList] = useState<Array<KkanbuFeedResponseType>>();
 	const [feedImages, setFeedImages] = useState();
+	//isLoading 달기
 
 	useEffect(() => {
 		console.log("통신 함수 불러서 바인딩");
 		const getKkanbuFeed = async () => {
 			try {
-				const res = await requestKkanbuFeedInfo();
+				const res: Array<KkanbuFeedResponseType> =
+					await requestKkanbuFeedInfo();
+				console.log(res);
 				setKkanbuList(res);
 			} catch (err) {
 				console.log(err);
@@ -28,25 +34,31 @@ const PictureFeed = () => {
 			});
 	}, []);
 
-	// useEffect(() => {
-	// 	if (kkanbuList) {
-	// 	}
-	// }, [kkanbuList]);
-
 	// TODO : map 함수 돌리기
 	return (
 		<ContentsGrid>
-			<Profile>
-				<ButtonIcon category={"profile"} hover={false} width={"60px"} />
-				<LinkedId underline={false}>userId</LinkedId>
-			</Profile>
-			<FeedsArray>
-				<MulitpleSlider />
-			</FeedsArray>
+			{kkanbuList && kkanbuList.length > 0 ? (
+				kkanbuList.map((value) => {
+					return (
+						<>
+							<Profile>
+								<ButtonIcon category={"profile"} hover={false} width={"60px"} />
+								<LinkedId underline={false}>
+									{value.recent_feeds[0].account_name}
+								</LinkedId>
+							</Profile>
+							<FeedsArray>
+								<MulitpleSlider recentFeeds={value.recent_feeds} />
+							</FeedsArray>
+						</>
+					);
+				})
+			) : (
+				<h2>깐부가 없습니다. 깐부를 추가해보세요!</h2>
+			)}
 		</ContentsGrid>
 	);
 };
-
 export default PictureFeed;
 
 const ContentsGrid = styled.div`
@@ -57,6 +69,7 @@ const ContentsGrid = styled.div`
 	width: 100%;
 	height: auto;
 	align-items: center;
+	justify-content: center;
 `;
 
 const Profile = styled.div`

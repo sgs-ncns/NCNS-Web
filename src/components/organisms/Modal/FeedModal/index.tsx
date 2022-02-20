@@ -43,7 +43,6 @@ const FeedModal = () => {
 	const postId = useSelector((state: RootState) => state.modalReducer.postId);
 
 	useEffect(() => {
-		console.log("jpsdfakljfkl;skl;asdf", postId);
 		if (postId) {
 			const getDetailPageData = async () => {
 				try {
@@ -91,7 +90,10 @@ const FeedModal = () => {
 									</StyledLi>
 								))}
 							</StyledUl>
-							<FeedTool userId={datas.user_id} />
+							<FeedTool
+								accountName={datas.account_name}
+								postId={datas.post_id}
+							/>
 							<CommentTab parentId={myId} postId={datas.post_id} />
 						</ProfileContents>
 					</Grid>
