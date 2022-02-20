@@ -32,7 +32,7 @@ const UploadModal = () => {
 	const dispatch = useDispatch();
 
 	return (
-		category == "upload" && (
+		category === "upload" && (
 			<ReactModal
 				onAfterOpen={() => (document.body.style.overflow = "hidden")}
 				onAfterClose={() => (document.body.style.overflow = "unset")}
