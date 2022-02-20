@@ -1,27 +1,44 @@
 import RequestButton from "components/atoms/RequestButton";
 import { REQUEST_BUTTON_TYPE } from "common/types";
-import { handleButtonType } from "lib/utils";
+import { checkResponseCode, handleButtonType } from "lib/utils";
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
+import { sendComment } from "lib/request/post";
 
 // 피드의 댓글을 달 수 있는 부분입니다.
+interface CommentTabProps {
+	postId: number;
+	parentId: number;
+}
 
-const CommentTab = () => {
-	const [textAreaValue, setTextAreaValue] = useState<string>("");
+const CommentTab = (props: CommentTabProps) => {
+	const { postId, parentId } = props;
+	const [content, setContent] = useState<string>("");
 	const [active, setActive] = useState<boolean>(false);
 	const myId = "myId";
 
-	// useEffect의 의존성배열에 textAreaValue 상태값을 체크하여
+	// useEffect의 의존성배열에 content 상태값을 체크하여
 	// textArea의 길이가 0이 아니면 게시 버튼 활성화를 시킵니다.
 	useEffect(() => {
 		// input값 들어오면 버튼 활성화
-		textAreaValue.length != 0 ? setActive(true) : setActive(false);
-	}, [textAreaValue]);
+		content.length != 0 && postId && parentId
+			? setActive(true)
+			: setActive(false);
+	}, [content]);
 
 	const onSubmit = (event: React.FormEvent<HTMLFormElement>) => {
 		event.preventDefault();
-		handleButtonType(REQUEST_BUTTON_TYPE.Comment, textAreaValue);
-		setTextAreaValue("");
+		sendComment(content, postId)
+			.then((res: string) => {
+				if (checkResponseCode(res) === "00") {
+					alert("댓글 등록이 완료 되었습니다.");
+				} else throw Error(res);
+			})
+			.catch((err) => {
+				console.log(err);
+				return;
+			});
+		setContent("");
 		// const diffContents = comment.contents;
 		// diffContents.push({ username: myId, content: input });
 
@@ -39,7 +56,7 @@ const CommentTab = () => {
 				<StyledArea
 					placeholder="댓글 달기..."
 					onChange={(ev: React.ChangeEvent<HTMLTextAreaElement>): void =>
-						setTextAreaValue(ev.target.value)
+						setContent(ev.target.value)
 					}
 				/>
 				<RequestButton type="submit" primary={true} active={active}>

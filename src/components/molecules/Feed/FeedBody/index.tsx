@@ -83,6 +83,7 @@ const FeedBody: FunctionComponent<FeedBodyProps> = (props) => {
 	}, [userId, imagePath]);
 
 	useEffect(() => {
+		console.log(imgs);
 		if (imgs) setLoading(false);
 		else setLoading(true);
 	}, [imgs]);
@@ -140,11 +141,12 @@ const StyledSlider = styled(Slider)`
 	background-color: black;
 	.slick-track {
 		display: flex;
-		align-items: center;
+
 		.slick-slide {
 			display: flex;
 			height: auto;
-			align-items: center;
+			align-items: center; //optional
+			justify-content: center; //optional
 		}
 	}
 `;

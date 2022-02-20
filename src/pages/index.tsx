@@ -36,14 +36,14 @@ const HomePage: FunctionComponent = () => {
 					primary={false}
 					onClick={() => setIsPicture(false)}
 				>
-					피드
+					일반
 				</RequestButton>
 				<RequestButton
 					type={"button"}
 					primary={false}
 					onClick={() => setIsPicture(true)}
 				>
-					사진
+					깐부
 				</RequestButton>
 			</ButtonGrid>
 		</HomeTemplate>

@@ -7,8 +7,9 @@ import FeedTool from "components/molecules/Feed/FeedTool";
 import { requestFeedInfo } from "lib/request/feed";
 import { feedArrayType } from "pages";
 import { useCallback, useEffect, useRef, useState } from "react";
+import { useSelector } from "react-redux";
+import { RootState } from "reducers";
 import styled from "styled-components";
-import { requestImages, S3_ADDRESS } from "utils/amplify";
 
 // 피드 컴포넌트입니다. 현재는 목업 데이터로 이루어져 있고
 // page에서 데이터를 받아와 바인딩 될 예정입니다.
@@ -18,6 +19,7 @@ const Feed = () => {
 	const [isLoading, setLoading] = useState(true);
 	const [feedInfos, setFeedInfos] = useState<Array<feedArrayType>>();
 	const [page, setPage] = useState(1);
+	const myId = useSelector((state: RootState) => state.userReducer.userId);
 	const observer = useRef(null);
 
 	const lastFeedRef = useCallback(
@@ -27,7 +29,7 @@ const Feed = () => {
 			observer.current = new IntersectionObserver((entries) => {
 				if (entries[0].isIntersecting) {
 					console.log("bottom");
-					const getNewMovie = async () => {
+					const getNewFeed = async () => {
 						setLoading(true);
 						const newFeed = await requestFeedInfo(page + 1);
 						setPage((prev) => prev + 1);
@@ -35,7 +37,7 @@ const Feed = () => {
 						console.log(feedInfos);
 						setLoading(false);
 					};
-					getNewMovie()
+					getNewFeed()
 						.then()
 						.catch((err) => {
 							console.log(err);
@@ -49,19 +51,22 @@ const Feed = () => {
 	);
 
 	useEffect(() => {
-		console.log(feedInfos);
 		const getfeedList = async () => {
 			// const feedList = await requestFeedInfo(page);
 			try {
 				const res = await requestFeedInfo(page);
 				setFeedInfos(res);
+				return res;
 			} catch (err) {
 				console.log(err);
 				return;
 			}
 		};
 		getfeedList()
-			.then(() => setLoading(false))
+			.then((res) => {
+				setLoading(false);
+				console.log(res);
+			})
 			.catch((err) => {
 				return;
 			});
@@ -100,8 +105,12 @@ const Feed = () => {
 								)}
 								<FeedBody userId={value.user_id} imagePath={value.image_path} />
 								<FeedTool userId={value.user_id} likeCount={value.like_count} />
-								<FeedFooter />
-								<CommentTab />
+								<FeedFooter
+									content={value.content}
+									accountName={value.account_name}
+									postId={value.post_id}
+								/>
+								<CommentTab parentId={myId} postId={value.post_id} />
 							</FeedWrapper>
 							<Divider ref={lastFeedRef} />
 						</>

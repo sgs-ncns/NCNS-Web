@@ -10,8 +10,18 @@ import styled from "styled-components";
 // 하트와 댓글과 같은 피드 기능들 밑의 게시물의 컨텐츠(글)과
 // 해시태그 내용 또는 사람 태그 내용을 보여주는 부분입니다.
 // 더보기 버튼을 통해 조건부 렌더링을 사용하여 전체 컨텐츠와 압축된 컨텐츠를 보여줍니다.
+interface FooterProps {
+	content: string;
+	accountName: string;
+	postId: number;
+}
 
-const FeedFooter: FunctionComponent = () => {
+const FeedFooter = (props: FooterProps) => {
+	const {
+		content = "#협찬 #소통 NCNS 화이팅^^",
+		accountName = "95.Seong",
+		postId,
+	} = props;
 	const mokData = {
 		username: "95.Seong",
 		content: "#협찬 #소통 NCNS 화이팅^^",
@@ -65,7 +75,7 @@ const FeedFooter: FunctionComponent = () => {
 				)}
 			</Contents>
 			<Comments>
-				<MoreButton onClick={() => dispatch(openModal("feed"))}>
+				<MoreButton onClick={() => dispatch(openModal("feed", postId))}>
 					댓글 더 보기
 				</MoreButton>
 			</Comments>

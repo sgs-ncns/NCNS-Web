@@ -7,7 +7,7 @@ import styled from "styled-components";
 import FeedHeader from "components/molecules/Feed/FeedHeader";
 import FeedTool from "components/molecules/Feed/FeedTool";
 import CommentTab from "components/molecules/Feed/CommentTab";
-import Comment from "components/molecules/Comment";
+import Comment, { CommentType } from "components/molecules/Comment";
 import Image from "components/atoms/Image";
 import { postDetailResponseType, requestPostDetails } from "lib/request/post";
 import { requestImages } from "utils/amplify";
@@ -39,9 +39,11 @@ const FeedModal = () => {
 	const category = useSelector(
 		(state: RootState) => state.modalReducer.category,
 	);
+	const myId = useSelector((state: RootState) => state.userReducer.userId);
 	const postId = useSelector((state: RootState) => state.modalReducer.postId);
 
 	useEffect(() => {
+		console.log("jpsdfakljfkl;skl;asdf", postId);
 		if (postId) {
 			const getDetailPageData = async () => {
 				try {
@@ -83,15 +85,14 @@ const FeedModal = () => {
 							<FeedHeader id={datas.account_name} />
 							<StyledUl>
 								{/* TODO : 통신 되면 리스트 맵함수로 변경하기 */}
-								<StyledLi>
-									<Comment />
-								</StyledLi>
-								<StyledLi>
-									<Comment />
-								</StyledLi>
+								{datas.comment_list.map((comment: CommentType) => (
+									<StyledLi>
+										<Comment commentData={comment} />
+									</StyledLi>
+								))}
 							</StyledUl>
 							<FeedTool userId={datas.user_id} />
-							<CommentTab />
+							<CommentTab parentId={myId} postId={datas.post_id} />
 						</ProfileContents>
 					</Grid>
 				)}

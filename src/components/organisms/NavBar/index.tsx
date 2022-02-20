@@ -4,13 +4,21 @@ import { Link, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import Image from "components/atoms/Image";
 import Logo from "static/imgs/logo.png";
+import SearchPreview from "../Search/SearchPreview";
+import useOutsideClick from "hooks/useOutsideClick";
 
 // 네비게이션 바입니다.
 
 const NavBar: FunctionComponent = () => {
 	const [clicked, setClicked] = useState(false);
 	const [value, setValue] = useState("");
+	const [isSearching, setSearching] = useState<boolean>(false);
+	const ref = useRef(null);
 	const navigate = useNavigate();
+
+	useOutsideClick(ref, () => {
+		setSearching(false);
+	});
 
 	const textHandler = (e: {
 		target: { value: React.SetStateAction<string> };
@@ -38,7 +46,7 @@ const NavBar: FunctionComponent = () => {
 						<Image src={Logo} category={"rectangle"} height={"100%"} />
 					</Link>
 				</FirstItem>
-				<SecondItem>
+				<SecondItem onClick={() => setSearching(true)} ref={ref}>
 					<StyledInput
 						type="text"
 						onChange={textHandler}
@@ -46,6 +54,7 @@ const NavBar: FunctionComponent = () => {
 						value={value}
 						onKeyPress={onKeyPress}
 					/>
+					{isSearching && <SearchPreview />}
 				</SecondItem>
 				<ThirdItem>
 					<ToolBox />

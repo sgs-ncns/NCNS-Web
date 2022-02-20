@@ -1,6 +1,8 @@
 import createAxios from "common/createAxios";
-import { USER_POSTS } from "common/url";
+import { USER_COMMENT, USER_POSTS } from "common/url";
+import { CommentType } from "components/molecules/Comment";
 import { tagsHandler } from "lib/Handler";
+import { checkResponseCode } from "lib/utils";
 import { responseType } from "./type";
 
 type createPostBody = {
@@ -14,11 +16,16 @@ type createPostBody = {
 export type postDetailResponseType = {
 	account_name: string;
 	image_path: string;
-	comment_list: Array<string>;
+	comment_list: Array<CommentType>;
 	content: string;
 	created_at: string;
 	post_id: number;
 	user_id: number;
+};
+
+export type sendCommentType = {
+	content: string;
+	post_id: number;
 };
 
 export const sendPostInfo = async (
@@ -51,6 +58,20 @@ export const requestPostDetails = async (postId: number) => {
 		);
 		const data: postDetailResponseType = await res.data.data;
 		return data;
+	} catch (err) {
+		console.log(err);
+		return;
+	}
+};
+
+export const sendComment = async (content: string, postId: number) => {
+	const body: sendCommentType = {
+		content: content,
+		post_id: postId,
+	};
+	try {
+		const res: responseType = await createAxios().post(USER_COMMENT, body);
+		return res.data.response_code;
 	} catch (err) {
 		console.log(err);
 		return;

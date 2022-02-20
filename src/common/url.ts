@@ -19,7 +19,12 @@ export const GET_FOLLOWER_INFO = "/api/user/";
 export const GET_FOLLOWING_INFO = "/api/user/";
 export const GET_SUBSCRIBE_INFO = "/api/user/subscribing/";
 export const USER_POSTS = "/api/post";
+export const USER_COMMENT = "/api/post/comment/";
 
 //팔로우 및 깐부 신청
 export const SEND_FOLLOW = "/api/user/follow/";
 export const SEND_SUBSCRIBE = "/api/user/subscribe/";
+
+//피드
+export const GET_FEED = "/api/feed";
+export const GET_KKANBU_FEED = "/api/feed/subscribing";

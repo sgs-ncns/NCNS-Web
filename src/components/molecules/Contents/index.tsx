@@ -2,7 +2,7 @@ import React, { FunctionComponent, useEffect, useState } from "react";
 import styled from "styled-components";
 import Image from "components/atoms/Image";
 import { userPostsType } from "lib/request/type";
-import { requestRepImage, S3_ADDRESS } from "utils/amplify";
+import { requestImages, S3_ADDRESS } from "utils/amplify";
 import { openModal } from "reducers/modalReducer";
 import { useDispatch } from "react-redux";
 
@@ -26,8 +26,10 @@ const Contents: FunctionComponent<ContentType> = (props) => {
 			console.log("posts 잘 들옴");
 			const asyncLoop = async () => {
 				const newContents = posts.map(async (value) => {
-					return await requestRepImage(value.user_id, value.image_path).then(
-						(res) => S3_ADDRESS + res.key,
+					return await requestImages(value.user_id, value.image_path, 1).then(
+						(res) => {
+							return S3_ADDRESS + res[0].key;
+						},
 					);
 				});
 				const results = await Promise.all(newContents);
@@ -119,3 +121,6 @@ const Grid = styled.div`
 	row-gap: 28px;
 	margin-bottom: 50px;
 `;
+function requestImage(user_id: number, image_path: string, arg2: number) {
+	throw new Error("Function not implemented.");
+}

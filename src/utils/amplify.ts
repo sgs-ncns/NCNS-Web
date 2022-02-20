@@ -18,9 +18,16 @@ Amplify.configure({
 	},
 });
 
-export const requestImages = async (userId: number, s3FolderName: string) => {
+export const requestImages = async (
+	userId: number,
+	s3FolderName: string,
+	imageCount?: number,
+) => {
 	try {
 		const res = await Storage.list(`${userId}/${s3FolderName}/`);
+		const res2 = await Storage.list(`${userId}`);
+		console.log("EEMMEMEMEM", res2);
+		if (imageCount) return res.splice(0, imageCount);
 		return res;
 	} catch (err) {
 		console.log(err);
@@ -28,17 +35,13 @@ export const requestImages = async (userId: number, s3FolderName: string) => {
 	}
 };
 
-export const requestRepImage = async (userId: number, s3FolderName: string) => {
-	try {
-		const res = await Storage.list(`${userId}/${s3FolderName}/`);
-		const image = res.shift();
-		console.log(image, "image도 잘 받아옴");
-		return image;
-	} catch (err) {
-		console.log(err);
-		return;
-	}
-};
+// export const requestFolders = async(
+// 	userId:number,
+// ) => {
+// 	try {
+
+// 	}
+// }
 
 export const uploadImage = (files: File, userId: number) => {
 	const reader = new FileReader();

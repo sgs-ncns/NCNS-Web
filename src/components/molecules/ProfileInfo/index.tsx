@@ -43,7 +43,7 @@ const ProfileInfo = (props: ProfileInfo) => {
 				else setFollowCount((prev) => prev + 1);
 				if (checkResponseCode(res) === "00") {
 					setFollow(!isFollow);
-				}
+				} else throw Error(res);
 			})
 			.catch((err) => {
 				console.log(err);

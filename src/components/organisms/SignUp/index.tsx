@@ -24,51 +24,53 @@ const SignUp: FunctionComponent = () => {
 	const [accountName, setAccountName] = useState<string>("");
 	const [password, setPassword] = useState<string>("");
 	const [checkEmail, setCheckEmail] = useState<boolean>(true);
-	const [isDuplicateEmail, setDuplicateEmail] = useState<boolean>(true);
-	const [isDuplicateAccount, setDuplicateAccount] = useState<boolean>(true);
+	const [isDuplicateEmail, setDuplicateEmail] = useState<boolean>(false);
+	const [isDuplicateAccount, setDuplicateAccount] = useState<boolean>(false);
 	const navigate = useNavigate();
 
 	// 포커싱 아웃 될 때 불리우는 함수입니다.
 	const duplicateHandler = (category: "email" | "accountName"): void => {
 		switch (category) {
 			case "email":
-				email &&
-					checkEmail &&
-					console.log(
-						`서버로 ${email}값으로 요청 보내고 중복 체크한 값 돌려받기`,
-					);
-				requestDuplicateEmail(email)
-					.then((response) => {
-						console.log(response.data.data.result);
-						if (response.data.data.result === true) setDuplicateEmail(true);
-						else setDuplicateEmail(false);
-					})
-					.catch((err) => {
-						console.log(err);
-						return;
-					});
+				if (email) {
+					if (checkEmail) {
+						console.log(
+							`서버로 ${email}값으로 요청 보내고 중복 체크한 값 돌려받기`,
+						);
+						requestDuplicateEmail(email)
+							.then((response) => {
+								console.log(response.data.data.result);
+								if (response.data.data.result === true) setDuplicateEmail(true);
+								else setDuplicateEmail(false);
+							})
+							.catch((err) => {
+								console.log(err);
+								return;
+							});
+					}
+				}
 				break;
 			case "accountName":
-				accountName &&
+				if (accountName) {
 					console.log(
 						`서버로 ${accountName}값으로 요청 보내고 중복 체크한 값 돌려받기`,
 					);
-				requestDuplicateAccount(accountName)
-					.then((response) => {
-						console.log(response.data.data.result);
-						if (response.data.data.result === true) setDuplicateAccount(true);
-						else setDuplicateAccount(false);
-					})
-					.catch((err) => {
-						console.log(err);
-						return;
-					});
+					requestDuplicateAccount(accountName)
+						.then((response) => {
+							console.log(response.data.data.result);
+							if (response.data.data.result === true) setDuplicateAccount(true);
+							else setDuplicateAccount(false);
+						})
+						.catch((err) => {
+							console.log(err);
+							return;
+						});
+				}
 				break;
 			default:
 				return;
 		}
 	};
-
 	// 의존성 배열에 담긴 값들을 전부 판별하여 모두 참일 때만 전송 버튼을 활성화 합니다.
 	useEffect(() => {
 		if (
@@ -122,10 +124,12 @@ const SignUp: FunctionComponent = () => {
 						setEmail(e.target.value);
 					}}
 					onBlur={() => {
-						isEmail(email, (state: boolean) => {
-							setCheckEmail(state);
-						});
-						duplicateHandler("email");
+						if (email) {
+							isEmail(email, (state: boolean) => {
+								setCheckEmail(state);
+							});
+							duplicateHandler("email");
+						}
 					}}
 					//콜백 넣기
 				/>
@@ -141,9 +145,15 @@ const SignUp: FunctionComponent = () => {
 					type="text"
 					placeholder="사용자 이름"
 					onChange={(e) => setAccountName(e.target.value)}
-					onBlur={() => duplicateHandler("accountName")}
+					onBlur={() => {
+						if (accountName) {
+							duplicateHandler("accountName");
+						}
+					}}
 				/>
-				{isDuplicateAccount && <Warning>중복된 아이디입니다.</Warning>}
+				{accountName && isDuplicateAccount && (
+					<Warning>중복된 아이디입니다.</Warning>
+				)}
 				<SignUpInput
 					type="password"
 					placeholder="비밀번호"
