@@ -28,3 +28,7 @@ export const SEND_SUBSCRIBE = "/api/user/subscribe/";
 //피드
 export const GET_FEED = "/api/feed";
 export const GET_KKANBU_FEED = "/api/feed/subscribing";
+export const SEND_LIKE = "/api/post/like/";
+
+//검색
+export const GET_SEARCH_DATA_ALL = "/api/search/type/all/";

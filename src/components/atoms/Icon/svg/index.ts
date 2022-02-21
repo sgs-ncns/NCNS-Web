@@ -10,3 +10,4 @@ export { ReactComponent as Home } from "./home.svg";
 export { ReactComponent as HomeFilled } from "./home_filled.svg";
 export { ReactComponent as LeftArrow } from "./left.svg";
 export { ReactComponent as RightArrow } from "./right.svg";
+export { ReactComponent as Hashtag } from "./hashtag.svg";

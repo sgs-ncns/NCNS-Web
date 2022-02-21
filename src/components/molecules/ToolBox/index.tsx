@@ -24,7 +24,7 @@ const ToolBox: FunctionComponent = () => {
 		(state: RootState) => state.dropReducer.showProfile,
 	);
 	const showUpload = useSelector(
-		(state: RootState) => state.modalReducer.isOpen,
+		(state: RootState) => state.modalReducer.category,
 	);
 	const dispatch = useDispatch();
 
@@ -65,7 +65,7 @@ const ToolBox: FunctionComponent = () => {
 					/>
 				)}
 			</DropdownContainer>
-			{showUpload ? (
+			{showUpload === "upload" ? (
 				<ButtonIcon
 					category={"icon"}
 					name={"UploadFilled"}

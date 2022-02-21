@@ -1,16 +1,47 @@
+import { StyledLink } from "common/styles";
 import SearchList from "components/molecules/SearchList";
+import {
+	globalSearchType,
+	hashtagSearchType,
+	userSearchType,
+} from "lib/request/search";
 import React from "react";
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 
 interface PreviewProps {
-	title?: string;
-	postCount?: number;
+	searchData: Array<globalSearchType>;
 }
 
 const SearchPreview = (props: PreviewProps) => {
+	const { searchData } = props;
+
 	return (
 		<Preview>
-			<SearchList />
+			{searchData &&
+				searchData.map((data) => {
+					if (data.hashtag) {
+						return (
+							<StyledLink to={`/explore/tags/${data.hashtag.content}`}>
+								<SearchList
+									category="hashtag"
+									title={data.hashtag.content}
+									content={data.hashtag.count}
+								/>
+							</StyledLink>
+						);
+					} else {
+						return (
+							<StyledLink to={`/${data.user.account_name}`}>
+								<SearchList
+									category="user"
+									title={data.user.account_name}
+									content={data.user.nickname}
+								/>
+							</StyledLink>
+						);
+					}
+				})}
 		</Preview>
 	);
 };
@@ -19,6 +50,7 @@ export default SearchPreview;
 
 const Preview = styled.div`
 	display: flex;
+	flex-direction: column;
 	width: 375px;
 	height: 362px;
 	border: 1px solid #dbdbdb;

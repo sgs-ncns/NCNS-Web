@@ -7,7 +7,6 @@ import styled from "styled-components";
 import FeedHeader from "components/molecules/Feed/FeedHeader";
 import FeedTool from "components/molecules/Feed/FeedTool";
 import CommentTab from "components/molecules/Feed/CommentTab";
-import Comment, { CommentType } from "components/molecules/Comment";
 import Image from "components/atoms/Image";
 import { postDetailResponseType, requestPostDetails } from "lib/request/post";
 import { requestImages } from "utils/amplify";
@@ -82,19 +81,18 @@ const FeedModal = () => {
 						</ImageBox>
 						<ProfileContents>
 							<FeedHeader id={datas.account_name} />
-							<StyledUl>
-								{/* TODO : 통신 되면 리스트 맵함수로 변경하기 */}
-								{datas.comment_list.map((comment: CommentType) => (
-									<StyledLi>
-										<Comment commentData={comment} />
-									</StyledLi>
-								))}
-							</StyledUl>
-							<FeedTool
-								accountName={datas.account_name}
+							<CommentTab
+								parentId={myId}
 								postId={datas.post_id}
-							/>
-							<CommentTab parentId={myId} postId={datas.post_id} />
+								commentList={datas.comment_list}
+							>
+								<FeedTool
+									accountName={datas.account_name}
+									postId={datas.post_id}
+									likeCount={datas.like_count}
+									isLiked={datas.liking}
+								/>
+							</CommentTab>
 						</ProfileContents>
 					</Grid>
 				)}
@@ -120,21 +118,8 @@ const ImageBox = styled.div`
 `;
 
 const ProfileContents = styled.div`
-	display: grid;
+	display: flex;
+	flex-direction: column;
 	width: 40%;
-	grid-template-rows: 0.5fr 5fr 0.5fr 0.5fr;
-	height: auto;
-`;
-
-const StyledUl = styled.ul`
-	padding: 16px;
-	margin: 0;
-	border-top: 1px solid #dbdbdb;
-	border-bottom: 1px solid #dbdbdb;
-`;
-
-const StyledLi = styled.li`
-	list-style: none;
-	padding-left: 0;
-	padding-top: 12px;
+	height: 100%;
 `;

@@ -93,7 +93,7 @@ const Feed = () => {
 
 	return (
 		<Wrapper>
-			{feedInfos &&
+			{feedInfos && feedInfos.length > 0 ? (
 				feedInfos.map((value, index) => {
 					return (
 						<>
@@ -119,7 +119,10 @@ const Feed = () => {
 							<Divider ref={lastFeedRef} />
 						</>
 					);
-				})}
+				})
+			) : (
+				<h2>팔로워가 없습니다. 팔로우를 추가해보세요!</h2>
+			)}
 			<SpinnerWrapper>{isLoading && <Spinner />}</SpinnerWrapper>
 		</Wrapper>
 	);
@@ -127,7 +130,10 @@ const Feed = () => {
 
 export default Feed;
 
-const Wrapper = styled.div``;
+const Wrapper = styled.div`
+	display: flex;
+	justify-content: center;
+`;
 
 const FeedWrapper = styled.div`
 	border: 1px solid #dbdbdb;

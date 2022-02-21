@@ -71,6 +71,7 @@ const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 		return AuthProviderObject.signout(() => {
 			try {
 				localStorage.removeItem("access_token");
+				setUser(null);
 				callback();
 			} catch (err) {
 				console.log(err);

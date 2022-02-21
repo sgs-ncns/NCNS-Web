@@ -4,18 +4,44 @@ import { checkResponseCode, handleButtonType } from "lib/utils";
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { sendComment } from "lib/request/post";
+import { CommentType } from "components/molecules/Comment";
+import Comment from "components/molecules/Comment";
+import { useSelector } from "react-redux";
+import { RootState } from "reducers";
 
 // 피드의 댓글을 달 수 있는 부분입니다.
 interface CommentTabProps {
 	postId: number;
 	parentId: number;
+	children?: React.ReactNode;
+	commentList?: Array<CommentType>;
 }
 
+export type commentsType = {
+	accountName: string;
+	content: string;
+};
+
 const CommentTab = (props: CommentTabProps) => {
-	const { postId, parentId } = props;
+	const { postId, parentId, children, commentList } = props;
 	const [content, setContent] = useState<string>("");
 	const [active, setActive] = useState<boolean>(false);
-	const myId = "myId";
+	const [comments, setComments] = useState<Array<commentsType>>();
+	const myId = useSelector((state: RootState) => state.userReducer.accountName);
+
+	useEffect(() => {
+		if (commentList.length > 0) {
+			commentList.forEach((commentInfo) =>
+				setComments([
+					...comments,
+					{
+						accountName: commentInfo.account_name,
+						content: commentInfo.content,
+					},
+				]),
+			);
+		}
+	}, [commentList]);
 
 	// useEffect의 의존성배열에 content 상태값을 체크하여
 	// textArea의 길이가 0이 아니면 게시 버튼 활성화를 시킵니다.
@@ -32,6 +58,7 @@ const CommentTab = (props: CommentTabProps) => {
 			.then((res: string) => {
 				if (checkResponseCode(res) === "00") {
 					alert("댓글 등록이 완료 되었습니다.");
+					setComments([...comments, { accountName: myId, content: content }]);
 				} else throw Error(res);
 			})
 			.catch((err) => {
@@ -39,35 +66,47 @@ const CommentTab = (props: CommentTabProps) => {
 				return;
 			});
 		setContent("");
-		// const diffContents = comment.contents;
-		// diffContents.push({ username: myId, content: input });
-
-		// setComment({
-		// 	...comment,
-		// 	count: comment.count + 1,
-		// 	contents: diffContents,
-		// });
-		// setInput(""); //안먹음 이유 모르겠음...
 	};
 
 	return (
-		<StyledCommentTab>
-			<StyledForm onSubmit={onSubmit}>
-				<StyledArea
-					placeholder="댓글 달기..."
-					onChange={(ev: React.ChangeEvent<HTMLTextAreaElement>): void =>
-						setContent(ev.target.value)
-					}
-				/>
-				<RequestButton type="submit" primary={true} active={active}>
-					게시
-				</RequestButton>
-			</StyledForm>
-		</StyledCommentTab>
+		<Grid>
+			<StyledUl>
+				{/* TODO : 통신 되면 리스트 맵함수로 변경하기 */}
+				{comments &&
+					comments.map((comment: commentsType) => (
+						<StyledLi>
+							<Comment
+								accountName={comment.accountName}
+								content={comment.content}
+							/>
+						</StyledLi>
+					))}
+			</StyledUl>
+			{children}
+			<StyledCommentTab>
+				<StyledForm onSubmit={onSubmit}>
+					<StyledArea
+						placeholder="댓글 달기..."
+						onChange={(event: React.ChangeEvent<HTMLTextAreaElement>): void =>
+							setContent(event.target.value)
+						}
+					/>
+					<RequestButton type="submit" primary={true} active={active}>
+						게시
+					</RequestButton>
+				</StyledForm>
+			</StyledCommentTab>
+		</Grid>
 	);
 };
 
 export default CommentTab;
+
+const Grid = styled.div`
+	display: grid;
+	height: 93%;
+	grid-template-rows: 8fr 1fr 1fr;
+`;
 
 const StyledCommentTab = styled.section`
 	display: flex;
@@ -103,4 +142,17 @@ const StyledArea = styled.textarea`
 	padding: 0;
 	resize: none;
 	width: 0;
+`;
+
+const StyledUl = styled.ul`
+	padding: 16px;
+	margin: 0;
+	border-top: 1px solid #dbdbdb;
+	border-bottom: 1px solid #dbdbdb;
+`;
+
+const StyledLi = styled.li`
+	list-style: none;
+	padding-left: 0;
+	padding-top: 12px;
 `;

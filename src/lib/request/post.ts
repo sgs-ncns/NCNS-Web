@@ -21,6 +21,8 @@ export type postDetailResponseType = {
 	created_at: string;
 	post_id: number;
 	user_id: number;
+	like_count: number;
+	liking: boolean;
 };
 
 export type sendCommentType = {

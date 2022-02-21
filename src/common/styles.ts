@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 
 export const DropdownContainer = styled.div`
@@ -32,4 +33,13 @@ export const Warning = styled.p`
 	margin-top: 0;
 	font-size: 11px;
 	margin-bottom: 0;
+`;
+
+export const StyledLink = styled(Link)`
+	color: #262626;
+	text-decoration: none;
+	font-weight: 600;
+	&:after {
+		color: #262626;
+	}
 `;

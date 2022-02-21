@@ -15,17 +15,18 @@ export type CommentType = {
 };
 
 interface CommentProps {
-	commentData: CommentType;
+	accountName: string;
+	content: string;
 }
 
 const Comment = (props: CommentProps) => {
-	const { commentData } = props;
+	const { accountName, content } = props;
 	return (
 		<Grid>
 			<ButtonIcon category={"profile"} hover={true} />
 			<ContentGrid>
-				<LinkedId underline={false}>{commentData.account_name}</LinkedId>
-				{commentData.content}
+				<LinkedId underline={false}>{accountName}</LinkedId>
+				{content}
 			</ContentGrid>
 		</Grid>
 	);

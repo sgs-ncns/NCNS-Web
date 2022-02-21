@@ -1,4 +1,4 @@
-import React, { FunctionComponent } from "react";
+import React, { FunctionComponent, ReactComponentElement } from "react";
 import mok from "static/imgs/default_profile.jpg";
 import styled, { css } from "styled-components";
 
@@ -8,7 +8,7 @@ import styled, { css } from "styled-components";
 
 interface ImageType {
 	category: "circle" | "square" | "rectangle";
-	src?: string;
+	src?: any;
 	width?: string;
 	height?: string;
 	gradation?: boolean;

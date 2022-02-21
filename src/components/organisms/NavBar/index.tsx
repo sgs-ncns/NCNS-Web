@@ -1,17 +1,29 @@
 import ToolBox from "components/molecules/ToolBox";
-import React, { FunctionComponent, useEffect, useRef, useState } from "react";
+import React, {
+	FormEvent,
+	FunctionComponent,
+	useEffect,
+	useRef,
+	useState,
+} from "react";
 import { Link, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import Image from "components/atoms/Image";
 import Logo from "static/imgs/logo.png";
 import SearchPreview from "../Search/SearchPreview";
 import useOutsideClick from "hooks/useOutsideClick";
+import {
+	getSearchData,
+	globalSearchType,
+	hashtagSearchType,
+	userSearchType,
+} from "lib/request/search";
 
 // 네비게이션 바입니다.
 
 const NavBar: FunctionComponent = () => {
-	const [clicked, setClicked] = useState(false);
-	const [value, setValue] = useState("");
+	const [value, setValue] = useState<string>("");
+	const [searchData, setSearchData] = useState<Array<globalSearchType>>();
 	const [isSearching, setSearching] = useState<boolean>(false);
 	const ref = useRef(null);
 	const navigate = useNavigate();
@@ -20,9 +32,18 @@ const NavBar: FunctionComponent = () => {
 		setSearching(false);
 	});
 
-	const textHandler = (e: {
-		target: { value: React.SetStateAction<string> };
-	}) => {
+	useEffect(() => {
+		getSearchData(value)
+			.then((res: Array<globalSearchType>) => {
+				if (res) setSearchData(res);
+			})
+			.catch((err) => {
+				console.log(err);
+				return;
+			});
+	}, [value]);
+
+	const textHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
 		setValue(e.target.value);
 	};
 
@@ -54,7 +75,7 @@ const NavBar: FunctionComponent = () => {
 						value={value}
 						onKeyPress={onKeyPress}
 					/>
-					{isSearching && <SearchPreview />}
+					{isSearching && <SearchPreview searchData={searchData} />}
 				</SecondItem>
 				<ThirdItem>
 					<ToolBox />

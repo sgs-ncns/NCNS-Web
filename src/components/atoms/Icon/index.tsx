@@ -39,6 +39,8 @@ const Icon: FunctionComponent<IconProps> = (props) => {
 			return <svg.LeftArrow />;
 		case "RightArrow":
 			return <svg.RightArrow />;
+		case "Hashtag":
+			return <svg.Hashtag />;
 		default:
 			return null;
 	}
