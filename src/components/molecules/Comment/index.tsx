@@ -27,7 +27,7 @@ const Comment = (props: CommentProps) => {
 			<ButtonIcon category={"profile"} hover={true} />
 			<ContentGrid>
 				<LinkedId underline={false}>{accountName}</LinkedId>
-				{content}
+				<div style={{ marginLeft: "10px" }}>{content}</div>
 			</ContentGrid>
 		</Grid>
 	);
@@ -37,9 +37,11 @@ export default Comment;
 
 const Grid = styled.div`
 	display: flex;
+	gap: 10px;
 `;
 
 const ContentGrid = styled.span`
+	display: flex;
 	width: 100%;
 	word-break: break-all;
 `;

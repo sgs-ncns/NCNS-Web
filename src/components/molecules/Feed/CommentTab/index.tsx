@@ -17,6 +17,8 @@ interface CommentTabProps {
 	children?: React.ReactNode;
 	commentList?: Array<CommentType>;
 	isLiked: boolean;
+	activeList: boolean;
+	postContent?: string;
 }
 
 export type commentsType = {
@@ -25,15 +27,15 @@ export type commentsType = {
 };
 
 const CommentTab = (props: CommentTabProps) => {
-	const { postId, children, commentList, targetName } = props;
+	const { postId, children, commentList, targetName, activeList, postContent } =
+		props;
 	const [content, setContent] = useState<string>("");
 	const [active, setActive] = useState<boolean>(false);
 	const [comments, setComments] = useState<Array<commentsType>>([]);
 	const myId = useSelector((state: RootState) => state.userReducer.accountName);
 
 	useEffect(() => {
-		if (commentList.length > 0) {
-			console.log("commentList", commentList);
+		if (commentList) {
 			const commentArray: Array<commentsType> = [];
 			commentList.forEach((commentInfo) =>
 				commentArray.push({
@@ -46,9 +48,6 @@ const CommentTab = (props: CommentTabProps) => {
 		return () => setComments([]);
 	}, [commentList]);
 
-	useEffect(() => {
-		console.log("comments", comments);
-	}, [comments]);
 	// useEffect의 의존성배열에 content 상태값을 체크하여
 	// textArea의 길이가 0이 아니면 게시 버튼 활성화를 시킵니다.
 	useEffect(() => {
@@ -62,11 +61,11 @@ const CommentTab = (props: CommentTabProps) => {
 			.then((res: string) => {
 				if (checkResponseCode(res) === "00") {
 					alert("댓글 등록이 완료 되었습니다.");
+					setContent("");
 					setComments([...comments, { accountName: myId, content: content }]);
 					if (targetName !== myId) {
 						sendCommentNotify(targetName, postId, myId)
 							.then((res) => {
-								console.log("noti res", res);
 								return;
 							})
 							.catch((err) => {
@@ -80,24 +79,28 @@ const CommentTab = (props: CommentTabProps) => {
 				console.log(err);
 				return;
 			});
-		setContent("");
 	};
 
 	return (
 		<Grid>
-			<StyledUl>
-				{/* TODO : 통신 되면 리스트 맵함수로 변경하기 */}
-				{comments &&
-					comments.map((comment: commentsType) => (
-						<StyledLi>
-							<Comment
-								accountName={comment.accountName}
-								content={comment.content}
-							/>
-						</StyledLi>
-					))}
-			</StyledUl>
-			{children}
+			{activeList && (
+				<>
+					<StyledUl>
+						{/* TODO : 통신 되면 리스트 맵함수로 변경하기 */}
+						<Comment accountName={targetName} content={postContent} />
+						{comments &&
+							comments.map((comment: commentsType) => (
+								<StyledLi>
+									<Comment
+										accountName={comment.accountName}
+										content={comment.content}
+									/>
+								</StyledLi>
+							))}
+					</StyledUl>
+					{children}
+				</>
+			)}
 			<StyledCommentTab>
 				<StyledForm onSubmit={onSubmit}>
 					<StyledArea
@@ -105,6 +108,7 @@ const CommentTab = (props: CommentTabProps) => {
 						onChange={(event: React.ChangeEvent<HTMLTextAreaElement>): void =>
 							setContent(event.target.value)
 						}
+						value={content}
 					/>
 					<RequestButton type="submit" primary={true} active={active}>
 						게시

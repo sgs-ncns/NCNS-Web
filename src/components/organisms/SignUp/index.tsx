@@ -34,9 +34,6 @@ const SignUp: FunctionComponent = () => {
 			case "email":
 				if (email) {
 					if (checkEmail) {
-						console.log(
-							`서버로 ${email}값으로 요청 보내고 중복 체크한 값 돌려받기`,
-						);
 						requestDuplicateEmail(email)
 							.then((response) => {
 								console.log(response.data.data.result);
@@ -99,8 +96,7 @@ const SignUp: FunctionComponent = () => {
 		event.preventDefault();
 		const res = sendSignUp(email, nickname, accountName, password, () => {
 			navigate("/login");
-		}).then((res) => console.log(res));
-		alert(`${email}, ${accountName}, ${nickname}, ${password}값 서버로 보냄`);
+		}).then((res) => alert("회원 가입이 완료되었습니다."));
 	};
 
 	return (

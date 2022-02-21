@@ -5,7 +5,12 @@ import React, { useState } from "react";
 import { useParams } from "react-router-dom";
 import styled from "styled-components";
 
-const SearchHeader = () => {
+interface SearchHeaderProps {
+	postCount: number;
+}
+
+const SearchHeader = (props: SearchHeaderProps) => {
+	const { postCount } = props;
 	const { tagName } = useParams();
 	const [valid, setValid] = useState(true);
 	const follow = (): void => {
@@ -20,7 +25,7 @@ const SearchHeader = () => {
 			<StyledDiv>
 				<StyledContent>
 					<StyledTitle>#{tagName}</StyledTitle>
-					<Count title={"게시물"} number={43701} />
+					<Count title={"게시물"} number={postCount} />
 					<RequestButton
 						type={"button"}
 						primary={false}

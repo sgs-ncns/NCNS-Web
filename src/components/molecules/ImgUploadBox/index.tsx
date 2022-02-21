@@ -66,10 +66,7 @@ function ImgUploadBox() {
 					if (checkResponseCode(res) === "00") {
 						alert("게시물이 등록되었습니다!");
 						sendPostNotify(accountName)
-							.then((res) => {
-								console.log(res);
-								return;
-							})
+							.then()
 							.catch((err) => console.log(err));
 						onReset();
 						dispatch(closeModal());

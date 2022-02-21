@@ -83,7 +83,6 @@ const FeedBody: FunctionComponent<FeedBodyProps> = (props) => {
 	}, [userId, imagePath]);
 
 	useEffect(() => {
-		console.log(imgs);
 		if (imgs) setLoading(false);
 		else setLoading(true);
 	}, [imgs]);
@@ -108,7 +107,7 @@ const FeedBody: FunctionComponent<FeedBodyProps> = (props) => {
 					{imgs &&
 						imgs.map((imageUrl, index) => {
 							return (
-								<ImageContainer>
+								<ImageContainer key={index}>
 									<Image
 										src={imageUrl}
 										key={index}

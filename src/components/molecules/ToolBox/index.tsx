@@ -16,7 +16,6 @@ import { useLocation, useNavigate } from "react-router-dom";
 const ToolBox: FunctionComponent = () => {
 	const location = useLocation().pathname;
 	const navigate = useNavigate();
-	console.log(location);
 	const showNotify = useSelector(
 		(state: RootState) => state.dropReducer.showNotify,
 	);

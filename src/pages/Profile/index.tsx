@@ -23,19 +23,16 @@ const Profile: FunctionComponent = () => {
 
 	useEffect(() => {
 		//사용자 정보 조회
-		console.log("유저명", userName.id);
 		if (userName.id.match(myAccountName)) setIsMe(true);
 		else setIsMe(false);
 		(async () => {
 			try {
 				const res: userInfoType = await requestUserInfo(userName.id);
 				setUserInfo({ ...res });
-				console.log("유저명으로 받아온 정보", res);
 				if (res.post_count !== 0) {
 					const postArray: Array<userPostsType> = await requestUserPosts(
 						res.user_id,
 					);
-					console.log("유저 포스트 디테일", postArray);
 					setPosts([...postArray]);
 				} else setPosts([]);
 			} catch (err) {

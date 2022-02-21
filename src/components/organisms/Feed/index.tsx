@@ -19,21 +19,25 @@ const Feed = () => {
 	const [isLoading, setLoading] = useState(true);
 	const [feedInfos, setFeedInfos] = useState<Array<feedArrayType>>();
 	const [page, setPage] = useState(1);
+	const [endOfPage, setEOP] = useState<boolean>(false);
 	const observer = useRef(null);
 
 	const lastFeedRef = useCallback(
 		(event) => {
 			if (isLoading) return;
+			if (endOfPage) return;
 			if (observer.current) observer.current.disconnect();
 			observer.current = new IntersectionObserver((entries) => {
 				if (entries[0].isIntersecting) {
-					console.log("bottom");
 					const getNewFeed = async () => {
 						setLoading(true);
 						const newFeed = await requestFeedInfo(page + 1);
+						setFeedInfos([...feedInfos, ...newFeed.feeds]);
+						if (newFeed.end_of_feed) {
+							setEOP(true);
+							return;
+						}
 						setPage((prev) => prev + 1);
-						setFeedInfos((feedInfos) => [...feedInfos, ...newFeed]);
-						console.log(feedInfos);
 						setLoading(false);
 					};
 					getNewFeed()
@@ -53,7 +57,9 @@ const Feed = () => {
 		const getfeedList = async () => {
 			try {
 				const res = await requestFeedInfo(page);
-				setFeedInfos(res);
+				setFeedInfos(res.feeds);
+				console.log("첫페이지", res);
+				if (res.end_of_feed) setEOP(true);
 				return res;
 			} catch (err) {
 				console.log(err);
@@ -63,7 +69,6 @@ const Feed = () => {
 		getfeedList()
 			.then((res) => {
 				setLoading(false);
-				console.log(res);
 			})
 			.catch((err) => {
 				return;
@@ -81,7 +86,7 @@ const Feed = () => {
 				feedInfos.map((value, index) => {
 					return (
 						<>
-							<FeedWrapper>
+							<FeedWrapper key={index}>
 								{feedInfos.length === index + 1 ? (
 									<FeedHeader id={value.account_name} />
 								) : (
@@ -97,8 +102,10 @@ const Feed = () => {
 									content={value.content}
 									accountName={value.account_name}
 									postId={value.post_id}
+									likeCount={value.like_count}
 								/>
 								<CommentTab
+									activeList={false}
 									isLiked={value.liking}
 									targetName={value.account_name}
 									postId={value.post_id}
@@ -121,6 +128,7 @@ export default Feed;
 const Wrapper = styled.div`
 	display: flex;
 	justify-content: center;
+	flex-direction: column;
 `;
 
 const FeedWrapper = styled.div`

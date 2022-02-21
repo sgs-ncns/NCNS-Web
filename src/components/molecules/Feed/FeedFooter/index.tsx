@@ -14,65 +14,29 @@ interface FooterProps {
 	content: string;
 	accountName: string;
 	postId: number;
+	likeCount: number;
 }
 
 const FeedFooter = (props: FooterProps) => {
-	const {
-		content = "#협찬 #소통 NCNS 화이팅^^",
-		accountName = "95.Seong",
-		postId,
-	} = props;
+	const { content, accountName, postId, likeCount } = props;
 	const mokData = {
 		username: "95.Seong",
 		content: "#협찬 #소통 NCNS 화이팅^^",
 	};
-	const [comment, setComment] = useState<{
-		count: number;
-		contents: Array<any>;
-	}>({
-		count: 3,
-		contents: [
-			{
-				username: "94.seong",
-				content: "#협찬 #소통 NCNS 화이팅^^",
-			},
-			{
-				username: "93.seong",
-				content: "#협찬 #소통 NCNS 화이팅^^",
-			},
-			{
-				username: "92.seong",
-				content: "#협찬 #소통 NCNS 화이팅^^",
-			},
-		],
-	});
 	//더 보기 버튼
 	const [moreContent, setMoreContent] = useState(false);
 
 	//댓글 해시태그와 일반 텍스트 나누기
-	const splitText = mokData.content.split(" ");
-	const handledText = hashtagHandler(splitText);
-	const shortenText = hashtagHandler(splitText[0]);
 
 	const dispatch = useDispatch();
 	return (
 		<StyledDiv>
 			<LikedInfo>
-				<ProfileImg size="small" />
-				<Body>
-					<LinkedId underline={false}>someone</LinkedId>님 외 여러 명이
-					좋아합니다.
-				</Body>
+				<Body>{likeCount}명이 좋아합니다.</Body>
 			</LikedInfo>
 			<Contents>
-				<LinkedId underline={true}>MyId</LinkedId>{" "}
-				<StyledSpan>{moreContent ? handledText : shortenText}</StyledSpan>
-				<StyledSpan>{!moreContent && "..."}</StyledSpan>
-				{!moreContent && (
-					<MoreButton onClick={() => setMoreContent(!moreContent)}>
-						더 보기
-					</MoreButton>
-				)}
+				<LinkedId underline={true}>{accountName}</LinkedId>
+				<StyledSpan>{content && content}</StyledSpan>
 			</Contents>
 			<Comments>
 				<MoreButton onClick={() => dispatch(openModal("feed", postId))}>

@@ -21,22 +21,18 @@ interface ProfileInfo {
 
 const ProfileInfo = (props: ProfileInfo) => {
 	const { isMe, userInfo } = props;
-	console.log("props", props);
 	const [followCount, setFollowCount] = useState<number>();
 	const [isFollow, setFollow] = useState(false);
-	console.log(userInfo);
 	const [isKkanbu, setKkanbu] = useState(false);
 	const dispatch = useDispatch();
 
 	useEffect(() => {
 		setFollow(userInfo.follow_status);
 		setKkanbu(userInfo.subscribe_status);
-		console.log(isFollow, isKkanbu);
 		setFollowCount(userInfo.follower_count);
 	}, [userInfo]);
 
 	const followRequest = () => {
-		console.log("서버로 팔로우 요청 보내기");
 		requestFollow(userInfo.user_id)
 			.then((res) => {
 				if (isFollow) setFollowCount((prev) => prev - 1);
@@ -52,7 +48,6 @@ const ProfileInfo = (props: ProfileInfo) => {
 	};
 
 	const requestKkanbu = () => {
-		console.log("서버로 깐부 요청 보내기");
 		requestSubscribe(userInfo.user_id)
 			.then((res) => {
 				if (checkResponseCode(res) === "00") {

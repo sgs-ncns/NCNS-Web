@@ -24,7 +24,6 @@ const MulitpleSlider = (props: SliderProps) => {
 
 	useEffect(() => {
 		if (recentFeeds) {
-			console.log("배재대학고", recentFeeds);
 			const asyncLoop = async () => {
 				const newRecentFeeds = recentFeeds.map(async (feedInfo) => {
 					return await requestImages(
@@ -39,7 +38,6 @@ const MulitpleSlider = (props: SliderProps) => {
 			asyncLoop()
 				.then((res) => {
 					setImages(res);
-					console.log("뿌앙뿌앙", res);
 				})
 				.catch((err) => {
 					console.log(err);

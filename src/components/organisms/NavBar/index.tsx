@@ -67,10 +67,6 @@ const NavBar: FunctionComponent = () => {
 					setSelected(true);
 					setValue(searchData.at(0).user.account_name);
 				}
-				// console.log(
-				// 	searchData.at(0).user.account_name,
-				// 	searchData.at(0).user.nickname,
-				// );
 			}
 		}
 	};

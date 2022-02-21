@@ -83,6 +83,8 @@ const FeedModal = () => {
 						<ProfileContents>
 							<FeedHeader id={datas.account_name} />
 							<CommentTab
+								activeList={true}
+								postContent={datas.content}
 								isLiked={datas.liking}
 								targetName={datas.account_name}
 								postId={datas.post_id}

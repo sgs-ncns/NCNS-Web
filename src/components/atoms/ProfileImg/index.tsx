@@ -32,7 +32,6 @@ const profileImgSize = (size: string) => {
 		case "search":
 			return "152px";
 	}
-	console.log(size);
 };
 
 const StyledImg = styled.img<profileType>`

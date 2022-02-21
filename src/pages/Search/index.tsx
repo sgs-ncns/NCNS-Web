@@ -43,7 +43,7 @@ const Search = () => {
 	return (
 		<SearchTemplate
 			navbar={<NavBar />}
-			header={<SearchHeader />}
+			header={<SearchHeader postCount={postIdList.length} />}
 			article={<Contents category="search" posts={posts} />}
 		/>
 	);

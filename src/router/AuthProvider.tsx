@@ -54,13 +54,13 @@ const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 								return;
 							});
 						callback();
+					} else {
+						alert(response.data.message);
+						window.location.replace("/login");
 					}
 				});
 			} catch (err) {
 				console.log(err);
-				WarningAlert("유효하지 않은 아이디입니다.")
-					.then((response) => console.log(response))
-					.catch((err) => console.log(err));
 				return;
 			}
 		});

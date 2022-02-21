@@ -1,7 +1,7 @@
 import React from "react";
 import styled, { css } from "styled-components";
 import Image from "components/atoms/Image";
-import { Hashtag } from "components/atoms/Icon/svg";
+import Hashtag from "static/imgs/hashtag.png";
 
 interface searchListProps {
 	category: "hashtag" | "user";

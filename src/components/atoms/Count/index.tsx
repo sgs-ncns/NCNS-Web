@@ -15,7 +15,7 @@ const Count = (props: CountProps) => {
 	return (
 		<StyledSpan>
 			{title}
-			<StyledNumber>{number.toLocaleString()}</StyledNumber>
+			<StyledNumber>{number.toLocaleString()}</StyledNumber>개
 			{/* 개수 받아와서 수정하기 */}
 		</StyledSpan>
 	);

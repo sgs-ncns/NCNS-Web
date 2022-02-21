@@ -36,11 +36,9 @@ const Contents: FunctionComponent<ContentType> = (props) => {
 			asyncLoop()
 				.then((res) => setContents(res))
 				.catch((err) => {
-					console.log(err);
 					return;
 				});
 		}
-		console.log("끝");
 	}, [posts]);
 
 	useEffect(() => {
