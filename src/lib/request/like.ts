@@ -6,6 +6,7 @@ import { checkResponseCode } from "lib/utils";
 import { responseType } from "./type";
 
 export const sendLike = async (
+	isLiked: boolean,
 	accountName: string,
 	postId: number,
 	myAccountName: string,
@@ -17,11 +18,13 @@ export const sendLike = async (
 		target_account_name: myAccountName,
 	};
 	try {
-		const res = await axios.post(SEND_NOTIFY_LIKE, likeObj);
 		const serverRes: responseType = await createAxios().post(
 			SEND_LIKE + `${postId}`,
 		);
 		if (checkResponseCode(serverRes.data.response_code) === "00") {
+			if (!isLiked && myAccountName !== accountName) {
+				const res = await axios.post(SEND_NOTIFY_LIKE, likeObj);
+			}
 			callback();
 		} else throw Error(serverRes.data.response_code);
 	} catch (err) {

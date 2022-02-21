@@ -3,7 +3,7 @@ import { USER_COMMENT, USER_POSTS } from "common/url";
 import { CommentType } from "components/molecules/Comment";
 import { tagsHandler } from "lib/Handler";
 import { checkResponseCode } from "lib/utils";
-import { responseType } from "./type";
+import { responseType, userPostsType } from "./type";
 
 type createPostBody = {
 	account_name: string;
@@ -26,6 +26,7 @@ export type postDetailResponseType = {
 };
 
 export type sendCommentType = {
+	account_name: string;
 	content: string;
 	post_id: number;
 };
@@ -66,8 +67,13 @@ export const requestPostDetails = async (postId: number) => {
 	}
 };
 
-export const sendComment = async (content: string, postId: number) => {
+export const sendComment = async (
+	myAccountName: string,
+	content: string,
+	postId: number,
+) => {
 	const body: sendCommentType = {
+		account_name: myAccountName,
 		content: content,
 		post_id: postId,
 	};

@@ -1,5 +1,5 @@
 import React from "react";
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 import Image from "components/atoms/Image";
 import { Hashtag } from "components/atoms/Icon/svg";
 
@@ -7,12 +7,13 @@ interface searchListProps {
 	category: "hashtag" | "user";
 	title: string;
 	content: number | string;
+	isSelected?: boolean;
 }
 
 const SearchList = (props: searchListProps) => {
-	const { category, title, content } = props;
+	const { category, title, content, isSelected = false } = props;
 	return (
-		<Grid>
+		<Grid isSelected={isSelected}>
 			<ImageContainer>
 				{category === "hashtag" ? (
 					<Image category={"circle"} src={Hashtag} width={"44px"} />
@@ -37,13 +38,21 @@ const SearchList = (props: searchListProps) => {
 
 export default SearchList;
 
-const Grid = styled.div`
+const Grid = styled.div<{ isSelected: boolean }>`
 	display: flex;
 	flex-direction: row;
 	width: 100%;
 	align-items: center;
 	height: 60px;
 	padding: 8px 16px;
+	${(props) =>
+		props.isSelected &&
+		css`
+			background: #dbdbdb;
+		`}
+	&:hover {
+		background: #dbdbdb;
+	}
 `;
 const ContentsGrid = styled.div`
 	display: flex;

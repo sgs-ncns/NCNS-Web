@@ -1,6 +1,6 @@
 import ButtonIcon from "components/molecules/ButtonIcon";
 import Icon from "components/atoms/Icon";
-import React, { FunctionComponent, useState } from "react";
+import React, { FunctionComponent, useEffect, useState } from "react";
 import styled from "styled-components";
 import Count from "components/atoms/Count";
 import { sendLike, sendUnlike } from "lib/request/like";
@@ -21,9 +21,14 @@ interface ToolProps {
 const FeedTool: FunctionComponent<ToolProps> = (props) => {
 	const { likeCount = 1000, isLiked = false, accountName, postId } = props;
 	const [liked, setLiked] = useState(isLiked);
+	const [count, setCount] = useState<number>(0);
 	const myAccountName = useSelector(
 		(state: RootState) => state.userReducer.accountName,
 	);
+
+	useEffect(() => {
+		if (likeCount) setCount(likeCount);
+	}, [likeCount]);
 
 	return (
 		<div>
@@ -34,8 +39,9 @@ const FeedTool: FunctionComponent<ToolProps> = (props) => {
 						name="LikeFilledRed"
 						hover={true}
 						onClick={() =>
-							sendLike(accountName, postId, myAccountName, () => {
+							sendLike(liked, accountName, postId, myAccountName, () => {
 								setLiked(false);
+								setCount((count) => count - 1);
 							})
 						}
 					/>
@@ -45,8 +51,9 @@ const FeedTool: FunctionComponent<ToolProps> = (props) => {
 						name="Like"
 						hover={false}
 						onClick={() =>
-							sendLike(accountName, postId, myAccountName, () => {
+							sendLike(liked, accountName, postId, myAccountName, () => {
 								setLiked(true);
+								setCount((count) => count + 1);
 							})
 						}
 					/>
@@ -59,7 +66,7 @@ const FeedTool: FunctionComponent<ToolProps> = (props) => {
 				/>
 			</StyledSection>
 			<StyledDiv>
-				<Count title={"좋아요"} number={likeCount} />
+				<Count title={"좋아요"} number={count} />
 			</StyledDiv>
 		</div>
 	);

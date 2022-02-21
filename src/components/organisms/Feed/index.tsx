@@ -19,7 +19,6 @@ const Feed = () => {
 	const [isLoading, setLoading] = useState(true);
 	const [feedInfos, setFeedInfos] = useState<Array<feedArrayType>>();
 	const [page, setPage] = useState(1);
-	const myId = useSelector((state: RootState) => state.userReducer.userId);
 	const observer = useRef(null);
 
 	const lastFeedRef = useCallback(
@@ -52,7 +51,6 @@ const Feed = () => {
 
 	useEffect(() => {
 		const getfeedList = async () => {
-			// const feedList = await requestFeedInfo(page);
 			try {
 				const res = await requestFeedInfo(page);
 				setFeedInfos(res);
@@ -71,20 +69,6 @@ const Feed = () => {
 				return;
 			});
 	}, []);
-
-	// useEffect(() => {
-	// 	const newFeed = requestFeedInfo(page).then((response) => {
-	// 		return response;
-	// 	});
-	// 	console.log("newFeed", newFeed);
-	// 	requestFeedInfo(page)
-	// 		.then((res: Array<feedArrayType>) => {
-	// 			setFeedInfos(res);
-	// 			console.log(res);
-	// 		})
-	// 		.catch((err) => console.log(err));
-	// 	// console.log("res", res);
-	// }, []);
 
 	useEffect(() => {
 		if (feedInfos) setLoading(false);
@@ -114,7 +98,11 @@ const Feed = () => {
 									accountName={value.account_name}
 									postId={value.post_id}
 								/>
-								<CommentTab parentId={myId} postId={value.post_id} />
+								<CommentTab
+									isLiked={value.liking}
+									targetName={value.account_name}
+									postId={value.post_id}
+								/>
 							</FeedWrapper>
 							<Divider ref={lastFeedRef} />
 						</>

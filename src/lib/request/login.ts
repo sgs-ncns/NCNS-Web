@@ -18,7 +18,6 @@ export const sendLogin = async (id: string, password: string) => {
 			account_name: id,
 			password: password,
 		};
-		console.log(body);
 		return await axios.post(SEND_LOGIN_ACCOUNT_API, body);
 	}
 };

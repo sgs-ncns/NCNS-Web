@@ -59,7 +59,6 @@ const Header = styled.div`
 const Body = styled.main`
 	display: flex;
 	flex-direction: column;
-	background: #fafafa;
 `;
 
 const StyledSection = styled.section<{ pageWidth: number; category: boolean }>`

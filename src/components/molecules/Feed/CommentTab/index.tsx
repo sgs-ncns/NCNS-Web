@@ -8,13 +8,15 @@ import { CommentType } from "components/molecules/Comment";
 import Comment from "components/molecules/Comment";
 import { useSelector } from "react-redux";
 import { RootState } from "reducers";
+import { sendCommentNotify } from "lib/request/notify";
 
 // 피드의 댓글을 달 수 있는 부분입니다.
 interface CommentTabProps {
+	targetName: string;
 	postId: number;
-	parentId: number;
 	children?: React.ReactNode;
 	commentList?: Array<CommentType>;
+	isLiked: boolean;
 }
 
 export type commentsType = {
@@ -23,43 +25,56 @@ export type commentsType = {
 };
 
 const CommentTab = (props: CommentTabProps) => {
-	const { postId, parentId, children, commentList } = props;
+	const { postId, children, commentList, targetName } = props;
 	const [content, setContent] = useState<string>("");
 	const [active, setActive] = useState<boolean>(false);
-	const [comments, setComments] = useState<Array<commentsType>>();
+	const [comments, setComments] = useState<Array<commentsType>>([]);
 	const myId = useSelector((state: RootState) => state.userReducer.accountName);
 
 	useEffect(() => {
 		if (commentList.length > 0) {
+			console.log("commentList", commentList);
+			const commentArray: Array<commentsType> = [];
 			commentList.forEach((commentInfo) =>
-				setComments([
-					...comments,
-					{
-						accountName: commentInfo.account_name,
-						content: commentInfo.content,
-					},
-				]),
+				commentArray.push({
+					accountName: commentInfo.account_name,
+					content: commentInfo.content,
+				}),
 			);
+			setComments(commentArray);
 		}
+		return () => setComments([]);
 	}, [commentList]);
 
+	useEffect(() => {
+		console.log("comments", comments);
+	}, [comments]);
 	// useEffect의 의존성배열에 content 상태값을 체크하여
 	// textArea의 길이가 0이 아니면 게시 버튼 활성화를 시킵니다.
 	useEffect(() => {
 		// input값 들어오면 버튼 활성화
-		content.length != 0 && postId && parentId
-			? setActive(true)
-			: setActive(false);
+		content.length != 0 && postId ? setActive(true) : setActive(false);
 	}, [content]);
 
 	const onSubmit = (event: React.FormEvent<HTMLFormElement>) => {
 		event.preventDefault();
-		sendComment(content, postId)
+		sendComment(myId, content, postId)
 			.then((res: string) => {
 				if (checkResponseCode(res) === "00") {
 					alert("댓글 등록이 완료 되었습니다.");
 					setComments([...comments, { accountName: myId, content: content }]);
-				} else throw Error(res);
+					if (targetName !== myId) {
+						sendCommentNotify(targetName, postId, myId)
+							.then((res) => {
+								console.log("noti res", res);
+								return;
+							})
+							.catch((err) => {
+								console.log(err);
+								return;
+							});
+					}
+				} else throw new Error(res);
 			})
 			.catch((err) => {
 				console.log(err);
@@ -149,6 +164,7 @@ const StyledUl = styled.ul`
 	margin: 0;
 	border-top: 1px solid #dbdbdb;
 	border-bottom: 1px solid #dbdbdb;
+	overflow: auto;
 `;
 
 const StyledLi = styled.li`

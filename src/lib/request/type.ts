@@ -32,4 +32,5 @@ export type userPostsType = {
 	like_count: number;
 	post_id: number;
 	user_id: number;
+	liking: boolean;
 };

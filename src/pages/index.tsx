@@ -2,9 +2,7 @@ import NavBar from "components/organisms/NavBar";
 import React, { FunctionComponent, useEffect, useState } from "react";
 import HomeTemplate from "components/templates/Home";
 import Feed from "components/organisms/Feed";
-import { requestImages } from "utils/amplify";
 import ImgUploadBox from "components/molecules/ImgUploadBox";
-import { requestFeedInfo } from "lib/request/feed";
 import RequestButton from "components/atoms/RequestButton";
 import styled from "styled-components";
 import PictureFeed from "components/organisms/PictureFeed";
@@ -18,6 +16,7 @@ export type feedArrayType = {
 	created_at: string;
 	like_count: number;
 	comment_count: number;
+	liking: boolean;
 };
 
 const HomePage: FunctionComponent = () => {

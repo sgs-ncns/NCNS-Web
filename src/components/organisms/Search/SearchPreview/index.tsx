@@ -11,35 +11,63 @@ import styled from "styled-components";
 
 interface PreviewProps {
 	searchData: Array<globalSearchType>;
+	isSelected: boolean;
 }
 
 const SearchPreview = (props: PreviewProps) => {
-	const { searchData } = props;
+	const { searchData, isSelected } = props;
 
+	console.log(isSelected);
 	return (
 		<Preview>
 			{searchData &&
-				searchData.map((data) => {
-					if (data.hashtag) {
-						return (
-							<StyledLink to={`/explore/tags/${data.hashtag.content}`}>
-								<SearchList
-									category="hashtag"
-									title={data.hashtag.content}
-									content={data.hashtag.count}
-								/>
-							</StyledLink>
-						);
+				searchData.map((data, index) => {
+					if (isSelected && index === 0) {
+						if (data.hashtag) {
+							return (
+								<StyledLink to={`/explore/tags/${data.hashtag.content}`}>
+									<SearchList
+										category="hashtag"
+										title={data.hashtag.content}
+										content={data.hashtag.count}
+										isSelected={true}
+									/>
+								</StyledLink>
+							);
+						} else {
+							return (
+								<StyledLink to={`/${data.user.account_name}`}>
+									<SearchList
+										category="user"
+										title={data.user.account_name}
+										content={data.user.nickname}
+										isSelected={true}
+									/>
+								</StyledLink>
+							);
+						}
 					} else {
-						return (
-							<StyledLink to={`/${data.user.account_name}`}>
-								<SearchList
-									category="user"
-									title={data.user.account_name}
-									content={data.user.nickname}
-								/>
-							</StyledLink>
-						);
+						if (data.hashtag) {
+							return (
+								<StyledLink to={`/explore/tags/${data.hashtag.content}`}>
+									<SearchList
+										category="hashtag"
+										title={data.hashtag.content}
+										content={data.hashtag.count}
+									/>
+								</StyledLink>
+							);
+						} else {
+							return (
+								<StyledLink to={`/${data.user.account_name}`}>
+									<SearchList
+										category="user"
+										title={data.user.account_name}
+										content={data.user.nickname}
+									/>
+								</StyledLink>
+							);
+						}
 					}
 				})}
 		</Preview>

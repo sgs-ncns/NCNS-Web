@@ -25,8 +25,6 @@ export const requestImages = async (
 ) => {
 	try {
 		const res = await Storage.list(`${userId}/${s3FolderName}/`);
-		const res2 = await Storage.list(`${userId}`);
-		console.log("EEMMEMEMEM", res2);
 		if (imageCount) return res.splice(0, imageCount);
 		return res;
 	} catch (err) {
@@ -35,21 +33,13 @@ export const requestImages = async (
 	}
 };
 
-// export const requestFolders = async(
-// 	userId:number,
-// ) => {
-// 	try {
-
-// 	}
-// }
-
 export const uploadImage = (files: File, userId: number) => {
 	const reader = new FileReader();
-	const date = createFolderName();
-	// new Date(+new Date() + 3240 * 10000)
-	// 	.toISOString()
-	// 	.replace("T", " ")
-	// 	.replace(/\..*/, "");
+	const date = new Date(+new Date() + 3240 * 10000)
+		.toISOString()
+		.replace("T", "")
+		.replace(/\..*/, "");
+	console.log(date);
 	const foldername = `${userId.toString()}/${date}/${files.name}`;
 	Storage.put(foldername, files, {
 		resumable: true,

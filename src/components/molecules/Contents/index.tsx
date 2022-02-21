@@ -5,6 +5,7 @@ import { userPostsType } from "lib/request/type";
 import { requestImages, S3_ADDRESS } from "utils/amplify";
 import { openModal } from "reducers/modalReducer";
 import { useDispatch } from "react-redux";
+import { SearchType } from "pages/Search";
 
 // 검색뷰와 프로필의 그리드 뷰입니다.
 // 같이 사용할 수 있을 것 같아서 category를 두고
@@ -13,7 +14,7 @@ import { useDispatch } from "react-redux";
 interface ContentType {
 	category: "search" | "profile";
 	popular?: Array<string>;
-	posts: Array<userPostsType>;
+	posts: Array<userPostsType> | Array<SearchType>;
 }
 
 const Contents: FunctionComponent<ContentType> = (props) => {
@@ -23,7 +24,6 @@ const Contents: FunctionComponent<ContentType> = (props) => {
 
 	useEffect(() => {
 		if (posts) {
-			console.log("posts 잘 들옴");
 			const asyncLoop = async () => {
 				const newContents = posts.map(async (value) => {
 					return await requestImages(value.user_id, value.image_path, 1).then(
@@ -44,38 +44,24 @@ const Contents: FunctionComponent<ContentType> = (props) => {
 	}, [posts]);
 
 	useEffect(() => {
-		console.log(contents);
-	}, [contents]);
+		return () => setContents(null);
+	}, []);
 
 	return (
 		<Wrapper>
-			{category === "search" && (
-				<>
-					<TitleDiv>
-						<Title>인기 게시물</Title>
-					</TitleDiv>
-					<Grid>
-						{popular.map((value, index) => {
-							return (
-								<Image category="square" src={popular[index]} width="293px" />
-							);
-						})}
-					</Grid>
-					<TitleDiv>
-						<Title>최근 게시물</Title>
-					</TitleDiv>
-				</>
-			)}
 			<Grid>
-				{contents.map((value, index) => {
-					return (
-						<PostDetail
-							onClick={() => dispatch(openModal("feed", posts[index].post_id))}
-						>
-							<Image category="square" src={value} width="293px" />
-						</PostDetail>
-					);
-				})}
+				{contents &&
+					contents.map((value, index) => {
+						return (
+							<PostDetail
+								onClick={() =>
+									dispatch(openModal("feed", posts[index].post_id))
+								}
+							>
+								<Image category="square" src={value} width="293px" />
+							</PostDetail>
+						);
+					})}
 			</Grid>
 		</Wrapper>
 	);

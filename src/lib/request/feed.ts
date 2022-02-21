@@ -12,6 +12,7 @@ export type KkanbuFeedResponseType = {
 
 export const requestUserInfo = async (accountName: string) => {
 	try {
+		console.log("억까 네임", accountName);
 		const res = await createAxios().get(
 			GET_USER_PROFILE_INFO + `${accountName}`,
 		);
@@ -24,10 +25,12 @@ export const requestUserInfo = async (accountName: string) => {
 };
 
 export const requestFeedInfo = async (
-	postId: number,
+	page: number,
 ): Promise<Array<feedArrayType>> => {
 	try {
-		const res: responseType = await createAxios().get(GET_FEED);
+		const res: responseType = await createAxios().get(
+			GET_FEED + `/?page=${page}`,
+		);
 		const data = await res.data;
 		if (checkResponseCode(data.response_code) === "00") return data.data.feeds;
 		else throw Error("response code error");

@@ -1,7 +1,10 @@
 export const BASE_URL = "http://15.165.120.145:9000";
 
 export const SEND_NOTIFY_LIKE = "http://localhost:8000/api/notify/like";
+export const SEND_NOTIFY_COMMENT = "http://localhost:8000/api/notify/comment";
 export const GET_NOTIFICATION_API = "http://localhost:8000/api/notify";
+export const SEND_NOTIFY_POST = "http://localhost:8000/api/notify/kkanbu";
+
 export const SEND_SIGNUP_INFO_API = BASE_URL + "/api/user";
 // export const SEND_LOGIN_INFO_API = BASE_URL + "/api/auth";
 export const SEND_LOGIN_ACCOUNT_API = BASE_URL + "/api/auth/account";
@@ -32,3 +35,5 @@ export const SEND_LIKE = "/api/post/like/";
 
 //검색
 export const GET_SEARCH_DATA_ALL = "/api/search/type/all/";
+export const GET_POSTS_BY_HASHTAG = "api/search/hashtag";
+export const GET_POSTS_BY_SUMMARY = "/api/post/summary";

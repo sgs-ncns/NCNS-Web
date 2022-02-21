@@ -39,7 +39,6 @@ const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 					console.log("AuthProvider", response);
 					const responseCode = checkResponseCode(response.data.response_code);
 					if (responseCode === "00") {
-						console.log(response);
 						setUser(response.data.data.account_name);
 						localStorage.setItem(
 							"access_token",

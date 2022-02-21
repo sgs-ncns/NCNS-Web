@@ -12,51 +12,67 @@ import Image from "components/atoms/Image";
 import Logo from "static/imgs/logo.png";
 import SearchPreview from "../Search/SearchPreview";
 import useOutsideClick from "hooks/useOutsideClick";
-import {
-	getSearchData,
-	globalSearchType,
-	hashtagSearchType,
-	userSearchType,
-} from "lib/request/search";
+import { getSearchData, globalSearchType } from "lib/request/search";
+import { useDispatch } from "react-redux";
+import { saveList } from "reducers/searchReducer";
 
 // 네비게이션 바입니다.
 
 const NavBar: FunctionComponent = () => {
 	const [value, setValue] = useState<string>("");
+	const [tempSearch, setTempSearch] = useState<string>("");
 	const [searchData, setSearchData] = useState<Array<globalSearchType>>();
 	const [isSearching, setSearching] = useState<boolean>(false);
+	const [isSelected, setSelected] = useState<boolean>(false);
 	const ref = useRef(null);
 	const navigate = useNavigate();
+	const dispatch = useDispatch();
 
 	useOutsideClick(ref, () => {
 		setSearching(false);
 	});
 
 	useEffect(() => {
-		getSearchData(value)
-			.then((res: Array<globalSearchType>) => {
-				if (res) setSearchData(res);
-			})
-			.catch((err) => {
-				console.log(err);
-				return;
-			});
+		if (value) {
+			getSearchData(value)
+				.then((res: Array<globalSearchType>) => {
+					if (res) setSearchData(res);
+				})
+				.catch((err) => {
+					console.log(err);
+					return;
+				});
+		}
 	}, [value]);
 
 	const textHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
 		setValue(e.target.value);
 	};
 
-	const onKeyPress = (e: { key: string }) => {
+	const onKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
 		if (e.key === "Enter") {
-			navigate(`/explore/tags/${value}`);
+			if (searchData.at(0).hashtag) {
+				if (searchData.at(0).hashtag.content === value) {
+					dispatch(saveList(searchData.at(0).hashtag.post_id_list));
+					navigate(`/explore/tags/${value}`);
+				} else {
+					setSelected(true);
+					setValue(searchData.at(0).hashtag.content);
+				}
+				// console.log(searchData.at(0).hashtag.content);
+			} else if (searchData.at(0).user) {
+				if (searchData.at(0).user.account_name === value) navigate(`${value}`);
+				else if (searchData.at(0).user.nickname === value) navigate(`${value}`);
+				else {
+					setSelected(true);
+					setValue(searchData.at(0).user.account_name);
+				}
+				// console.log(
+				// 	searchData.at(0).user.account_name,
+				// 	searchData.at(0).user.nickname,
+				// );
+			}
 		}
-	};
-
-	// TODO : requestSearchData(value) 통신 파트로 옮겨놓기
-	const requestSearchData = (value: string) => {
-		//라우팅 걸기
-		alert(`value ${value}`);
 	};
 
 	return (
@@ -75,7 +91,9 @@ const NavBar: FunctionComponent = () => {
 						value={value}
 						onKeyPress={onKeyPress}
 					/>
-					{isSearching && <SearchPreview searchData={searchData} />}
+					{isSearching && (
+						<SearchPreview searchData={searchData} isSelected={isSelected} />
+					)}
 				</SecondItem>
 				<ThirdItem>
 					<ToolBox />

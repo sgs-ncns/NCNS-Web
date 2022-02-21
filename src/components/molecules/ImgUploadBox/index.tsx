@@ -12,6 +12,7 @@ import { checkResponseCode } from "lib/utils";
 import { sendPostInfo } from "lib/request/post";
 import { useNavigate } from "react-router-dom";
 import { closeModal } from "reducers/modalReducer";
+import { sendPostNotify } from "lib/request/notify";
 
 // 이미지 업로드를 할 수 있는 컴포넌트입니다.
 // 이 컴포넌트에는 흐름을 넣었습니다.
@@ -64,6 +65,12 @@ function ImgUploadBox() {
 				.then((res: string) => {
 					if (checkResponseCode(res) === "00") {
 						alert("게시물이 등록되었습니다!");
+						sendPostNotify(accountName)
+							.then((res) => {
+								console.log(res);
+								return;
+							})
+							.catch((err) => console.log(err));
 						onReset();
 						dispatch(closeModal());
 						navigate("/");

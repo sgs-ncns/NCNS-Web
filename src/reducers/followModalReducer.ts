@@ -72,6 +72,8 @@ const followModalReducer = (
 			return {
 				...state,
 				isOpen: false,
+				userId: null,
+				category: null,
 			};
 		default:
 			return { ...state };

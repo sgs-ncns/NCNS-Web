@@ -3,6 +3,7 @@ import dropReducer from "./dropReducer";
 import followModalReducer from "./followModalReducer";
 import modalReducer from "./modalReducer";
 import pageWidthReducer from "./pageWidthReducer";
+import searchReducer from "./searchReducer";
 import userReducer from "./userReducer";
 
 // 루트 리듀서로 모든 리듀서들을 모아 combine 시켜줍니다.
@@ -14,6 +15,7 @@ const rootReducer = combineReducers({
 	pageWidthReducer,
 	modalReducer,
 	followModalReducer,
+	searchReducer,
 });
 
 export default rootReducer;

@@ -38,7 +38,6 @@ const FeedModal = () => {
 	const category = useSelector(
 		(state: RootState) => state.modalReducer.category,
 	);
-	const myId = useSelector((state: RootState) => state.userReducer.userId);
 	const postId = useSelector((state: RootState) => state.modalReducer.postId);
 
 	useEffect(() => {
@@ -54,7 +53,9 @@ const FeedModal = () => {
 				}
 			};
 			getDetailPageData()
-				.then((res) => console.log(res))
+				.then((res) =>
+					console.log("feedDetailData - comments", res.comment_list),
+				)
 				.catch((err) => {
 					console.log(err);
 					return;
@@ -82,7 +83,8 @@ const FeedModal = () => {
 						<ProfileContents>
 							<FeedHeader id={datas.account_name} />
 							<CommentTab
-								parentId={myId}
+								isLiked={datas.liking}
+								targetName={datas.account_name}
 								postId={datas.post_id}
 								commentList={datas.comment_list}
 							>

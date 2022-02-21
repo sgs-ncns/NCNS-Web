@@ -54,6 +54,7 @@ const userReducer = (state: UserState = initialState, action: UserAction) => {
 			return {
 				...state,
 				accountName: null,
+				userId: null,
 			};
 		default:
 			return state;
