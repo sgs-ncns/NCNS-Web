@@ -40,7 +40,7 @@ const PictureFeed = () => {
 			{kkanbuList && kkanbuList.length > 0 ? (
 				kkanbuList.map((value) => {
 					return (
-						<>
+						<Grid>
 							<Profile>
 								<ButtonIcon category={"profile"} hover={false} width={"60px"} />
 								<LinkedId underline={false}>
@@ -50,7 +50,7 @@ const PictureFeed = () => {
 							<FeedsArray>
 								<MulitpleSlider recentFeeds={value.recent_feeds} />
 							</FeedsArray>
-						</>
+						</Grid>
 					);
 				})
 			) : (
@@ -62,14 +62,21 @@ const PictureFeed = () => {
 export default PictureFeed;
 
 const ContentsGrid = styled.div`
-	border: 1px solid #dbdbdb;
-	border-radius: 5px;
 	display: flex;
-	flex-direction: row;
+	flex-direction: column;
 	width: 100%;
 	height: auto;
 	align-items: center;
 	justify-content: center;
+`;
+
+const Grid = styled.div`
+	border: 1px solid #dbdbdb;
+	border-radius: 5px;
+	display: flex;
+	align-items: center;
+	width: 100%;
+	margin-bottom: 50px;
 `;
 
 const Profile = styled.div`
