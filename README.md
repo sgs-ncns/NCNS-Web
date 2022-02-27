@@ -78,20 +78,20 @@ npm start
 
 ## 실행 화면
 - 일반 피드
-![image](https://user-images.githubusercontent.com/68458245/155869802-68d636e6-d177-4ef0-8ec9-9016a3ed7e8a.png =200x)
+![image](https://user-images.githubusercontent.com/68458245/155869802-68d636e6-d177-4ef0-8ec9-9016a3ed7e8a.png)
 - 깐부 피드
-![image](https://user-images.githubusercontent.com/68458245/155869808-436ed160-66b8-476a-a994-cf6bbbf91c68. = 250x)
+![image](https://user-images.githubusercontent.com/68458245/155869808-436ed160-66b8-476a-a994-cf6bbbf91c68.png)
 - 프로필 페이지
-![image](https://user-images.githubusercontent.com/68458245/155869818-a58e9bc6-4fa2-4287-b92f-cefbd9279eca.png = 250x)
+![image](https://user-images.githubusercontent.com/68458245/155869818-a58e9bc6-4fa2-4287-b92f-cefbd9279eca.png)
 - 해시태그 검색
-![image](https://user-images.githubusercontent.com/68458245/155869852-e1987790-f89d-4ed1-833f-a5a912bb1505.png = 250x)
+![image](https://user-images.githubusercontent.com/68458245/155869852-e1987790-f89d-4ed1-833f-a5a912bb1505.png)
 
 - 사진 업로드 모달
-![image](https://user-images.githubusercontent.com/68458245/155869857-2188b612-4709-4d18-949f-c15d40bed934.png = 250x)
+![image](https://user-images.githubusercontent.com/68458245/155869857-2188b612-4709-4d18-949f-c15d40bed934.png)
 - 팔로잉/팔로워 모달
-![image](https://user-images.githubusercontent.com/68458245/155869864-98c43722-715f-4137-aef2-dce130d9f8e7.png = 250x)
+![image](https://user-images.githubusercontent.com/68458245/155869864-98c43722-715f-4137-aef2-dce130d9f8e7.png)
 - 피드 모달
-![image](https://user-images.githubusercontent.com/68458245/155869868-3e3439cc-22dc-4521-8e8c-064392977f0b.png = 250x)
+![image](https://user-images.githubusercontent.com/68458245/155869868-3e3439cc-22dc-4521-8e8c-064392977f0b.png)
 
 ## 달성한 것
 - 아토믹 디자인 패턴에 대한 이해를 진행함.
